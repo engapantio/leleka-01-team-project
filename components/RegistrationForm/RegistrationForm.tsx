@@ -1,3 +1,5 @@
+'use client';
+
 import { useId } from 'react';
 import { Formik, Form, Field } from 'formik';
 // import css from './RegistrationForm.module.css'
