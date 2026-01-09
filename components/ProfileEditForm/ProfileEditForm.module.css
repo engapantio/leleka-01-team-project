@@ -1,0 +1,130 @@
+.formWrapper {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Label */
+.label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    gap: 6px;
+}
+
+/* Input / Select */
+.input {
+    height: 37px;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #f2f2f2;
+    color: #111;
+    font-size: 14px;
+}
+
+.select_container {
+    position: relative;
+}
+
+.select_option{
+    height: 40px;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    padding: 14px;
+    border-radius: 12px;
+
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+    opacity: 0;
+    transform: translateY(-37px);
+    pointer-events: none;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.dropdownOpen {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.option {
+    padding: 10px;
+    cursor: pointer;
+    color: gray;
+}
+
+.option:hover {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+}
+
+
+/* Кнопки */
+.actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.cancel {
+    flex: 1;
+    padding: 14px;
+    border-radius: 999px;
+    background: #f2f2f2;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.save {
+    flex: 1;
+    padding: 14px;
+    border-radius: 999px;
+    background: #ffd6dc;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+@media (min-width: 768px){
+    .formWrapper {
+        width: 768px;
+        margin-top: 32px;
+
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        padding-left: 403px;
+    }
+    .cancel {
+        width: 135px;
+        height: 38px;
+    }
+    .save {
+        width: 135px;
+        height: 38px;
+    }
+}

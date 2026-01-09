@@ -1,0 +1,75 @@
+
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 335px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* .profile_row {
+    display: flex;
+    align-items: flex-start;
+} */
+/* .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 132px;
+} */
+
+
+/* Аватар */
+.avatar {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Відступ 12px від аватарки */
+.name {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Пошта одразу під імʼям */
+.email {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Кнопка */
+.uploadButton {
+    width: 335px;
+    margin-top: 12px;
+    padding: 10px 24px;
+    border-radius: 999px;
+    border: none;
+    background: #f2f2f2;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+@media(min-width: 768px){
+
+    .wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+
+        padding-left: 32px;
+        margin-left: 0;
+        margin-right: 0; 
+        
+    }
+    .uploadButton {
+        width: 218px;
+        height: 38px;
+    }
+}
