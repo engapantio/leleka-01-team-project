@@ -1,13 +1,5 @@
 import { useRouter } from 'next/router';
-
-
-interface DiaryEntry {
-    id: string;
-    title: string;
-    date: string;
-    content: string;
-    emotions: string[];
-}
+import type { DiaryEntry } from '@/lib/api/api';
 
 interface DiaryEntryCardProps {
     entry: DiaryEntry;
@@ -30,7 +22,13 @@ export default function DiaryEntryCard({ entry, isDesktop, onClick }: DiaryEntry
         <div onClick={handleClick}>
             <h3>{entry.title}</h3>
             <p>{entry.date}</p>
-            <div>{entry.emotions.join(' ')}</div>
+            {entry.emotions.length > 0 && (
+                <ul>
+                    {entry.emotions.map(emotion => (
+                        <li key={emotion.id}>{emotion.title}</li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }

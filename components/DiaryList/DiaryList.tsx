@@ -1,19 +1,40 @@
-interface DiaryEntry {
-    id: string;
-    title: string;
-    date: string;
-    content: string;
-    emotions: string[];
-}
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import DiaryListPlaceholder from "../DiaryListPlaceholder/page";
+import type { DiaryEntry } from "@/lib/api/api";
+import DiaryEntryCard from "../DiaryEntryCard/DiaryEntryCard";
+import toast from "react-hot-toast";
 
 interface DiaryListProps {
-    entries: DiaryEntry[];
+    entries: DiaryEntry[] | null;
     isDesktop: boolean;
     onSelectEntry: (entry: DiaryEntry) => void;
     onAdd: () => void;
 }
 
-export default function DiaryList({ entries, isDesktop, onSelectEntry, onAdd }: DiaryListProps) {
+export default function DiaryList({ isDesktop, onSelectEntry, onAdd }: DiaryListProps) {
+
+    const [entries, setEntries] = useState<DiaryEntry[]>([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchEntries = async () => {
+            try {
+                const res = await fetch("/api/diaries");
+                if (!res.ok) throw new Error("Упс... Сталася помилка при завантаженні записів");
+                const data: { date: string;  entries: DiaryEntry[]} = await res.json();
+                setEntries(data.entries);
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    toast.error(err.message);
+                } else {
+                    toast.error("Сталася невідома помилка")
+                }
+            }
+        };
+        fetchEntries();
+    }, []);
+
     return (
         <div>
             <div>
@@ -24,21 +45,18 @@ export default function DiaryList({ entries, isDesktop, onSelectEntry, onAdd }: 
                 </div>
             </div>
             {entries.length === 0 ? (
-                <p>Наразі записи у щоденнику відсутні</p>
+                <DiaryListPlaceholder />
             ) : (
                 entries.map(entry => (
-                    <div key={entry.id}
+                    < DiaryEntryCard key={entry.id} entry={entry} isDesktop={isDesktop}
                         onClick={() => {
                             if (isDesktop) {
                                 onSelectEntry(entry);
                             } else {
-                                window.location.href = `diary/${entry.id}`
+                                router.push(`/diary/${entry.id}`)
                             };
-                        }}>
-                        <h3>{entry.title}</h3>
-                        <p>{entry.date}</p>
-                        <div>{entry.emotions.join(' ')}</div>
-                    </div>
+                        }}
+                    />
                 ))
             )}
         </div>
