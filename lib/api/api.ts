@@ -10,3 +10,19 @@ export const nextServer = axios.create({
 export type ApiError = AxiosError<{
   error: string;
 }>;
+
+export type Emotion = {
+  id: string;
+  title: string;
+}
+
+export type DiaryEntry = {
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+    date: string;
+  emotions: Emotion[];
+  createdAt: string;
+  updatedAt: string;
+}
