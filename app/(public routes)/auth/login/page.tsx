@@ -35,7 +35,7 @@ const Login = () => {
 
       if (response) {
         setUser(response);
-        router.push('/profile');
+        router.push('/');
       } else {
         setError('Невірний пароль чи пошта');
       }
@@ -73,7 +73,7 @@ const Login = () => {
             className={css.input}
             placeholder="Пошта"
           />
-          <ErrorMessage name="email" component="span" className={css.error} />
+          <ErrorMessage name="email" component="div" className={css.error} />
           <Field
             id={`${fieldId}-password`}
             type="password"
@@ -81,20 +81,17 @@ const Login = () => {
             placeholder="Пароль"
             className={css.input}
           />
-          <ErrorMessage name="password" component="span" className={css.error} />
-          <div className={css.actions}>
-            <button type="submit" className={css.submitButton}>
-              Увійти
-            </button>
-          </div>
+          <ErrorMessage name="password" component="div" className={css.error} />
+          <button type="submit" className={css.submitButton}>
+            Увійти
+          </button>
           {error && <p className={css.error}>{error}</p>}
+          <p className={css.links}>
+            Немає аккаунту?
+            <Link href="/auth/register">Зареєструватися</Link>
+          </p>
         </Form>
       </Formik>
-      <p className={css.links}>
-        {' '}
-        Немає аккаунту?
-        <Link href="/auth/register">Зареєструватися</Link>
-      </p>
 
       <Image src="/login.jpg" alt="login" width={720} height={900} priority className={css.image} />
     </main>

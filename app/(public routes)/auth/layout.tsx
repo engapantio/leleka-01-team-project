@@ -20,7 +20,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
   return (
     <>
-      <Image src="/logo.svg" alt="Логотип" width={95} height={29} className={css.logo} />
+      <header className={css.header}>
+        <Image src="/logo.svg" alt="Логотип" width={95} height={29} className={css.logo} />
+      </header>
+
       {loading ? <div>Завантаження сторінки...</div> : children}
     </>
   );

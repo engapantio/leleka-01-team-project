@@ -2,15 +2,11 @@
   width: 375px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 72px;
   padding: 14px 20px;
-  background: var(--color-scheme-background);
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  max-width: 480px;
+  width: 375px;
 }
 
 .formTitle {
@@ -34,13 +30,7 @@
   width: 335px;
   height: 37px;
   background: var(--opacity-neutral-darkest-5);
-  margin-bottom: 16px;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
+  margin: 0 20px 8px;
 }
 
 .submitButton {
@@ -50,12 +40,13 @@
   width: 335px;
   height: 41px;
   background: var(--color-scheme-foreground-alt);
-  margin-bottom: 24px;
+  margin: 0 20px 24px;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
   color: var(--color-scheme-text);
+  outline: none;
 }
 
 .submitButton:hover {
@@ -75,13 +66,17 @@
 .links > a {
   text-decoration: underline;
   text-decoration-skip-ink: none;
+  line-height: 160%;
 }
 
 .error {
-  color: #dc3545;
+  font-family: var(--font-family);
+  font-weight: 400;
   font-size: 12px;
-  margin-top: 4px;
-  text-align: center;
+  line-height: 160%;
+  color: var(--color-red);
+  width: 335px;
+  margin: auto;
 }
 
 .image {
@@ -90,18 +85,43 @@
 
 @media only screen and (min-width: 768px) {
   .mainContent {
-    max-width: 768px;
+    width: 768px;
     padding: 0 32px;
+  }
+
+  .form {
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .formTitle {
+    margin-top: 280px;
+  }
+
+  .input {
+    width: 480px;
+    margin: 0 auto 16px;
+  }
+
+  .submitButton {
+    width: 480px;
+    margin: 0 auto 24px;
+  }
+
+  .error {
+    width: 480px;
   }
 }
 
 /* Styles for Desktop devices */
 @media only screen and (min-width: 1440px) {
   .mainContent {
-    max-width: 1440px;
-    padding: 0 64px;
+    width: 1440px;
+    display: flex;
   }
   .image {
     display: block;
+    max-width: 50vw;
   }
 }
