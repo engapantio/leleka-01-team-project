@@ -35,7 +35,7 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     return (
         <>
             <div className={css.wrapper}>
-                <div>
+                <div className={css.avatarWrapper}>
                     {user?.avatarUrl ? (<Image
                     className={css.avatar}
                     src={user.avatarUrl}
@@ -43,17 +43,16 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
                     height={132}
                     width={132}
                     // Підставити лого        
-                />) : (<h1>Avatar</h1>)} 
+                />) : (<div className={css.avatarPlaceholder}>Avatar</div>)} 
                 </div>
                 
             
-                <div>
+                <div className={css.nameEmail}>
                     <h1 className={css.name}>{user?.name}</h1>
                     <p className={css.email}>{ user?.email}</p>
                     <input type="file" hidden ref={fileInputRef} onChange={updateAvatar} />
                     <button className={css.uploadButton} onClick={openFileDialog}>Завантажити нове фото</button>
 
-                {/* <button onClick={openFileDialog}></button> */}
                 </div>
              
                 
