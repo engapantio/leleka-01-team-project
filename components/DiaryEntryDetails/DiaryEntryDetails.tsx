@@ -1,5 +1,6 @@
 import DiaryEntryDetailsPlaceholder from "../DiaryEntryDetailsPlaceholder/page";
 import type { DiaryEntry } from "@/lib/api/api";
+import css from "./DiaryEntryDetails.module.css";
 
 interface DiaryEntryDetailsProps {
     entry: DiaryEntry | null;
@@ -14,21 +15,21 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: DiaryEntr
 
     
     return (
-        <div>
-            <div>
-                <h2>{entry.title}</h2>
+        <div className={css.container}>
+            <div className={css.titleContainer}>
+                <h2 className={css.title}>{entry.title}</h2>
                 <button onClick={() => onEdit?.(entry)}></button>
             </div>
-            <div>
-                <p>{entry.date}</p>
+            <div className={css.dateContainer}>
+                <p className={css.date}>{entry.date}</p>
                 <button onClick={()=> onDelete?.(entry)}></button>
             </div>
             <div>
-                <p>{entry.description}</p>
+                <p className={css.text}>{entry.description}</p>
                 {entry.emotions.length > 0 && (
                     <ul>
                         {entry.emotions.map(emotion => (
-                            <li key={emotion.id}>{emotion.title}</li>
+                            <li className={css.emotions} key={emotion.id}>{emotion.title}</li>
                         ))}
                     </ul>
                 )}
