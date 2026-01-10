@@ -1,4 +1,3 @@
-import { useState } from "react";
 import DiaryEntryDetailsPlaceholder from "../DiaryEntryDetailsPlaceholder/page";
 import type { DiaryEntry } from "@/lib/api/api";
 

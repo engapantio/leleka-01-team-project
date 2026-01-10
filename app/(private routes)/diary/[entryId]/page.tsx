@@ -5,11 +5,13 @@ import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import type { DiaryEntry } from "@/lib/api/api";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
+import { deleteDiaryEntryById, fetchDiaryEntryById } from "@/lib/api/clientApi";
 
 
 
 export default function DiaryEntryIdPage() {
-    const { entryId } = useParams();
+    const params = useParams();
+const entryId = Array.isArray(params.entryId) ? params.entryId[0] : params.entryId;
     const router = useRouter();
 
     const [entry, setEntry] = useState<DiaryEntry | null>(null);
@@ -25,10 +27,8 @@ export default function DiaryEntryIdPage() {
         const fetchEntry = async () => {
             try {
                 setIsLoading(true);
-                const res = await fetch(`/api/diary/${entryId}`);
-                if (!res.ok) throw new Error("Не вдалося завантажити запис");
-                const data: DiaryEntry = await res.json();
-                setEntry(data);
+                const res = await fetchDiaryEntryById(token, entryId);
+                setEntry(res);
             } catch (err: unknown) {
                 if (err instanceof Error) {
                     toast.error(err.message);
@@ -43,15 +43,14 @@ export default function DiaryEntryIdPage() {
         fetchEntry();
     }, [entryId]);
 
-    const handleEdit = (entry: DiaryEntry) => setIsEditModalOpen(true);
-    const handleDelete = (entry: DiaryEntry) => setIsDeleteModalOpen(true);
+    const handleEdit = () => setIsEditModalOpen(true);
+    const handleDelete = () => setIsDeleteModalOpen(true);
 
     const handleDeleteConfirm = async () => {
         if (!entry || !entryId) return;
 
         try {
-            const res = await fetch(`/api/diary/${entryId}`, { method: "DELETE" });
-            if (!res.ok) throw new Error("Не вдалося видалити запис");
+            await deleteDiaryEntryById(token, entryId);
             toast.success("Запис успішно видалено");
             router.push("/diary");
         } catch (err: unknown) {
@@ -66,7 +65,7 @@ export default function DiaryEntryIdPage() {
     };
 
     if (isLoading) return <p>Завантаження...</p>;
-    if (!entry) return <p>Запис не знайдено</p>;
+  if (!entry) return <p>Запис не знайдено</p>;
 
     return (
         <div>
