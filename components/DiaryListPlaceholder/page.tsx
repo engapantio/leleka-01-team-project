@@ -1,7 +1,9 @@
+import css from "./page.module.css"
+
 export default function DiaryListPlaceholder() {
     return (
         <div>
-            <p>Наразі записи у щоденнику відсутні</p>
+            <p className={css.text}>Наразі записи у щоденнику відсутні</p>
         </div>
     );
 }

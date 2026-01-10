@@ -1,4 +1,4 @@
-
+import css from "./DiaryEntryCard.module.css";
 import type { DiaryEntry } from '@/lib/api/api';
 
 interface DiaryEntryCardProps {
@@ -9,13 +9,15 @@ interface DiaryEntryCardProps {
 export default function DiaryEntryCard({ entry, onClick }: DiaryEntryCardProps) {
 
     return (
-        <div onClick={onClick}>
-            <h3>{entry.title}</h3>
-            <p>{entry.date}</p>
+        <div className={css.container} onClick={onClick}>
+            <div className={css.titleContainer}>
+            <h3 className={css.title}>{entry.title}</h3>
+                <p className={css.date}>{entry.date}</p>
+                </div>
             {entry.emotions.length > 0 && (
-                <ul>
+                <ul className={css.list}>
                     {entry.emotions.map(emotion => (
-                        <li key={emotion.id}>{emotion.title}</li>
+                        <li className={css.emotions} key={emotion.id}>{emotion.title}</li>
                     ))}
                 </ul>
             )}
