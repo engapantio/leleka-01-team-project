@@ -1,25 +1,15 @@
-import { useRouter } from 'next/router';
+
 import type { DiaryEntry } from '@/lib/api/api';
 
 interface DiaryEntryCardProps {
     entry: DiaryEntry;
-    isDesktop: boolean;
-    onClick: (entry: DiaryEntry) => void;
+    onClick: () => void;
 }
 
-export default function DiaryEntryCard({ entry, isDesktop, onClick }: DiaryEntryCardProps) {
-    const router = useRouter();
-
-    const handleClick = () => {
-        if (isDesktop) {
-            onClick(entry);
-        } else {
-            router.push(`/diary/${entry.id}`)
-        }
-    };
+export default function DiaryEntryCard({ entry, onClick }: DiaryEntryCardProps) {
 
     return (
-        <div onClick={handleClick}>
+        <div onClick={onClick}>
             <h3>{entry.title}</h3>
             <p>{entry.date}</p>
             {entry.emotions.length > 0 && (

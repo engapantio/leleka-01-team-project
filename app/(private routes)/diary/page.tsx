@@ -9,11 +9,12 @@ import { useEffect, useState } from "react";
 import DiaryList from "@/components/DiaryList/DiaryList";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
 import { DiaryEntry } from "@/lib/api/api";
+import { fetchDiaryEntries } from "@/lib/api/clientApi";
 
 
 
 export default function DiaryPage() {
-    const [entries, setEntries] = useState<DiaryEntry[] | null>([]);
+    const [entries, setEntries] = useState<DiaryEntry[] | null>(null);
     const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null)
 
     const [isDesktop, setIsDesktop] = useState(false);
@@ -30,13 +31,8 @@ export default function DiaryPage() {
     useEffect(() => {
         const fetchEntries = async () => {
             try {
-                const res = await fetch("/api/diaries");
-                if (!res.ok) throw new Error("Не вдалося завантажити записи");
-                const data = await res.json();
-                setEntries(data.entries || []);
-                if (isDesktop && data.entries.length > 0) {
-                    setSelectedEntry(data.entries[0]);
-                }
+                const res = await fetchDiaryEntries(token);
+                setEntries(res);
             } catch (err) {
                 console.error(err);
             }
@@ -57,7 +53,7 @@ export default function DiaryPage() {
                     entries={entries}
                     onAdd={handleAdd} />
                 
-                {isDesktop && selectedEntry && (
+                {isDesktop && (
                     <DiaryEntryDetails
                         entry={selectedEntry} />
                 )}

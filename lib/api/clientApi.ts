@@ -1,5 +1,6 @@
-import { nextServer } from './api';
+import { DiaryEntry, nextServer } from './api';
 import { User } from '@/types/user';
+import { FetchDiaryEntriesResponse } from './serverApi';
 
 export interface RegistrationDetails {
   name: string;
@@ -54,3 +55,56 @@ export const getJourneyByWeekAndTab = async (
   );
   return response.data;
 };
+
+//=================diary==========================>
+
+export const fetchDiaryEntries = async (token: string): Promise<DiaryEntry[]> => {
+  const res = await fetch("/api/diaries", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+});
+if (!res.ok) {
+  throw new Error("Не вдалося завантажити записи");
+}
+const data: FetchDiaryEntriesResponse = await res.json();
+return data.entries;
+};
+
+export const fetchDiaryEntryById = async (token: string, entryId: string): Promise<DiaryEntry> => {
+  const res = await fetch(`/api/diaries/${entryId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+});
+  if (!res.ok) {
+  throw new Error("Не вдалося завантажити записи");
+  }
+  return res.json();
+}
+
+export const deleteDiaryEntryById = async (token: string, entryId: string): Promise<DiaryEntry> => {
+  const res = await nextServer.delete<DiaryEntry>(`/diary/${entryId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+});
+  return res.data;
+}
+
+export const createDiaryEntry = async (token: string, title: string,
+  description: string,
+  emotions: string[]
+): Promise<DiaryEntry> => {
+  const res = await nextServer.post<DiaryEntry>("/diary", {
+    title,
+    description,
+    emotions
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+});
+  return res.data;
+}
+//<=================diary==========================
