@@ -54,7 +54,7 @@ const RegistrationForm = () => {
         </button>
         <p className={css.login}>
           Вже маєте аккаунт?
-          <Link href="/" aria-label="Login" className={css.link}>
+          <Link href="/auth/login" aria-label="Login" className={css.link}>
             Увійти
           </Link>
         </p>
