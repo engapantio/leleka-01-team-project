@@ -30,11 +30,3 @@ export const useAuthStore = create<AuthStore>()(set => ({
       user: state.user ? { ...state.user, ...updatedUser } : null,
     })),
 }));
-
-
-await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  credentials: "include",
-  body: JSON.stringify({ email: "kavderko98@gmail.com", password: "25718alexk" }),
-});
