@@ -3,7 +3,6 @@ import DiaryListPlaceholder from "../DiaryListPlaceholder/page";
 import type { DiaryEntry } from "@/lib/api/api";
 import DiaryEntryCard from "../DiaryEntryCard/DiaryEntryCard";
 import css from "./DiaryList.module.css";
-import Image from "next/image";
 
 
 interface DiaryListProps {
