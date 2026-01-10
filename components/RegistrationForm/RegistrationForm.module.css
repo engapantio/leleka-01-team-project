@@ -36,6 +36,7 @@ body {
   color: rgba(0, 0, 0, 0.6);
   background-color: rgba(0, 0, 0, 0.05);
   font-size: 14px;
+  outline: none;
 }
 .fieldset {
   border: none;
@@ -66,6 +67,21 @@ body {
   margin-bottom: 24px;
   cursor: pointer;
 }
+.button:hover,
+.button:focus {
+  border-bottom: hsla(0, 0%, 0%, 0.15);
+  background: #ffffff;
+}
+.button:active {
+  background: #b2b2b2;
+  border: none;
+}
+.input:hover,
+.input:focus,
+.input:active {
+  border: 2px solid #ffcbd3;
+}
+
 .login {
   font-size: 14px;
   text-align: center;
