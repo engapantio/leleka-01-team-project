@@ -3,14 +3,35 @@ import css from './AuthContainer.module.css';
 
 interface AuthContainerProps {
   children: React.ReactNode;
+  imagePath: string;
 }
 
-export default function AuthContainer({ children }: AuthContainerProps) {
+export default function AuthContainer({ children, imagePath }: AuthContainerProps) {
   return (
     <div className={css.wrapper}>
       <div className={css.container}>
-        <Image src="../../public/leleka-logo.svg" alt="Leleka logo" className={css.logo} />
-        {children}
+        <div className={css.logo}>
+          <Image
+            src="/leleka-logo.svg"
+            alt="Leleka logo"
+            className={css.logoImage}
+            width={30}
+            height={30}
+          />
+          <p>Лелека</p>
+        </div>
+        <div className={css.content}>{children}</div>
+      </div>
+      <div className={css.hero}>
+        <Image
+          src={imagePath}
+          alt="hero"
+          fill
+          //   sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+          //   placeholder="blur"
+          className={css.heroImage}
+        />
       </div>
     </div>
   );
