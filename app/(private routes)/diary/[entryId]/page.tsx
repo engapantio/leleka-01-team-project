@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import type { DiaryEntry } from "@/lib/api/api";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
 import { deleteDiaryEntryById, fetchDiaryEntryById } from "@/lib/api/clientApi";
+import Loading from "@/app/loading";
 
 
 
@@ -64,7 +65,7 @@ const entryId = Array.isArray(params.entryId) ? params.entryId[0] : params.entry
         }
     };
 
-    if (isLoading) return <p>Завантаження...</p>;
+    if (isLoading) return <Loading />;
   if (!entry) return <p>Запис не знайдено</p>;
 
     return (
