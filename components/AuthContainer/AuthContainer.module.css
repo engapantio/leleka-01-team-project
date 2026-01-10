@@ -1,0 +1,18 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 375px;
+  padding: 20px 0;
+  /* padding-top: 72px; */
+}
+
+.logo {
+  /* display: block; */
+  /* margin: 0 auto 24px; */
+}
