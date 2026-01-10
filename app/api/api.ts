@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://goit-final-project-e6d7.onrender.com/api/',
+  baseURL: 'https://lehlehka-render.onrender.com/api/',
   withCredentials: true,
 });
