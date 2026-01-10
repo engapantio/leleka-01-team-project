@@ -31,10 +31,10 @@ const Login = () => {
 
   const handleSubmit = async (values: LoginFormValues, actions: FormikHelpers<LoginFormValues>) => {
     try {
-      const response = await login(values);
+      const { user } = await login(values);
 
-      if (response) {
-        setUser(response);
+      if (user) {
+        setUser(user);
         router.push('/');
       } else {
         setError('Невірний пароль чи пошта');

@@ -17,13 +17,13 @@ export interface CheckSessionRequest {
 }
 
 export const register = async (registrationDetails: RegistrationDetails) => {
-  const response = await nextServer.post<User>('/auth/register', registrationDetails);
-  return response.data;
+  const response = await nextServer.post<{ user: User }>('/auth/register', registrationDetails);
+  return response.data.user;
 };
 
 export const login = async (loginDetails: LoginDetails) => {
-  const response = await nextServer.post<User>('/auth/login', loginDetails);
-  return response.data;
+  const response = await nextServer.post<{ user: User }>('/auth/login', loginDetails);
+  return response.data.user;
 };
 
 export const logout = async (): Promise<void> => {
