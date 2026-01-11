@@ -26,11 +26,10 @@ export default function AuthContainer({ children, imagePath }: AuthContainerProp
         <Image
           src={imagePath}
           alt="hero"
-          fill
-          //   sizes="(max-width: 768px) 100vw, 50vw"
           priority
-          //   placeholder="blur"
           className={css.heroImage}
+          width={720}
+          height={900}
         />
       </div>
     </div>
