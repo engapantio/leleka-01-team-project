@@ -35,6 +35,14 @@ export const checkSession = async () => {
   return response.data.success;
 };
 
+export const editProfile = async (formData: FormData): Promise<User> => {
+  const response = await nextServer.patch<User>('/users/current', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
 
 // Journey //
 
