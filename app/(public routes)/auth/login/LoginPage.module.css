@@ -1,9 +1,9 @@
-.mainContent {
+/* .mainContent {
   width: 375px;
   margin-left: auto;
   margin-right: auto;
   padding: 14px 20px;
-}
+} */
 
 .form {
   width: 375px;
@@ -31,9 +31,16 @@
   height: 37px;
   background: var(--opacity-neutral-darkest-5);
   margin: 0 20px 8px;
+  font-size: 14px;
+}
+
+.input:focus,
+.input:active {
+  border: 2px solid var(--color-scheme-accent);
 }
 
 .submitButton {
+  border: none;
   border-bottom: 4px solid var(--color-scheme-accent);
   border-radius: 100px;
   padding: 10px 24px;
@@ -46,6 +53,7 @@
   font-size: 14px;
   line-height: 150%;
   color: var(--color-scheme-text);
+  box-shadow: none;
   outline: none;
 }
 
@@ -79,15 +87,11 @@
   margin: auto;
 }
 
-.image {
-  display: none;
-}
-
 @media only screen and (min-width: 768px) {
-  .mainContent {
+  /* .mainContent {
     width: 768px;
     padding: 0 32px;
-  }
+  } */
 
   .form {
     width: 480px;
@@ -116,12 +120,24 @@
 
 /* Styles for Desktop devices */
 @media only screen and (min-width: 1440px) {
-  .mainContent {
+  /* .mainContent {
     width: 1440px;
     display: flex;
+  } */
+
+  .formTitle {
+    font-size: 48px;
   }
-  .image {
-    display: block;
-    max-width: 50vw;
+
+  .input {
+    font-size: 16px;
+  }
+
+  .submitButton {
+    font-size: 16px;
+  }
+
+  .links {
+    font-size: 16px;
   }
 }

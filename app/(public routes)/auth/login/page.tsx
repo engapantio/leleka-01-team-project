@@ -3,22 +3,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useId } from 'react';
 import { Formik, Form, Field, type FormikHelpers, ErrorMessage } from 'formik';
-import { toast } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import * as Yup from 'yup';
 import { login, LoginDetails } from '@/lib/api/clientApi';
+import AuthContainer from '@/components/AuthContainer/AuthContainer';
 import { ApiError } from '@/lib/api/api';
 import { useAuthStore } from '@/lib/store/authStore';
 import css from './LoginPage.module.css';
 
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
-
-const initialValues: LoginFormValues = {
+const initialValues: LoginDetails = {
   password: '',
   email: '',
 };
@@ -29,12 +24,13 @@ const Login = () => {
   const fieldId = useId();
   const setUser = useAuthStore(state => state.setUser);
 
-  const handleSubmit = async (values: LoginFormValues, actions: FormikHelpers<LoginFormValues>) => {
+  const handleSubmit = async (values: LoginDetails, actions: FormikHelpers<LoginDetails>) => {
     try {
       const response = await login(values);
 
       if (response) {
         setUser(response);
+        toast.success('Реєстрація успішна!');
         router.push('/');
       } else {
         setError('Невірний пароль чи пошта');
@@ -62,7 +58,7 @@ const Login = () => {
   });
 
   return (
-    <main className={css.mainContent}>
+    <AuthContainer imagePath="/login.jpg">
       <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
         <Form className={css.form}>
           <h1 className={css.formTitle}>Вхід</h1>
@@ -87,14 +83,13 @@ const Login = () => {
           </button>
           {error && <p className={css.error}>{error}</p>}
           <p className={css.links}>
-            Немає аккаунту?
+            Немає аккаунту?<span> </span>
             <Link href="/auth/register">Зареєструватися</Link>
           </p>
+          <Toaster />
         </Form>
       </Formik>
-
-      <Image src="/login.jpg" alt="login" width={720} height={900} priority className={css.image} />
-    </main>
+    </AuthContainer>
   );
 };
 
