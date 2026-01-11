@@ -37,12 +37,12 @@ const RegistrationForm = () => {
     values: RegistrationDetails,
     actions: FormikHelpers<RegistrationDetails>
   ) => {
-    console.log('Reg data:', values);
+    // console.log('Reg data:', values);
     try {
       const res = await register(values);
       if (res) {
         toast.success('Реєстрація успішна!');
-        router.push(''); // ONBORDING
+        router.push('/profile/edit'); // ONBORDING
       } else {
         // setError('Виникла помилка при реєстрації.');
         toast.error('Виникла помилка при реєстрації.', {
@@ -63,61 +63,63 @@ const RegistrationForm = () => {
   };
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={RegisterSchema}>
-      <Form className={css.form}>
-        <fieldset className={css.fieldset}>
-          <legend className={css.title}>Реєстрація</legend>
-          <div className={css.field}>
-            <label className={css.label} htmlFor={`${fieldId}-name`}>
-              Імʼя*
-            </label>
-            <Field
-              className={css.input}
-              type="text"
-              name="name"
-              id={`${fieldId}-name`}
-              placeholder="Ваше імʼя"
-            />
-            <ErrorMessage name="name" component="span" className={css.error} />
-          </div>
-          <div className={css.field}>
-            <label className={css.label} htmlFor={`${fieldId}-email`}>
-              Пошта*
-            </label>
-            <Field
-              className={css.input}
-              type="email"
-              name="email"
-              id={`${fieldId}-email`}
-              placeholder="hello@leleka.com"
-            />
-            <ErrorMessage name="email" component="span" className={css.error} />
-          </div>
-          <div className={css.field}>
-            <label className={css.label} htmlFor={`${fieldId}-password`}>
-              Пароль*
-            </label>
-            <Field
-              className={css.input}
-              type="password"
-              name="password"
-              id={`${fieldId}-password`}
-              placeholder="********"
-            />
-            <ErrorMessage name="password" component="span" className={css.error} />
-          </div>
-        </fieldset>
+      {({ errors, touched }) => (
+        <Form className={css.form}>
+          <fieldset className={css.fieldset}>
+            <legend className={css.title}>Реєстрація</legend>
+            <div className={css.field}>
+              <label className={css.label} htmlFor={`${fieldId}-name`}>
+                Імʼя*
+              </label>
+              <Field
+                className={`${css.input} ${errors.name && touched.name ? css.inputError : ''}`}
+                type="text"
+                name="name"
+                id={`${fieldId}-name`}
+                placeholder="Ваше імʼя"
+              />
+              <ErrorMessage name="name" component="span" className={css.error} />
+            </div>
+            <div className={css.field}>
+              <label className={css.label} htmlFor={`${fieldId}-email`}>
+                Пошта*
+              </label>
+              <Field
+                className={css.input}
+                type="email"
+                name="email"
+                id={`${fieldId}-email`}
+                placeholder="hello@leleka.com"
+              />
+              <ErrorMessage name="email" component="span" className={css.error} />
+            </div>
+            <div className={css.field}>
+              <label className={css.label} htmlFor={`${fieldId}-password`}>
+                Пароль*
+              </label>
+              <Field
+                className={css.input}
+                type="password"
+                name="password"
+                id={`${fieldId}-password`}
+                placeholder="********"
+              />
+              <ErrorMessage name="password" component="span" className={css.error} />
+            </div>
+          </fieldset>
 
-        <button type="submit" className={css.button}>
-          Зареєструватись
-        </button>
-        <p className={css.login}>
-          Вже маєте аккаунт?
-          <Link href="/auth/login" aria-label="Login" className={css.link}>
-            Увійти
-          </Link>
-        </p>
-        <Toaster />
-      </Form>
+          <button type="submit" className={css.button}>
+            Зареєструватись
+          </button>
+          <p className={css.login}>
+            Вже маєте аккаунт?
+            <Link href="/auth/login" aria-label="Login" className={css.link}>
+              Увійти
+            </Link>
+          </p>
+          <Toaster />
+        </Form>
+      )}
     </Formik>
   );
 };
