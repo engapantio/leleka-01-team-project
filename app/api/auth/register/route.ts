@@ -8,7 +8,8 @@ import { logErrorResponse } from '../../_utils/utils';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const apiRes = await api.post('auth/login', body);
+
+    const apiRes = await api.post('auth/register', body);
 
     const cookieStore = await cookies();
     const setCookie = apiRes.headers['set-cookie'];
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
       const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
       for (const cookieStr of cookieArray) {
         const parsed = parse(cookieStr);
+
         const options = {
           expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
           path: parsed.Path,
@@ -25,11 +27,10 @@ export async function POST(req: NextRequest) {
         if (parsed.accessToken) cookieStore.set('accessToken', parsed.accessToken, options);
         if (parsed.refreshToken) cookieStore.set('refreshToken', parsed.refreshToken, options);
       }
-
       return NextResponse.json(apiRes.data, { status: apiRes.status });
     }
 
-    return NextResponse.json({ error: 'Неавторизовано' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
@@ -39,6 +40,6 @@ export async function POST(req: NextRequest) {
       );
     }
     logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json({ error: 'Внутрішня помилка сервера' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

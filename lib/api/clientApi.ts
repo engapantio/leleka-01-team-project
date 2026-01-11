@@ -31,6 +31,26 @@ export const logout = async (): Promise<void> => {
 };
 
 export const checkSession = async () => {
-  const response = await nextServer.get<CheckSessionRequest>('auth/session');
+  const response = await nextServer.get<CheckSessionRequest>('users/current');
   return response.data.success;
+};
+
+
+// Journey //
+
+import { Tab, JourneyBaby, JourneyMom } from '@/types/journey';
+
+export const getCurrentWeek = async () => {
+  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
+  return response.data.weekNumber;
+};
+
+export const getJourneyByWeekAndTab = async (
+  weekNumber: number,
+  tab: Tab
+) => {
+  const response = await nextServer.get<JourneyBaby | JourneyMom>(
+    `/weeks/${weekNumber}/${tab}`
+  );
+  return response.data;
 };

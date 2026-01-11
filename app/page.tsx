@@ -14,7 +14,7 @@ export default function Home() {
         flexWrap: 'wrap',
       }}
     >
-      <MomTipCard adviceForMom="Пий воду і відпочивай ❤️" />
+      <MomTipCard adviceForMom="Пий воду і відпочивай" />
       <FeelingCheckCard />
     </section>
   );
