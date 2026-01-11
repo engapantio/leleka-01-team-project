@@ -36,6 +36,17 @@ export default function SideBar() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
+    useEffect(() => {
+    const checkWidth = () => {
+      if (window.innerWidth >= 1440) {
+        setIsOpen(true);
+      }
+    };
+    checkWidth(); 
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
+  }, []);
+
   return (
     <>
       {/* test button that later will be located in header 
@@ -79,7 +90,7 @@ export default function SideBar() {
           <div className={styles.bottomDivider} />
         </nav>
 
-        {isAuthenticated ? <UserBar onLogout={() => setIsOpen(false)} /> : <AuthBar />}
+        {isAuthenticated ? <UserBar /> : <AuthBar />}
       </aside>
       <div
         className={`${styles.overlay} ${isOpen ? styles.open : ''}`}
