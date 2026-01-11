@@ -85,7 +85,7 @@ const RegistrationForm = () => {
                 Пошта*
               </label>
               <Field
-                className={css.input}
+                className={`${css.input} ${errors.email && touched.email ? css.inputError : ''}`}
                 type="email"
                 name="email"
                 id={`${fieldId}-email`}
@@ -98,7 +98,9 @@ const RegistrationForm = () => {
                 Пароль*
               </label>
               <Field
-                className={css.input}
+                className={`${css.input} ${
+                  errors.password && touched.password ? css.inputError : ''
+                }`}
                 type="password"
                 name="password"
                 id={`${fieldId}-password`}
