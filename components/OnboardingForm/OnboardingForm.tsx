@@ -29,6 +29,7 @@ type FormValues = {
   avatar: File | null;
 };
 
+
 export default function OnboardingForm() {
   const router = useRouter();
   const [succsess, setSuccsess] = useState(false);
