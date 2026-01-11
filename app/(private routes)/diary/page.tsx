@@ -1,14 +1,9 @@
-const DiaryPage = () => {
-  return <div>DiaryPage</div>;
-};
-
-export default DiaryPage;
 "use client";
 
 import { useEffect, useState } from "react";
 import DiaryList from "@/components/DiaryList/DiaryList";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
-import { DiaryEntry } from "@/lib/api/api";
+import { DiaryEntry } from "@/types/diary";
 import { fetchDiaryEntries } from "@/lib/api/clientApi";
 
 
@@ -31,14 +26,14 @@ export default function DiaryPage() {
     useEffect(() => {
         const fetchEntries = async () => {
             try {
-                const res = await fetchDiaryEntries(token);
+                const res = await fetchDiaryEntries();
                 setEntries(res);
             } catch (err) {
                 console.error(err);
             }
         };
         fetchEntries();
-    }, [isDesktop]);
+    }, []);
     
     const handleAdd = () => {
         setIsModalOpen(true);
@@ -49,11 +44,11 @@ export default function DiaryPage() {
             <div>
                 <DiaryList
                     isDesktop={isDesktop}
-                    onSelectEntry={(entry) => setSelectedEntry(entry)}
+                    onSelectEntry={setSelectedEntry}
                     entries={entries}
                     onAdd={handleAdd} />
                 
-                {isDesktop && (
+                {isDesktop && selectedEntry && (
                     <DiaryEntryDetails
                         entry={selectedEntry} />
                 )}

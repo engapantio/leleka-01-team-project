@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import type { DiaryEntry } from "@/lib/api/api";
+import type { DiaryEntry } from "@/types/diary";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
 import { deleteDiaryEntryById, fetchDiaryEntryById } from "@/lib/api/clientApi";
 import Loading from "@/app/loading";
@@ -28,7 +28,7 @@ const entryId = Array.isArray(params.entryId) ? params.entryId[0] : params.entry
         const fetchEntry = async () => {
             try {
                 setIsLoading(true);
-                const res = await fetchDiaryEntryById(token, entryId);
+                const res = await fetchDiaryEntryById(entryId);
                 setEntry(res);
             } catch (err: unknown) {
                 if (err instanceof Error) {
@@ -51,7 +51,7 @@ const entryId = Array.isArray(params.entryId) ? params.entryId[0] : params.entry
         if (!entry || !entryId) return;
 
         try {
-            await deleteDiaryEntryById(token, entryId);
+            await deleteDiaryEntryById(entryId);
             toast.success("Запис успішно видалено");
             router.push("/diary");
         } catch (err: unknown) {

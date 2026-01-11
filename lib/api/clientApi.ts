@@ -1,4 +1,5 @@
-import { DiaryEntry, nextServer } from './api';
+import { nextServer } from "./api";
+import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
 
@@ -58,41 +59,22 @@ export const getJourneyByWeekAndTab = async (
 
 //=================diary==========================>
 
-export const fetchDiaryEntries = async (token: string): Promise<DiaryEntry[]> => {
-  const res = await fetch("/api/diaries", {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-});
-if (!res.ok) {
-  throw new Error("Не вдалося завантажити записи");
-}
-const data: FetchDiaryEntriesResponse = await res.json();
+export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
+  const {data} = await nextServer.get<FetchDiaryEntriesResponse>("/diaries");
 return data.entries;
 };
 
-export const fetchDiaryEntryById = async (token: string, entryId: string): Promise<DiaryEntry> => {
-  const res = await fetch(`/api/diaries/${entryId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-});
-  if (!res.ok) {
-  throw new Error("Не вдалося завантажити записи");
-  }
-  return res.json();
+export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
+  const {data} = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`);
+  return data;
 }
 
-export const deleteDiaryEntryById = async (token: string, entryId: string): Promise<DiaryEntry> => {
-  const res = await nextServer.delete<DiaryEntry>(`/diary/${entryId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-});
+export const deleteDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
+  const res = await nextServer.delete<DiaryEntry>(`/diary/${entryId}`);
   return res.data;
 }
 
-export const createDiaryEntry = async (token: string, title: string,
+export const createDiaryEntry = async (title: string,
   description: string,
   emotions: string[]
 ): Promise<DiaryEntry> => {
@@ -100,11 +82,7 @@ export const createDiaryEntry = async (token: string, title: string,
     title,
     description,
     emotions
-  }, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-});
+  });
   return res.data;
 }
 //<=================diary==========================
