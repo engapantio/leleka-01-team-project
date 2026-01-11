@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
-import DiaryListPlaceholder from "../DiaryListPlaceholder/page";
-import type { DiaryEntry } from "@/lib/api/api";
+import DiaryListPlaceholder from "../DiaryListPlaceholder/DairyListPlaceholder";
+import type { DiaryEntry } from "@/types/diary";
 import DiaryEntryCard from "../DiaryEntryCard/DiaryEntryCard";
 import css from "./DiaryList.module.css";
 

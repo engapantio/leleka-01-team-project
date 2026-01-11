@@ -1,5 +1,5 @@
-import DiaryEntryDetailsPlaceholder from "../DiaryEntryDetailsPlaceholder/page";
-import type { DiaryEntry } from "@/lib/api/api";
+import DiaryEntryDetailsPlaceholder from "../DiaryEntryDetailsPlaceholder/DiaryEntryDetailsPlaceholder";
+import type { DiaryEntry } from "@/types/diary";
 import css from "./DiaryEntryDetails.module.css";
 
 interface DiaryEntryDetailsProps {

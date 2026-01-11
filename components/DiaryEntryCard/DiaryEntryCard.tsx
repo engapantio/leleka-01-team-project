@@ -1,5 +1,5 @@
 import css from "./DiaryEntryCard.module.css";
-import type { DiaryEntry } from '@/lib/api/api';
+import type { DiaryEntry } from '@/types/diary';
 
 interface DiaryEntryCardProps {
     entry: DiaryEntry;
