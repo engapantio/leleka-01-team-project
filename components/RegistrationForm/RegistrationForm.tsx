@@ -42,7 +42,7 @@ const RegistrationForm = () => {
       const res = await register(values);
       if (res) {
         toast.success('Реєстрація успішна!');
-        router.push(''); // ONBORDING
+        router.push('/profile/edit'); // ONBOARDING
       } else {
         // setError('Виникла помилка при реєстрації.');
         toast.error('Виникла помилка при реєстрації.', {
