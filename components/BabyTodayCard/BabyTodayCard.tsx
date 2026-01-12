@@ -1,6 +1,5 @@
-import React from "react";
-import Image from "next/image";
-import styles from "./BabyTodayCard.module.css";
+import Image from 'next/image';
+import styles from './BabyTodayCard.module.css';
 
 type BabyTodayCardProps = {
   title?: string;
@@ -10,7 +9,7 @@ type BabyTodayCardProps = {
 };
 
 export default function BabyTodayCard({
-  title = "Baby today",
+  title = 'Baby today',
   imageUrl,
   sizeText,
   achievementText,
@@ -22,13 +21,7 @@ export default function BabyTodayCard({
       <div className={styles.contentWrap}>
         <div className={styles.imageWrap}>
           {imageUrl ? (
-            <Image
-              className={styles.image}
-              src={imageUrl}
-              alt="Baby"
-              width={600}
-              height={600}
-            />
+            <Image className={styles.image} src={imageUrl} alt="Baby" width={600} height={600} />
           ) : null}
         </div>
 
@@ -39,16 +32,7 @@ export default function BabyTodayCard({
             </p>
           ) : null}
 
-          {achievementText ? (
-            <p className={styles.textInfo}>
-              {achievementText.split('\n').map((line, index) => (
-                <React.Fragment key={index}>
-                  {line}
-                  {index < achievementText.split('\n').length - 1 && <br />}
-                </React.Fragment>
-              ))}
-            </p>
-          ) : null}
+          {achievementText ? <p className={styles.textInfo}>{achievementText}</p> : null}
         </div>
       </div>
     </section>

@@ -10,3 +10,4 @@ export const nextServer = axios.create({
 export type ApiError = AxiosError<{
   error: string;
 }>;
+
