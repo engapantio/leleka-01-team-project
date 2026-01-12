@@ -14,7 +14,12 @@ export const checkSession = async () => {
 
 // Journey //
 export const getCurrentWeek = async () => {
-  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
+  const cookieStore = await cookies();
+  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current', {
+       headers: {
+      Cookie: cookieStore.toString(),
+    },
+    });
   return response.data.weekNumber;
 };
 

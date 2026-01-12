@@ -12,11 +12,15 @@ const JourneyPage = async ({ params }: JourneyPageProps) => {
   const week = Number(weekNumber); 
 
   const queryClient = new QueryClient();
-  const tab = "baby";
 
   await queryClient.prefetchQuery({
-    queryKey: ["weekBaby", week, tab],
-    queryFn: () => getJourneyByWeekAndTab(week, tab),
+    queryKey: ["weekBaby", week, 'baby'],
+    queryFn: () => getJourneyByWeekAndTab(week, 'baby'),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["weekMom", week, 'mom'],
+    queryFn: () => getJourneyByWeekAndTab(week, 'mom'),
   });
 
   return (

@@ -12,27 +12,34 @@ const JourneyPageClient = () => {
     const { weekNumber } = useParams<{ weekNumber: string }>();
     const week = Number(weekNumber);
 
-    const [tab, setTab] = useState<Tab>('baby');    
+    const [selectedTab, setselectedTab] = useState<Tab>('baby');    
 
-    const { data, isLoading, error } = useQuery({
-    queryKey: ["weekBaby", week, tab],
-    queryFn: () => getJourneyByWeekAndTab(week, tab),
+    const { data: babyData, isLoading: isLoadingBabyInfo, error: isErrorBabyInfo } = useQuery({
+    queryKey: ["weekBaby", week, 'baby'],
+    queryFn: () => getJourneyByWeekAndTab(week, 'baby'),
+    refetchOnMount: false,
+    });
+
+    const { data: MomData, isLoading: isLoadingMomInfo, error: isErrorMomInfo } = useQuery({
+    queryKey: ["weekMom", week, 'mom'],
+    queryFn: () => getJourneyByWeekAndTab(week, 'mom'),
     refetchOnMount: false,
     });
     
-     if (isLoading) return <p>Loading...</p>;
+     if (isLoadingBabyInfo || isLoadingMomInfo) return <p>Loading...</p>;
 
-    if (error || !data) return <p>Some error..</p>;
+    if (isErrorBabyInfo || isErrorMomInfo) return <p>Some error..</p>;
+
     
     const handleTabBaby = () => {
-        setTab('baby');
+        setselectedTab('baby');
     };
 
     const handleTabMom = () => {
-        setTab('mom');
+        setselectedTab('mom');
     };
 
-    return <div><JourneyDetails selectedTab={ tab} data={data} selectBabyFn={ handleTabBaby} selectMomFn={ handleTabMom} /></div>;
+    return <div><JourneyDetails selectedTab={ selectedTab} babyData={babyData}  momData={MomData} selectBabyFn={ handleTabBaby} selectMomFn={ handleTabMom} /></div>;
 };
 
 export default JourneyPageClient;
