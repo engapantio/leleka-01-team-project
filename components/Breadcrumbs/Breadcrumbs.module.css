@@ -41,7 +41,8 @@
 
 @media (min-width: 1440px){
   .breadcrumbs{
-      padding:0px 32px;
+      padding-top:24px;
+      padding-bottom: 16px;
       font-size:14px;
   }
 }
