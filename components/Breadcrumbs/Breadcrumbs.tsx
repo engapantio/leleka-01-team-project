@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import css from "./Breadcrumbs.module.css";
-import Image from "next/image";
 type Props = {
   currentLabel?: string;
 };
@@ -70,13 +69,11 @@ export default function Breadcrumbs({ currentLabel }: Props) {
 
       {crumbs.map((crumb) => (
         <React.Fragment key={crumb.href}>
-          <Image
-            width={24}
-            height={24}
-            src="/chevron_right.svg"
-            alt=""
-            className={css.separatorIcon}
-          />
+         <li className={css.separatorItem}>
+          <svg width={24} height={24} className={css.separatorIcon}>
+            <use href="/sprite.svg#breadcrumbs-icon" />
+          </svg>
+        </li>
 
           <li className={css.item}>
             {crumb.isLast ? (
