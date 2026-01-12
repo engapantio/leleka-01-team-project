@@ -28,9 +28,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${latoSans.variable} ${comfortaaBold.variable}`}>
-        <TanStackProvider> {children}</TanStackProvider>
+        <TanStackProvider>
+          <div className='layout-container'>
+            {/* SideBar here */}
+              <div className='main-content-container'>
+                {/* Breadcrumbs here */}
+                  {children}
+              </div>
+          </div>
+        </TanStackProvider>
       </body>
     </html>
   );
