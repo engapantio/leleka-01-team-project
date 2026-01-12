@@ -63,30 +63,29 @@ export const getJourneyByWeekAndTab = async (weekNumber: number, tab: Tab) => {
 //=================diary==========================>
 
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
-  const { data } = await nextServer.get<FetchDiaryEntriesResponse>('/diaries');
-  return data.entries;
+  const {data} = await nextServer.get<FetchDiaryEntriesResponse>("/diaries");
+return data.entries;
 };
 
 export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
-  const { data } = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`);
+  const {data} = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`);
   return data;
-};
+}
 
 export const deleteDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
   const res = await nextServer.delete<DiaryEntry>(`/diary/${entryId}`);
   return res.data;
-};
+}
 
-export const createDiaryEntry = async (
-  title: string,
+export const createDiaryEntry = async (title: string,
   description: string,
   emotions: string[]
 ): Promise<DiaryEntry> => {
-  const res = await nextServer.post<DiaryEntry>('/diary', {
+  const res = await nextServer.post<DiaryEntry>("/diary", {
     title,
     description,
-    emotions,
+    emotions
   });
   return res.data;
-};
+}
 //<=================diary==========================
