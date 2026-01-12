@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { checkSession } from './lib/api/serverApi';
 
-const publicRoutes = ['/auth', '/onboarding'];
+const publicRoutes = ['/auth'];
 const privateRoutes = ['/journey', '/diary', '/profile'];
 
 export async function proxy(request: NextRequest) {
@@ -60,11 +60,6 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Allow onboarding even for authenticated users
-  if (pathname === '/onboarding') {
-    return NextResponse.next();
-  }
-  
   if (isPublicRoute) {
     return NextResponse.redirect(new URL('/', request.url));
   }
@@ -74,5 +69,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/auth/:path*', '/journey', '/diary', '/onboarding'],
+  matcher: ['/profile/:path*', '/auth/:path*', '/journey', '/diary'],
 };
