@@ -1,4 +1,4 @@
-
+import React from "react";
 import Image from "next/image";
 import styles from "./BabyTodayCard.module.css";
 
@@ -40,7 +40,14 @@ export default function BabyTodayCard({
           ) : null}
 
           {achievementText ? (
-            <p className={styles.textInfo}>{achievementText}</p>
+            <p className={styles.textInfo}>
+              {achievementText.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  {index < achievementText.split('\n').length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </p>
           ) : null}
         </div>
       </div>

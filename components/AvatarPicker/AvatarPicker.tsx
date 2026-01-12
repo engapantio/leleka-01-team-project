@@ -8,7 +8,7 @@ import css from './AvatarPicker.module.css';
 import Button from '../ui/Button/Button';
 import Image from 'next/image';
 
-import avatar from '@/public/img/avatarPreview.png';
+// import avatar from '@/public/img/avatarPreview.png'; // File not found, using fallback
 import { useAuthStore } from '@/lib/store/authStore';
 
 export const AvatarPicker = ({
@@ -68,7 +68,7 @@ export const AvatarPicker = ({
     <div className={css.avatar_picker_wrapper} style={{ ...styles }}>
       <div className={css.preview_avatar}>
         <Image
-          src={previewUrl || initialPhoto || avatar}
+          src={previewUrl || initialPhoto || '/logo.svg'}
           alt="Preview avatar"
           width={132}
           height={132}
