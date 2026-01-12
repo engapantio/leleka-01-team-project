@@ -52,15 +52,8 @@
   --color-french-pass-lighter: #e5fafe;
   --color-french-pass-lightest: #fbfefe;
   --color-red: #c60000;
-  --font-family: "Lato", sans-serif;
-  --second-family: "Comfortaa", sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-family: 'Lato', sans-serif;
+  --second-family: 'Comfortaa', sans-serif;
 }
 
 html,
@@ -70,9 +63,12 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-scheme-text);
+  background: var(--color-scheme-background);
+  font-family: var(--font-family), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -83,13 +79,101 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.layout-container{
+  margin: 0 auto;
+  padding: 0 20px;
+  min-width:280px;
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  overflow: hidden;
+}
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+ 
+}
+.widgets-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.left-section{  
+  padding-bottom: 24px;
+}
+
+.right-section{
+  padding-bottom: 24px;
+}
+
+@media (min-width: 768px){
+  .layout-container{
+    max-width: 768px;
+    padding: 0px 32px;
   }
+}
+
+@media (min-width: 1440px){
+  .layout-container{
+    max-width: 1440px;
+    flex-direction: row;
+    gap:32px;
+  }
+  .main-content-container{
+    margin-left: 312px;
+    flex:1;
+  }
+  .main-container{
+    flex-direction: column;
+    gap: 16px
+  }
+  .widgets-wrapper{
+    flex-direction: row;
+    gap: 32px
+  }
+  .left-section{
+    padding-bottom: 32px;
+  }
+  .right-section{
+    padding-bottom: 32px;
+  }
+
 }

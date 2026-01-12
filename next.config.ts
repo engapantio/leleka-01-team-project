@@ -1,14 +1,25 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  reactCompiler: true,
-  /* config options here */
-  //додано домен для картинок з розділу journey
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'ftp.goit.study' }
-    ]
-  }
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ftp.goit.study',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

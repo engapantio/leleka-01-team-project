@@ -55,6 +55,7 @@ body {
 }
 .button {
   font-size: 14px;
+  font-family: var(--font-family);
   outline: none;
   box-shadow: none;
   border: none;
@@ -86,6 +87,16 @@ body {
 .login {
   font-size: 14px;
   text-align: center;
+  font-family: var(--font-family);
+}
+.error {
+  font-size: 12px;
+  line-height: 160%;
+  color: #c60000;
+}
+.inputError {
+  border: 1px solid #c60000;
+  color: #c60000;
 }
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
@@ -97,6 +108,7 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: #000;
 }
 .link {
+  font-family: var(--font-family);
   margin-left: 5px;
   line-height: 160%;
   text-decoration: underline;
