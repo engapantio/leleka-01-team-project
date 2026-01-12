@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'next/navigation';
-import { getJourneyByWeekAndTab } from "@/lib/api/clientApi";
+import { getBabyState, getMomState } from "@/lib/api/clientApi";
 import type { Tab } from "@/types/journey";
 import { useState } from "react";
 import JourneyDetails from "@/components/JourneyDetails/JourneyDetails";
@@ -15,14 +15,14 @@ const JourneyPageClient = () => {
     const [selectedTab, setselectedTab] = useState<Tab>('baby');    
 
     const { data: babyData, isLoading: isLoadingBabyInfo, error: isErrorBabyInfo } = useQuery({
-    queryKey: ["weekBaby", week, 'baby'],
-    queryFn: () => getJourneyByWeekAndTab(week, 'baby'),
+    queryKey: ["weekBaby", week],
+    queryFn: () => getBabyState(week),
     refetchOnMount: false,
     });
 
     const { data: MomData, isLoading: isLoadingMomInfo, error: isErrorMomInfo } = useQuery({
     queryKey: ["weekMom", week, 'mom'],
-    queryFn: () => getJourneyByWeekAndTab(week, 'mom'),
+    queryFn: () => getMomState(week),
     refetchOnMount: false,
     });
     

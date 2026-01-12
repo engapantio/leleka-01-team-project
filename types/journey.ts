@@ -4,11 +4,14 @@ export type Journey = {
   
 export type JourneyBaby = {
   weekNumber: number;
-    analogy: string;
-    image: string;
-    babyDevelopment: string;
-    babyActivity: string;
-    interestingFact: string;
+  analogy: string;
+  babySize: number;
+  babyWeight: number;
+  image: string;
+  babyActivity: string;
+  babyDevelopment: string;
+  interestingFact: string;
+  momDailyTips: string[];
   };
   
   type ComfortTip = {

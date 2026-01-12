@@ -48,15 +48,20 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 
 // Journey //
 
-import { Tab, JourneyBaby, JourneyMom } from '@/types/journey';
+import {JourneyBaby, JourneyMom } from '@/types/journey';
 
 export const getCurrentWeek = async () => {
   const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
   return response.data.weekNumber;
 };
 
-export const getJourneyByWeekAndTab = async (weekNumber: number, tab: Tab) => {
-  const response = await nextServer.get<JourneyBaby | JourneyMom>(`/weeks/${weekNumber}/${tab}`);
+export const getBabyState = async (weekNumber: number) => {
+  const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`);
+  return response.data;
+};
+
+export const getMomState = async (weekNumber: number) => {
+  const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`);
   return response.data;
 };
 

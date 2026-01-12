@@ -24,14 +24,10 @@ export const getCurrentWeek = async () => {
   return response.data.weekNumber;
 };
 
-export const getJourneyByWeekAndTab = async (
-  weekNumber: number,
-  tab: Tab
-) => {
+export const getBabyState = async (weekNumber: number) => {
     const cookieStore = await cookies();
-
-  const response = await nextServer.get<JourneyBaby | JourneyMom>(
-    `/weeks/${weekNumber}/${tab}`, {
+  const response = await nextServer.get<JourneyBaby>(
+    `/weeks/${weekNumber}/baby`, {
        headers: {
       Cookie: cookieStore.toString(),
     },
@@ -39,6 +35,19 @@ export const getJourneyByWeekAndTab = async (
   );
   return response.data;
 };
+
+export const getMomState = async (weekNumber: number) => {
+    const cookieStore = await cookies();
+  const response = await nextServer.get<JourneyMom>(
+    `/weeks/${weekNumber}/mom`, {
+       headers: {
+      Cookie: cookieStore.toString(),
+    },
+    }
+  );
+  return response.data;
+};
+
 //=================diary==========================>
 export interface FetchDiaryEntriesResponse {
   entries: DiaryEntry[];
