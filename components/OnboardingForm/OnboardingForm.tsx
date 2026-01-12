@@ -5,9 +5,6 @@ import React, { useState } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { useAuthStore } from '@/lib/store/authStore';
-import { useRouter } from 'next/navigation';
-
 import { editProfile } from '@/lib/api/clientApi';
 
 import styles from './OnboardingForm.module.css';
@@ -31,12 +28,7 @@ type FormValues = {
 
 
 export default function OnboardingForm() {
-  const router = useRouter();
   const [succsess, setSuccsess] = useState(false);
-
-  // STATE
-
-  const setUser = useAuthStore(state => state.setUser);
 
   const genderOptions = [
     { label: 'хлопчик' },
