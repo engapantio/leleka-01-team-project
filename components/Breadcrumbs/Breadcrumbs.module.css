@@ -40,7 +40,7 @@
 }
 
 @media (min-width: 1440px){
-  .breadcrumbs{
+  .breadcrumbsList{
       padding-top:24px;
       padding-bottom: 16px;
       font-size:14px;
