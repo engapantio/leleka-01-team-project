@@ -158,6 +158,8 @@ img {
     gap:32px;
   }
   .main-container{
+    margin-left: 312px;
+    flex:1;
     flex-direction: column;
     gap: 16px
   }
