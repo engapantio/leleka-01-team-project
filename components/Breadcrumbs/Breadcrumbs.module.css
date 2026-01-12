@@ -1,6 +1,6 @@
 
 .breadcrumbsList{
-     font-family: var(--font-family);;
+    font-family: var(--font-family);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -8,6 +8,8 @@
     width:100%;
     list-style-type: none;
 }
+
+
 .link {
     color: var(--color-neutral-darkest);
     text-decoration: none;
