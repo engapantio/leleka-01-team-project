@@ -157,9 +157,11 @@ img {
     flex-direction: row;
     gap:32px;
   }
-  .main-container{
+  .main-content-container{
     margin-left: 312px;
     flex:1;
+  }
+  .main-container{
     flex-direction: column;
     gap: 16px
   }
