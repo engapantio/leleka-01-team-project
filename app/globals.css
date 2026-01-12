@@ -136,12 +136,12 @@ img {
   flex-direction: column;
 }
 
-.left-section{
-  padding-bottom: 32px;
+.left-section{  
+  padding-bottom: 24px;
 }
 
 .right-section{
-  padding-bottom: 32px;
+  padding-bottom: 24px;
 }
 
 @media (min-width: 768px){
@@ -169,4 +169,11 @@ img {
     flex-direction: row;
     gap: 32px
   }
+  .left-section{
+    padding-bottom: 32px;
+  }
+  .right-section{
+    padding-bottom: 32px;
+  }
+
 }
