@@ -2,7 +2,8 @@ export type Journey = {
     weekNumber: number;
   };
   
-  export type JourneyBaby = {
+export type JourneyBaby = {
+  weekNumber: number;
     analogy: string;
     image: string;
     babyDevelopment: string;
@@ -15,12 +16,11 @@ export type Journey = {
     tip: string;
   };
   
-  export type JourneyMom = {
-    feelings: {
-      states: string[];
-      sensationDescr: string;
-    };
-    comfortTips: ComfortTip[];
+export type JourneyMom = {
+  weekNumber: number;
+  feelingsStates: string[];
+  sensationDescr: string;
+  comfortTips: ComfortTip[];
   };
   
   export type Tab = 'baby' | 'mom';
