@@ -1,4 +1,4 @@
-import { nextServer } from "./api";
+import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
@@ -37,6 +37,14 @@ export const checkSession = async () => {
   return response.data.success;
 };
 
+export const editProfile = async (formData: FormData): Promise<User> => {
+  const response = await nextServer.patch<User>('/users', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
 
 // Journey //
 
@@ -47,13 +55,8 @@ export const getCurrentWeek = async () => {
   return response.data.weekNumber;
 };
 
-export const getJourneyByWeekAndTab = async (
-  weekNumber: number,
-  tab: Tab
-) => {
-  const response = await nextServer.get<JourneyBaby | JourneyMom>(
-    `/weeks/${weekNumber}/${tab}`
-  );
+export const getJourneyByWeekAndTab = async (weekNumber: number, tab: Tab) => {
+  const response = await nextServer.get<JourneyBaby | JourneyMom>(`/weeks/${weekNumber}/${tab}`);
   return response.data;
 };
 
