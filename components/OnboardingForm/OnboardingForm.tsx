@@ -1,18 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Formik, Form, ErrorMessage, FormikHelpers } from 'formik';
+
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import toast, { Toaster } from 'react-hot-toast';
+
+import { useAuthStore } from '@/lib/store/authStore';
 
 import { editProfile } from '@/lib/api/clientApi';
-import { ApiError } from '@/lib/api/api';
-import { useAuthStore } from '@/lib/store/authStore';
 
 import styles from './OnboardingForm.module.css';
 import Button from '@/components/ui/Button/Button';
-import Logo from '@/public/logo.svg';
+import Logo from '@/public/icons/Logo.svg';
 import Image from 'next/image';
 import { AvatarPicker } from '@/components/AvatarPicker/AvatarPicker';
 import FormikSelect from '@/components/FormikSelect/FormikSelect';
@@ -29,20 +28,21 @@ type FormValues = {
   avatar: File | null;
 };
 
-
 export default function OnboardingForm() {
-  const router = useRouter();
   const [succsess, setSuccsess] = useState(false);
+
+  // STATE
+
   const setUser = useAuthStore(state => state.setUser);
 
   const genderOptions = [
     { label: 'хлопчик' },
     { label: 'дівчинка' },
-    { label: 'Ще не знаю' },
+    { label: 'Оберіть стать' },
   ];
 
   const initialValues: FormValues = {
-    gender: '',
+    gender: 'Оберіть стать',
     dueDate: '',
     avatar: null,
   };
@@ -53,20 +53,14 @@ export default function OnboardingForm() {
         genderOptions.map(o => o.label),
         'Оберіть стать'
       )
-      .required('Оберіть стать')
-      .notOneOf([''], 'Оберіть стать'),
-    dueDate: Yup.string()
-      .required('Вкажіть дату')
-      .min(1, 'Вкажіть дату'),
+      .required('Оберіть стать'),
+    dueDate: Yup.string().required('Вкажіть дату'),
   });
 
   const isDesktop = useMediaQuery('(min-width: 1440px)');
   const downloadBtnWidth = isDesktop ? 179 : 162;
 
-  const handleSubmit = async (
-    formValues: FormValues,
-    actions: FormikHelpers<FormValues>
-  ) => {
+  const handleSubmit = async (formValues: FormValues) => {
     try {
       const formData = new FormData();
 
@@ -79,32 +73,20 @@ export default function OnboardingForm() {
 
       const res = await editProfile(formData);
 
+      console.log(res);
+
       if (res) {
         setUser(res);
         setSuccsess(true);
-        toast.success('Профіль успішно оновлено!');
-      } else {
-        toast.error('Виникла помилка при збереженні профілю.', {
-          position: 'top-center',
-        });
+        return res;
       }
     } catch (error) {
-      const errorMessage =
-        (error as ApiError).response?.data?.error ??
-        (error as ApiError).message ??
-        'Ой... сталася помилка';
-      toast.error(errorMessage, {
-        position: 'top-center',
-      });
-    } finally {
-      actions.setSubmitting(false);
+      console.log('error', error);
     }
   };
 
   return (
-    <>
-      <Toaster position="top-center" />
-      <section className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <div className={styles.formCard}>
         <div className={styles.logoBox}>
           <Image
@@ -134,11 +116,7 @@ export default function OnboardingForm() {
                   <label htmlFor="gender" className={styles.label}>
                     Стать дитини
                   </label>
-                  <FormikSelect 
-                    name="gender" 
-                    options={genderOptions} 
-                    placeholder="Оберіть стать"
-                  />
+                  <FormikSelect name="gender" options={genderOptions} />
                   <ErrorMessage
                     name="gender"
                     component="div"
@@ -186,10 +164,7 @@ export default function OnboardingForm() {
             <Button
               type="button"
               styles={{ maxWidth: 144, height: 44 }}
-              action={() => {
-                setSuccsess(false);
-                router.push('/');
-              }}
+              action={() => (window.location.href = '/')}
             >
               Готово
             </Button>
@@ -199,6 +174,5 @@ export default function OnboardingForm() {
 
       <aside className={styles.illustration} aria-hidden="true" />
     </section>
-    </>
   );
 }

@@ -60,6 +60,11 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  // Allow onboarding even for authenticated users
+  if (pathname === '/onboarding') {
+    return NextResponse.next();
+  }
+  
   if (isPublicRoute) {
     return NextResponse.redirect(new URL('/', request.url));
   }

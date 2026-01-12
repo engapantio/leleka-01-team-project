@@ -110,6 +110,10 @@
     font-size: 12px;
     color: var(--color-red);
   }
+
+  .submitWrap {
+    width: 100%;
+  }
   
   @media (min-width: 768px) {
     .wrapper {
