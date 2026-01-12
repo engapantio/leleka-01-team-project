@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useId } from 'react';
 import { Formik, Form, Field, type FormikHelpers, ErrorMessage } from 'formik';
 import toast, { Toaster } from 'react-hot-toast';
@@ -82,10 +81,6 @@ const Login = () => {
             Увійти
           </button>
           {error && <p className={css.error}>{error}</p>}
-          <p className={css.links}>
-            Немає аккаунту?<span> </span>
-            <Link href="/auth/register">Зареєструватися</Link>
-          </p>
           <Toaster />
         </Form>
       </Formik>
