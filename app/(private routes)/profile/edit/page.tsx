@@ -6,6 +6,7 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { useAuthStore } from '@/lib/store/authStore';
+import { useRouter } from 'next/navigation';
 
 import { editProfile } from '@/lib/api/clientApi';
 
@@ -29,6 +30,7 @@ type FormValues = {
 };
 
 export default function OnboardingForm() {
+  const router = useRouter();
   const [succsess, setSuccsess] = useState(false);
 
   // STATE
@@ -76,7 +78,6 @@ export default function OnboardingForm() {
       console.log(res);
 
       if (res) {
-        setUser(res);
         setSuccsess(true);
         return res;
       }
