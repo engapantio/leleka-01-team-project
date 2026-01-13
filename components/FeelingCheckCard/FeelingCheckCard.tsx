@@ -30,7 +30,7 @@ export default function FeelingCheckCard() {
 
       {/* кнопка без сторонніх компонентів */}
       <button
-        className={css.button}
+        className={css.AddTaskButton}
         style={{ height: 42, width: 225 }}
         onClick={handleClick}
         type="button"
