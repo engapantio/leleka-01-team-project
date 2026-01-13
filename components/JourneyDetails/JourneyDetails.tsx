@@ -25,7 +25,7 @@ const JourneyDetails = ({
       <div>
         {babyData && selectedTab === 'baby' && (
           <div>
-            <Image src={babyData.image} alt={babyData.analogy} />
+            <Image src={babyData.image} width={461} height={379} alt={babyData.analogy} />
             {babyData.analogy && <p>{babyData.analogy}</p>}
             <p>{babyData.babyActivity}</p>
             <p>{babyData.babyDevelopment}</p>
