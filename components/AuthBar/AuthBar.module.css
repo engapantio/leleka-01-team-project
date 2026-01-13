@@ -1,0 +1,52 @@
+.authBar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.buttonReg {
+  width: 100%;
+  border: none;
+  border-bottom: 4px solid var(--color-scheme-accent);
+  background-color: var(--color-scheme-foreground-alt);
+  border-radius: 100px;
+  padding: 10px 24px;
+  height: 46px;
+
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.buttonReg:hover,
+.buttonReg:focus {
+  background-color: var(--color-scheme-background);
+  border-bottom: 4px solid var(--color-scheme-border);
+}
+
+.buttonReg:active {
+  background-color: var(--color-neutral-light);
+}
+
+.buttonLog {
+  width: 100%;
+  border: none;
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  background-color: var(--opacity-neutral-darkest-5);
+  border-radius: 100px;
+  padding: 10px 24px;
+  height: 46px;
+
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.buttonLog:hover,
+.buttonLog:focus {
+  background-color: var(--color-scheme-foreground);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+.buttonLog:active {
+  background-color: var(--color-scheme-accent);
+}
