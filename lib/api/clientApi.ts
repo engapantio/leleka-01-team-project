@@ -86,3 +86,10 @@ export const createDiaryEntry = async (title: string,
   return res.data;
 }
 //<=================diary==========================
+
+
+// profile
+export const getCurrentUser = async (): Promise<User> => {
+  const response = await nextServer.get<User>('/api/users/me');
+  return response.data;
+};

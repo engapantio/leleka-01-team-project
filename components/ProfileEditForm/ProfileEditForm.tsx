@@ -1,108 +1,96 @@
 'use client'
 
-import { useState, useRef, useEffect } from "react"
+// import { useState, useRef, useEffect } from "react"
 import css from './ProfileEditForm.module.css'
+import { Field, Form, Formik} from "formik"
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { User } from '@/types/user'
+
+interface ProfileEditFormProps {
+  dataUser?: User | null
+}
+
+interface OrderFormValues {
+    name: string
+    email: string
+    gender: "boy" | "girl" | "" | null
+    dateOfBirth: string
+}
+
 
 
 // значення приходять з бекенду
-export default function ProfileEditForm() {
+export default function ProfileEditForm({dataUser}:ProfileEditFormProps) {
+
+    const initialValues: OrderFormValues = {
+    name: dataUser?.name || "",
+    email: dataUser?.email || "",
+    gender: dataUser?.gender || "",
+    dateOfBirth: dataUser?.dueDate || "",
+  }
 
 
-    const formData = {
-    name: 'Hanna',
-    email: 'testemail@Gmail.com',
-    gender: 'girl',
-    dateOfBirth: '2026-04-04',
-    }
-    
-    const [isOpen, setIsOpen] = useState(false)
-    const [initialValues, setInitialValues] = useState(formData)
-    const [currentValues, setCurrentValues] = useState(formData)
-    
-
-    const handleCancel = () => {
-        setCurrentValues(initialValues)
-    }
-    
-    const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setInitialValues(currentValues)
+    const handleSave = (values: OrderFormValues) => {
+        console.log(values)
     }
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen)
-    }
-    
-    const dropdownRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        const handleClickOutside = (e:MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-                setIsOpen(false)
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
-    
     return (
-        <form onSubmit={handleSave} className={css.formWrapper}>
-            <label className={css.label}>
-                Імя
-                <input name="name" className={css.input} type="text" value={currentValues.name} onChange={(e) => setCurrentValues(
-                    {
-                        ...currentValues,
-                        name: e.target.value
-                    }
-                )}/>
-            </label>
-            <label className={css.label}>
-                Пошта
-                <input name="email" className={css.input} type="email" value={currentValues.email} onChange={(e) => setCurrentValues(
-                    {
-                        ...currentValues,
-                        email: e.target.value
-                    }
-                )}/>
-            </label>
-            <label className={css.label}>
-                Стать дитини
+        <Formik
+            initialValues={initialValues}
+            onSubmit={handleSave}>
 
-
+            {({ values, setFieldValue, resetForm }) => (
+                <Form className={css.formWrapper}>
+                    <div className={css.inputWrapper}>
+                        <label htmlFor="name-Id" className={css.label}>Імя</label>
+                        <Field type='text' name='name' id='name-Id' className={css.input}/>
+                    </div>
                 
-                <div className={css.select_container} ref={dropdownRef}>
-                    <div className={css.select_option} onClick={toggleDropdown} >
-                        {currentValues.gender === 'girl' && 'Дівчинка'}
-                        {currentValues.gender === 'boy' && 'Хлопчик'}
-                        {!currentValues.gender && 'Оберіть стать'}
-                        <svg width={24} height={24} className={`${css.iconUp} ${isOpen && css.open}`}>
-                            <use href="/sprite.svg#icon-keyboard_arrow_down"/>
+                    <div className={css.inputWrapper}>
+                        <label htmlFor="email-Id" className={css.label}>Пошта</label>
+                        <Field type='email' name='email' id='email-Id' className={css.input}/>
+                    </div>
+                    <div className={css.inputWrapper}>
+                        <label htmlFor="gender-Id" className={css.label}>Стать дитини</label>
+                        <Field
+                        as='select'
+                        name='gender'
+                        id='gender-Id'
+                        className={`${css.input} ${css.gender}`} >
+                            <option value=''>Оберіть стать</option>
+                            <option value='girl'>Дівчинка</option>
+                            <option value='boy'>Хлопчик</option>
+                        </Field>
+                        <svg className={css.iconDown} width="24" height="24">
+                            <use href='/sprite.svg#icon-keyboard_arrow_down'/>
                         </svg>
                     </div>
-                    <div className={`${css.dropdown} ${isOpen ? css.dropdownOpen : ''}`}>
-                        <div className={css.option} onClick={() => { setCurrentValues(p => ({ ...p, gender: 'girl' })); setIsOpen(false) }}>Дівчинка</div>
-                        <div className={css.option} onClick={() => { setCurrentValues(p => ({ ...p, gender: 'boy' })); setIsOpen(false) }}>Хлопчик</div>
-                        <div className={css.option} onClick={() => { setCurrentValues(p => ({ ...p, gender: '' })); setIsOpen(false)}}>Ще не знаю</div>
+                    <div className={css.inputWrapper}>
+                          <label htmlFor="dateOfBirth-Id" className={css.label}>Планова дата пологів</label>
+                        {/* <Field type='date' name='dateOfBirth' id='dateOfBirth-id'/> */}
+                        
+                    <DatePicker
+                        selected={values.dateOfBirth ? new Date(values.dateOfBirth) : null}
+                        onChange={(date: Date | null) =>
+                        setFieldValue('dateOfBirth', date ? date.toISOString().split('T')[0] : '')
+                        }
+                        className={`${css.input} ${css.inputDate}`}
+                        dateFormat="yyyy-MM-dd"
+                         popperPlacement="top-start"
+                    />  
                     </div>
-                </div>
                 
-
-            </label>
-            <label className={css.label}>
-                Планова дата пологів
-                <input name="data" className={css.inputDateOfBirth} type="date" value={currentValues.dateOfBirth} onChange={(e) => setCurrentValues(
-                    {
-                        ...currentValues,
-                        dateOfBirth: e.target.value
-                    }
-                )}/>
                 
-
-            </label>
-                <div className={css.actions}>
-            <button className={css.cancel} type="button" onClick={handleCancel}>Відмінити зміни</button>
-            <button className={css.save} type="submit">Зберегти зміни</button>
-                </div>
-        </form>
+                    <div className={css.divButtons}>
+                        <button type="button" onClick={() => resetForm()} className={css.buttonCancel}>Відмінити зміни</button>
+                        <button type='submit' className={css.buttonSave}>Зберегти зміни</button>
+                    </div>
+                
+            </Form>   
+            )}
+            
+        </Formik>
     )
 }

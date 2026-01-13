@@ -9,17 +9,6 @@
     margin-right: auto;
 }
 
-/* .profile_row {
-    display: flex;
-    align-items: flex-start;
-} */
-/* .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 132px;
-} */
-
 .avatarWrapper{
     width: 132px;
     height: 132px;
@@ -61,14 +50,17 @@
 /* Кнопка */
 .uploadButton {
     width: 335px;
-    margin-top: 12px;
-    padding: 10px 24px;
+    height: 38px;
+    margin-top: 16px;
+    padding: 8px 24px;
     border-radius: 999px;
     border: none;
-    background: #f2f2f2;
-    color: #666;
-    font-size: 14px;
-    cursor: pointer;
+
+    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+    border-radius: 100px;
+    padding: 8px 20px;
+    width: 335px;
+    height: 38px;
 }
 
 @media(min-width: 768px){
@@ -93,8 +85,11 @@
     }
 }
 
-@media(min-width: 1280px){
+@media(min-width: 1440px){
     .wrapper {
         width: 644px;
+    }
+    .uploadButton{
+        height: 42px;
     }
 }

@@ -3,17 +3,12 @@
 import Image from "next/image";
 import css from './ProfileAvatar.module.css'
 import { useRef } from "react";
+import { User } from "@/types/user";
 
 
 interface ProfileAvatarProps {
-    user?: {
-        avatarUrl?: string,
-        name: string,
-        email: string
-    }
+    user?: User | null
 }
-
-
 
 
 export default function ProfileAvatar({ user }: ProfileAvatarProps) {
@@ -36,9 +31,9 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
         <>
             <div className={css.wrapper}>
                 <div className={css.avatarWrapper}>
-                    {user?.avatarUrl ? (<Image
+                    {user?.avatar ? (<Image
                     className={css.avatar}
-                    src={user.avatarUrl}
+                    src={user.avatar}
                     alt={user.name}
                     height={132}
                     width={132}
