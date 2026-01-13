@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { api } from '../../api';
+import { backendApi } from '../../api';
 import { parse } from 'cookie';
 import { isAxiosError } from 'axios';
-import { logErrorResponse } from '../../_utils/utils';
+import { logErrorResponse } from '@/utils/logger';
 
 export async function GET() {
   try {
@@ -16,7 +16,7 @@ export async function GET() {
     }
 
     if (refreshToken) {
-      const apiRes = await api.get('users/current', {
+      const apiRes = await backendApi.get('users/current', {
         headers: {
           Cookie: cookieStore.toString(),
         },

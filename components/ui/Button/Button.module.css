@@ -1,0 +1,75 @@
+/* Сommon */
+
+.button,
+.alternativeButton {
+  max-width: 480px;
+  width: 100%;
+  min-height: 46px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  line-height: 0;
+
+  border-radius: 100px;
+
+  transition: all 0.2s ease-in;
+
+  font-size: 0.7em;
+
+  vertical-align: middle;
+
+  line-height: 160%;
+  font-weight: 500;
+  color: var(--color-scheme-text);
+}
+
+.button:disabled,
+.alternativeButton:disabled {
+  opacity: 0.3;
+}
+
+@media screen and (min-width: 1200px) {
+  .button,
+  .alternativeButton {
+    font-size: 16px;
+  }
+}
+
+/* First variant */
+
+.button:hover,
+.button:focus {
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  background: var(--color-scheme-accent);
+}
+
+.button:active {
+  border-bottom: 0px solid var(--color-scheme-accent);
+}
+
+.button {
+  background: var(--color-scheme-foreground-alt);
+  border-bottom: 4px solid var(--color-scheme-accent);
+}
+
+/* Alternative */
+
+.alternativeButton {
+  background: var(--opacity-neutral-darkest-5);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+.alternativeButton:hover,
+.alternativeButton:focus {
+  border-bottom: 4px solid var(--color-scheme-border);
+
+  background: var(--color-scheme-background);
+}
+
+.alternativeButton:active {
+  background: var(--color-neutral-light);
+  border-bottom: none;
+}

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import './globals.css';
+import SideBar from '@/components/SideBar/SideBar';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 const latoSans = Lato({
   variable: '--font-family',
@@ -19,7 +21,7 @@ const comfortaaBold = Comfortaa({
 
 export const metadata: Metadata = {
   title: 'Лелека',
-  description: 'Pregnancy development control test',
+  description: 'Track your pregnancy journey with LELEKA',
 };
 
 export default function RootLayout({
@@ -28,9 +30,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${latoSans.variable} ${comfortaaBold.variable}`}>
-        <TanStackProvider> {children}</TanStackProvider>
+        <TanStackProvider>
+          <div className="layout-container">
+            <SideBar />
+            <div className="main-content-container">
+              <Breadcrumbs />
+              {children}
+            </div>
+          </div>
+        </TanStackProvider>
       </body>
     </html>
   );
