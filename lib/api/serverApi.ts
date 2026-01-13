@@ -17,34 +17,30 @@ export const checkSession = async () => {
 export const getCurrentWeek = async () => {
   const cookieStore = await cookies();
   const response = await nextServer.get<{ weekNumber: number }>('/weeks/current', {
-       headers: {
+    headers: {
       Cookie: cookieStore.toString(),
     },
-    });
+  });
   return response.data.weekNumber;
 };
 
 export const getBabyState = async (weekNumber: number) => {
-    const cookieStore = await cookies();
-  const response = await nextServer.get<JourneyBaby>(
-    `/weeks/${weekNumber}/baby`, {
-       headers: {
+  const cookieStore = await cookies();
+  const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`, {
+    headers: {
       Cookie: cookieStore.toString(),
     },
-    }
-  );
+  });
   return response.data;
 };
 
 export const getMomState = async (weekNumber: number) => {
-    const cookieStore = await cookies();
-  const response = await nextServer.get<JourneyMom>(
-    `/weeks/${weekNumber}/mom`, {
-       headers: {
+  const cookieStore = await cookies();
+  const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`, {
+    headers: {
       Cookie: cookieStore.toString(),
     },
-    }
-  );
+  });
   return response.data;
 };
 
@@ -74,4 +70,4 @@ export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> 
   return res.data;
 };
 
-//<=================diary==========================lfd
+//<=================diary==========================

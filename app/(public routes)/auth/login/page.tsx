@@ -1,16 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useId } from 'react';
 import { Formik, Form, Field, type FormikHelpers, ErrorMessage } from 'formik';
-import toast, { Toaster } from 'react-hot-toast';
-import * as Yup from 'yup';
-import { login, LoginDetails } from '@/lib/api/clientApi';
 import AuthContainer from '@/components/AuthContainer/AuthContainer';
-import { ApiError } from '@/lib/api/api';
-import { useAuthStore } from '@/lib/store/authStore';
+import { loginSchema } from '@/utils/validationSchemas';
+import { useLogin } from '@/hooks/useAuth';
+import { LoginDetails } from '@/lib/api/clientApi';
 import css from './LoginPage.module.css';
 
 const initialValues: LoginDetails = {
@@ -20,74 +17,80 @@ const initialValues: LoginDetails = {
 
 const Login = () => {
   const router = useRouter();
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const fieldId = useId();
-  const setUser = useAuthStore(state => state.setUser);
 
-  const handleSubmit = async (values: LoginDetails, actions: FormikHelpers<LoginDetails>) => {
-    try {
-      const response = await login(values);
+  // TanStack Query mutation hook
+  const loginMutation = useLogin();
 
-      if (response) {
-        setUser(response);
-        toast.success('Реєстрація успішна!');
+  /**
+   * Formik onSubmit - only called if validation passes
+   * Formik + Yup act as validation gate
+   */
+  const handleSubmit = (values: LoginDetails, actions: FormikHelpers<LoginDetails>) => {
+    // Validation already passed at this point
+    // Call mutation (which triggers API call)
+    loginMutation.mutate(values, {
+      onSuccess: () => {
+        // Redirect to home page on success
+        // Toast already shown by mutation hook
         router.push('/');
-      } else {
-        setError('Невірний пароль чи пошта');
-      }
-    } catch (error) {
-      setError(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          'Ой... сталася помилка'
-      );
-    } finally {
-      actions.resetForm();
-    }
+      },
+      onSettled: () => {
+        // Reset form after mutation settles
+        actions.resetForm();
+      },
+    });
   };
-
-  const schema = Yup.object().shape({
-    email: Yup.string()
-      .email('Неправильна адреса електронної пошти')
-      .max(64, 'Занадто довга адреса електронної пошти')
-      .required("Обов'язкове до заповнення поле"),
-    password: Yup.string()
-      .min(8, 'Пароль занадто короткий')
-      .max(128, 'Пароль занадто довгий')
-      .required("Обов'язкове до заповнення поле"),
-  });
 
   return (
     <AuthContainer imagePath="/login.jpg">
-      <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
-        <Form className={css.form}>
-          <h1 className={css.formTitle}>Вхід</h1>
-          <Field
-            id={`${fieldId}-email`}
-            type="email"
-            name="email"
-            className={css.input}
-            placeholder="Пошта"
-          />
-          <ErrorMessage name="email" component="div" className={css.error} />
-          <Field
-            id={`${fieldId}-password`}
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            className={css.input}
-          />
-          <ErrorMessage name="password" component="div" className={css.error} />
-          <button type="submit" className={css.submitButton}>
-            Увійти
-          </button>
-          {error && <p className={css.error}>{error}</p>}
-          <p className={css.links}>
-            Немає аккаунту?<span> </span>
-            <Link href="/auth/register">Зареєструватися</Link>
-          </p>
-          <Toaster />
-        </Form>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={loginSchema}
+        validateOnChange={true}
+        validateOnBlur={true}
+      >
+        {({ isValid, dirty }) => (
+          <Form className={css.form} noValidate>
+            <h1 className={css.formTitle}>Вхід</h1>
+            <div className={css.formGroup}>
+              <Field
+                id={`${fieldId}-email`}
+                type="text"
+                name="email"
+                className={css.input}
+                placeholder="Пошта"
+                disabled={loginMutation.isPending}
+              />
+              <ErrorMessage name="email" component="div" className={css.error} />
+            </div>
+            <div className={css.formGroup}>
+              <Field
+                id={`${fieldId}-password`}
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                className={css.input}
+                disabled={loginMutation.isPending}
+              />
+              <ErrorMessage name="password" component="div" className={css.error} />
+            </div>
+            <button
+              type="submit"
+              className={css.submitButton}
+              disabled={!isValid || !dirty || loginMutation.isPending}
+            >
+              {loginMutation.isPending ? 'Завантаження...' : 'Увійти'}
+            </button>
+
+            <p className={css.links}>
+              Немає аккаунту?<span> </span>
+              <Link href="/auth/register">Зареєструватися</Link>
+            </p>
+          </Form>
+        )}
       </Formik>
     </AuthContainer>
   );

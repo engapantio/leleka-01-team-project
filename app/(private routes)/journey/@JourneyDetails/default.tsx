@@ -1,5 +1,4 @@
-import { Children } from "react";
-
-export default  function JourneyDetailsDefault({ Children }) {
+export default function JourneyDetailsDefault() {
     return null;
- };
+  }
+  
