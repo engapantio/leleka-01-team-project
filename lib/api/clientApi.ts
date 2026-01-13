@@ -115,6 +115,6 @@ export const createDiaryEntry = async (
 
 // profile
 export const getCurrentUser = async (): Promise<User> => {
-  const response = await nextServer.get<User>('/api/users/me');
+  const response = await nextServer.get<User>('/users/me');
   return response.data;
 };

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { api } from '../../api';
+import { backendApi } from '../../api';
 import { isAxiosError } from 'axios';
 
 export async function GET() {
@@ -22,7 +22,7 @@ export async function GET() {
       .join('; ');
 
     // Запит до бекенду для отримання користувача
-    const res = await api.get('users/current', {
+    const res = await backendApi.get('users/current', {
       headers: { Cookie: cookieHeader }
     });
 
