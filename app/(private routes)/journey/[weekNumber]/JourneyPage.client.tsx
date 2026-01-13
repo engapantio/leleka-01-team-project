@@ -47,13 +47,15 @@ const JourneyPageClient = () => {
 
   return (
     <div>
-      <JourneyDetails
-        selectedTab={selectedTab}
-        babyData={babyData}
-        momData={MomData}
-        selectBabyFn={handleTabBaby}
-        selectMomFn={handleTabMom}
-      />
+      {babyData && MomData && (
+        <JourneyDetails
+          selectedTab={selectedTab}
+          babyData={babyData}
+          MomData={MomData}
+          selectBabyFn={handleTabBaby}
+          selectMomFn={handleTabMom}
+        />
+      )}
     </div>
   );
 };

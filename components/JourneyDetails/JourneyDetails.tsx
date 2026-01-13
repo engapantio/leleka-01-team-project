@@ -1,4 +1,5 @@
 import { JourneyBaby, JourneyMom, Tab } from '@/types/journey';
+import Image from 'next/image';
 
 interface JourneyDetailsProp {
   selectedTab: Tab;
@@ -24,7 +25,7 @@ const JourneyDetails = ({
       <div>
         {babyData && selectedTab === 'baby' && (
           <div>
-            <img src={babyData.image} alt={babyData.analogy} />
+            <Image src={babyData.image} alt={babyData.analogy} />
             {babyData.analogy && <p>{babyData.analogy}</p>}
             <p>{babyData.babyActivity}</p>
             <p>{babyData.babyDevelopment}</p>
