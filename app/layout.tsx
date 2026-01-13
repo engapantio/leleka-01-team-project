@@ -21,7 +21,7 @@ const comfortaaBold = Comfortaa({
 
 export const metadata: Metadata = {
   title: 'Лелека',
-  description: 'Pregnancy development control test',
+  description: 'Track your pregnancy journey with LELEKA',
 };
 
 export default function RootLayout({
@@ -33,12 +33,12 @@ export default function RootLayout({
     <html lang="uk">
       <body className={`${latoSans.variable} ${comfortaaBold.variable}`}>
         <TanStackProvider>
-          <div className='layout-container'>
-              <SideBar/>
-              <div className='main-content-container'>
-                <Breadcrumbs/>
-                {children}
-              </div>
+          <div className="layout-container">
+            <SideBar />
+            <div className="main-content-container">
+              <Breadcrumbs />
+              {children}
+            </div>
           </div>
         </TanStackProvider>
       </body>
