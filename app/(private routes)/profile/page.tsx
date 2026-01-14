@@ -22,22 +22,22 @@ const fakeUser: User = {
 
 export default function ProfilePage() {
     const setUser = useAuthStore(state => state.setUser)
-    const userStore = useAuthStore(state => state.user)
+    const user = useAuthStore(state => state.user)
 
     useEffect(() => {
-        setUser(fakeUser)
+        setUser(user)
     }, [setUser])
 
 
 
     // замінити пропс
-    if (!userStore) {
+    if (!user) {
         return <p>Loading...</p>
     }
     return (
         <>
-            <ProfileAvatar user={userStore} />
-            <ProfileEditForm dataUser={userStore} />
+            <ProfileAvatar user={user} />
+            <ProfileEditForm dataUser={user} />
         </>
     )
 }
