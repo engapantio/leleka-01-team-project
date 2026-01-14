@@ -15,8 +15,9 @@ export interface LoginDetails {
   password: string;
 }
 
-export interface CheckSessionRequest {
-  success: boolean;
+export interface RefreshTokensResponse {
+  accessToken: string;
+  refreshToken: string;
 }
 
 /**
@@ -47,11 +48,19 @@ export const logout = async (): Promise<void> => {
 };
 
 /**
- * Check current session - validates token in cookies
+ * Refresh tokens
  */
-export const checkSession = async (): Promise<User> => {
+export const refreshTokens = async (refreshToken: string) => {
+  const response = await nextServer.post('/auth/refresh', { refreshToken });
+  return response;
+};
+
+/**
+ * Get user
+ */
+export const getUser = async () => {
   const response = await nextServer.get<User>('users/current');
-  return response.data;
+  return { status: response.status, user: response.data };
 };
 
 export const editProfile = async (formData: FormData): Promise<User> => {
@@ -64,8 +73,6 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 };
 
 // Journey //
-
-
 
 export const getCurrentWeek = async (): Promise<number> => {
   const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');

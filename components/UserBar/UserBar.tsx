@@ -14,6 +14,7 @@ import css from './UserBar.module.css';
 export default function UserBar() {
   const router = useRouter();
   const user = useAuthStore(state => state.user);
+  console.log(user);
   const clearAuth = useAuthStore(state => state.clearAuth);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,20 +36,22 @@ export default function UserBar() {
 
   return (
     <section className={css.userBar}>
-      <div className={css.userInfo}>
-        <Image
-          className={css.avatar}
-          //just as an example
-          src={'/someinvalidpath.png'}
-          alt="User avatar"
-          width={40}
-          height={40}
-        />
-        <div>
-          <p className={css.name}>{user?.name}</p>
-          <p className={css.email}>{user?.email}</p>
+      {user && (
+        <div className={css.userInfo}>
+          <Image
+            className={css.avatar}
+            //just as an example
+            src={user.avatarUrl}
+            alt="User avatar"
+            width={40}
+            height={40}
+          />
+          <div>
+            <p className={css.name}>{user.name}</p>
+            <p className={css.email}>{user.email}</p>
+          </div>
         </div>
-      </div>
+      )}
 
       <button
         type="button"
@@ -65,10 +68,10 @@ export default function UserBar() {
       {isModalOpen && (
         <Modal title="Ви точно хочете вийти?" onClose={() => setIsModalOpen(false)}>
           <div className={css.modalActions}>
-            <Button action={() => setIsModalOpen(false)}>
-              Ні
+            <Button action={() => setIsModalOpen(false)}>Ні</Button>
+            <Button alternative action={handleLogoutConfirm}>
+              Так
             </Button>
-            <Button alternative action={handleLogoutConfirm}>Так</Button>
           </div>
         </Modal>
       )}
