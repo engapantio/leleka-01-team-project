@@ -15,6 +15,7 @@ export const checkSession = async () => {
 //=================diary==========================>
 export interface FetchDiaryEntriesResponse {
   entries: DiaryEntry[];
+  
 }
 
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
@@ -39,3 +40,12 @@ export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> 
 };
 
 //<=================diary==========================lfd
+
+export const getCurrentWeek = async (
+  dueDate: string | undefined
+): Promise<FullWeekData> => {
+  const { data } = await nextServer.get<FullWeekData>('/weeks/current', {
+    params: { dueDate },
+  });
+  return data;
+};
