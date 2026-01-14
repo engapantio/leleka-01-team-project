@@ -50,9 +50,9 @@ export const logout = async (): Promise<void> => {
 /**
  * Refresh tokens
  */
-export const refreshTokens = async (refreshToken: string): Promise<RefreshTokensResponse> => {
-  const response = await nextServer.post<RefreshTokensResponse>('/auth/refresh', refreshToken);
-  return response.data;
+export const refreshTokens = async (refreshToken: string) => {
+  const response = await nextServer.post('/auth/refresh', { refreshToken });
+  return response;
 };
 
 /**
@@ -60,7 +60,7 @@ export const refreshTokens = async (refreshToken: string): Promise<RefreshTokens
  */
 export const getUser = async () => {
   const response = await nextServer.get<User>('users/current');
-  return {status: response.status, user: response.data}
+  return { status: response.status, user: response.data };
 };
 
 export const editProfile = async (formData: FormData): Promise<User> => {

@@ -4,7 +4,7 @@ import css from './JourneyPage.module.css';
 
 const JourneyPage = async () => {
   return (
-    <section className={css.section_block}>
+    <section>
       <JourneyPageClient />
     </section>
   );

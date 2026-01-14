@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { getUser, refreshTokens } from '@/lib/api/clientApi';
+import { getUser } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 
 type Props = {
