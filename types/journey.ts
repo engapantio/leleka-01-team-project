@@ -33,3 +33,19 @@ export type JourneyWeekData = {
   baby?: JourneyBaby;
   mom?: JourneyMom;
 };
+
+export type FullWeekData = {
+   weekNumber:  number;
+   daysToChildbirth:  number;
+   baby: {
+    weekNumber: number;
+    image: string;
+    babySize: number;
+    babyWeight: number;
+    analogy: string;
+   }
+ momTip: {
+  dailyTips: string;
+  comfortTip: ComfortTip; 
+ }
+}

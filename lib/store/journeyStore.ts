@@ -1,63 +1,41 @@
 import { create } from 'zustand';
+import { getCurrentWeek, getCurrentWeekPublic } from '../api/clientApi';
+import {FullWeekData} from '@/types/journey';
 
-// 1. Описываем детальную структуру данных ребенка
-interface BabyData {
-  image?: string;
-  babySize?: string;      // Вес/Рост
-  babyWeight?: string;
-  babyActivity?: string;
-  babyDevelopment?: string; // Описание того, что происходит на этой неделе
-  analogy?: string;         // "Размером с яблоко"
-}
-
-// 2. Описываем структуру данных мамы
-interface MomTip {
-  tip: string;
-}
-
-interface MomData {
-  comfortTips: MomTip[];
-}
-
-// 3. Описываем само хранилище
-interface JourneyStore {
+interface JourneyState {
   currentWeek: number | null;
   daysToDue: number | null;
+  baby: BabyInfo | null;
+  mom: MomInfo | null;
   isLoaded: boolean;
-  baby: BabyData | null;
-  mom: MomData | null;
-  
-  // Экшены (функции для управления данными)
-  setJourneyData: (data: Partial<Omit<JourneyStore, 'setJourneyData' | 'isLoaded'>>) => void;
-  setLoading: (loading: boolean) => void;
-  resetJourney: () => void;
+  fetchJourneyData: (dueDate: string) => Promise<void>;
 }
 
-export const useJourneyStore = create<JourneyStore>((set) => ({
-  // Начальное состояние
+export const useJourneyStore = create<JourneyState>(set => ({
   currentWeek: null,
   daysToDue: null,
-  isLoaded: false,
   baby: null,
   mom: null,
+  isPublic: false,
+  isLoaded: false,
 
-  // Устанавливаем данные и автоматически выключаем лоадер
-  setJourneyData: (data) => 
-    set((state) => ({ 
-      ...state, 
-      ...data, 
-      isLoaded: true 
-    })),
+  fetchJourneyData: async (dueDate: string) => {
+    if (!dueDate) getCurrentWeekPublic();
 
-  // Ручное управление загрузкой (если нужно)
-  setLoading: (loading) => set({ isLoaded: loading }),
+    try {
+      const data = await getCurrentWeek(dueDate);
+      if (!data) return;
 
-  // Сброс данных (например, при выходе из аккаунта)
-  resetJourney: () => set({
-    currentWeek: null,
-    daysToDue: null,
-    isLoaded: false,
-    baby: null,
-    mom: null,
-  }),
+      set({
+        currentWeek: data.week ?? null,
+        daysToDue: data.daysToDue ?? null,
+        baby: data.pack.baby ?? null,
+        mom: data.pack.mom ?? null,
+        isLoaded: true,
+      });
+    } catch (error) {
+      console.error('Failed to fetch journey data:', error);
+      set({ isLoaded: false });
+    }
+  },
 }));

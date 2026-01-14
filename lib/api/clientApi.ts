@@ -2,7 +2,8 @@ import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
-import { JourneyBaby, JourneyMom } from '@/types/journey';
+import { JourneyBaby, JourneyMom, FullWeekData } from '@/types/journey';
+
 
 export interface RegistrationDetails {
   name: string;
@@ -74,9 +75,14 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 
 // Journey //
 
-export const getCurrentWeek = async (): Promise<number> => {
-  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
-  return response.data.weekNumber;
+export const getCurrentWeek = async (): Promise<FullWeekData> => {
+  const response = await nextServer.get<FullWeekData>('/weeks/current');
+  return response.data;
+};
+
+export const getCurrentWeekPublic = async (): Promise<FullWeekData> => {
+  const { data } = await nextServer.get<FullWeekData>('/weeks/1');
+  return data;
 };
 
 export const getBabyState = async (weekNumber: number): Promise<JourneyBaby> => {
