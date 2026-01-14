@@ -68,17 +68,17 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 
 
 export const getCurrentWeek = async (): Promise<number> => {
-  const response = await nextServer.get<{ weekNumber: number }>('/api/weeks/current');
+  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
   return response.data.weekNumber;
 };
 
 export const getBabyState = async (weekNumber: number): Promise<JourneyBaby> => {
-  const response = await nextServer.get<JourneyBaby>(`/api/weeks/${weekNumber}/baby`);
+  const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`);
   return response.data;
 };
 
 export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
-  const response = await nextServer.get<JourneyMom>(`/api/weeks/${weekNumber}/mom`);
+  const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`);
   return response.data;
 };
 
