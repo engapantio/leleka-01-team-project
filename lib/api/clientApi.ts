@@ -2,6 +2,7 @@ import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
+import { JourneyBaby, JourneyMom } from '@/types/journey';
 
 export interface RegistrationDetails {
   name: string;
@@ -64,20 +65,20 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 
 // Journey //
 
-import {JourneyBaby, JourneyMom } from '@/types/journey';
 
-export const getCurrentWeek = async () => {
-  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
+
+export const getCurrentWeek = async (): Promise<number> => {
+  const response = await nextServer.get<{ weekNumber: number }>('/api/weeks/current');
   return response.data.weekNumber;
 };
 
-export const getBabyState = async (weekNumber: number) => {
-  const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`);
+export const getBabyState = async (weekNumber: number): Promise<JourneyBaby> => {
+  const response = await nextServer.get<JourneyBaby>(`/api/weeks/${weekNumber}/baby`);
   return response.data;
 };
 
-export const getMomState = async (weekNumber: number) => {
-  const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`);
+export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
+  const response = await nextServer.get<JourneyMom>(`/api/weeks/${weekNumber}/mom`);
   return response.data;
 };
 

@@ -61,31 +61,39 @@ const WeekSelector = ({
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
     >
-      {weeks.map((weekNumber, index) => (
-        <li
-          key={weekNumber}
-          ref={el => {
-            itemRefs.current[index] = el;
-          }}
-        >
-          <button
-            className={clsx(
-              css.week_box,
-              (selectedWeek || currentWeek) === weekNumber && css.active
-            )}
-            disabled={currentWeek !== null ? currentWeek < weekNumber : true}
-            type="button"
-            onClick={() => {
-              if (currentWeek !== null && weekNumber <= currentWeek) {
-                onSelectedWeek(weekNumber);
-              }
+      {weeks.map((weekNumber, index) => {
+        const isCurrentWeek = currentWeek === weekNumber;
+        const isSelectedWeek = selectedWeek === weekNumber;
+        const isFutureWeek = currentWeek !== null && weekNumber > currentWeek;
+
+        return (
+          <li
+            key={weekNumber}
+            ref={el => {
+              itemRefs.current[index] = el;
             }}
           >
-            <span className={css.numm}>{weekNumber}</span>
-            <span className={css.week}>Тиждень</span>
-          </button>
-        </li>
-      ))}
+            <button
+              className={clsx(
+                css.week_box,
+                isCurrentWeek && css.current,
+                isSelectedWeek && css.active,
+                isFutureWeek && css.disabled
+              )}
+              disabled={isFutureWeek}
+              type="button"
+              onClick={() => {
+                if (!isFutureWeek) {
+                  onSelectedWeek(weekNumber);
+                }
+              }}
+            >
+              <span className={css.numm}>{weekNumber}</span>
+              <span className={css.week}>Тиждень</span>
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 };
