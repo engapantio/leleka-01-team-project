@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { nextServer } from '@/lib/api/api';
+import { backendApi } from '@/app/api/api';
 
 export async function GET() {
   const cookieStore = await cookies();
 
-  const res = await nextServer.get('/weeks/current', {
+  const res = await backendApi.get('/weeks/current', {
     headers: { Cookie: cookieStore.toString() },
   });
 
