@@ -3,6 +3,7 @@ import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
 import { FormValuesForBackend } from '@/components/ProfileEditForm/ProfileEditForm';
+import { JourneyBaby, JourneyMom } from '@/types/journey';
 
 export interface RegistrationDetails {
   name: string;
@@ -15,8 +16,9 @@ export interface LoginDetails {
   password: string;
 }
 
-export interface CheckSessionRequest {
-  success: boolean;
+export interface RefreshTokensResponse {
+  accessToken: string;
+  refreshToken: string;
 }
 
 /**
@@ -47,11 +49,19 @@ export const logout = async (): Promise<void> => {
 };
 
 /**
- * Check current session - validates token in cookies
+ * Refresh tokens
  */
-export const checkSession = async (): Promise<User> => {
+export const refreshTokens = async (refreshToken: string) => {
+  const response = await nextServer.post('/auth/refresh', { refreshToken });
+  return response;
+};
+
+/**
+ * Get user
+ */
+export const getUser = async () => {
   const response = await nextServer.get<User>('users/current');
-  return response.data;
+  return { status: response.status, user: response.data };
 };
 
 export const editProfile = async (formData: FormData): Promise<User> => {
@@ -65,19 +75,17 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 
 // Journey //
 
-import {JourneyBaby, JourneyMom } from '@/types/journey';
-
-export const getCurrentWeek = async () => {
+export const getCurrentWeek = async (): Promise<number> => {
   const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
   return response.data.weekNumber;
 };
 
-export const getBabyState = async (weekNumber: number) => {
+export const getBabyState = async (weekNumber: number): Promise<JourneyBaby> => {
   const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`);
   return response.data;
 };
 
-export const getMomState = async (weekNumber: number) => {
+export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
   const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`);
   return response.data;
 };

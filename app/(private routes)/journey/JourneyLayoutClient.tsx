@@ -4,22 +4,21 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
-import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 
 type Props = {
   children: React.ReactNode;
+  currentWeek: number;
 };
 
-export default function JourneyLayout({ children }: Props) {
+export default function JourneyLayoutClient({ children, currentWeek }: Props) {
   const router = useRouter();
-  const params = useParams<{ slug?: string[] }>();
+  const params = useParams<{ weekNumber?: string }>();
 
-  const weekFromUrl = Number(params.slug?.[0]);
-  const [selectedWeek, setSelectedWeek] = useState<number | null>(
-    Number.isFinite(weekFromUrl) ? weekFromUrl : null
+  const weekFromUrl = Number(params.weekNumber);
+
+  const [selectedWeek, setSelectedWeek] = useState<number>(
+    Number.isFinite(weekFromUrl) ? weekFromUrl : currentWeek
   );
-
-  const currentWeek = 16; // тимчасово, потім буде зі стора/беку
 
   useEffect(() => {
     if (Number.isFinite(weekFromUrl)) setSelectedWeek(weekFromUrl);
@@ -32,7 +31,6 @@ export default function JourneyLayout({ children }: Props) {
 
   return (
     <div>
-      <GreetingBlock />
       <WeekSelector
         currentWeek={currentWeek}
         selectedWeek={selectedWeek}

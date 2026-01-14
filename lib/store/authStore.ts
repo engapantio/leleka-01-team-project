@@ -11,7 +11,9 @@ interface AuthStore {
   updateUser: (user: Partial<User>) => void;
 }
 
-export const useAuthStore = create<AuthStore>(set => ({
+
+
+export const useAuthStore = create<AuthStore>()(set => ({
   user: null,
   isAuthenticated: false,
   isLoading: true, // Loading until session check completes

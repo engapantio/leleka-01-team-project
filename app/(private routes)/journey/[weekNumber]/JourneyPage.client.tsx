@@ -6,6 +6,7 @@ import { getBabyState, getMomState } from '@/lib/api/clientApi';
 import type { Tab } from '@/types/journey';
 import { useState } from 'react';
 import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
+import Loader from '@/components/Loader/Loader';
 
 const JourneyPageClient = () => {
   const { weekNumber } = useParams<{ weekNumber: string }>();
@@ -33,7 +34,7 @@ const JourneyPageClient = () => {
     refetchOnMount: false,
   });
 
-  if (isLoadingBabyInfo || isLoadingMomInfo) return <p>Loading...</p>;
+  if (isLoadingBabyInfo || isLoadingMomInfo) return <Loader />;
 
   if (isErrorBabyInfo || isErrorMomInfo) return <p>Some error..</p>;
 

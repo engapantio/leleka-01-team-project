@@ -1,77 +1,95 @@
 .container {
-    gap: 16px;
-    margin-top: 8px;
-  
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-  
-    overflow-x: auto;
-    scroll-behavior: smooth;
-  }
-  
+  gap: 16px;
+  margin-top: 8px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  /* Приховуємо scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Приховуємо scrollbar для Chrome, Safari, Opera */
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.week_box {
+  padding: 16px;
+
+  width: 97px;
+  height: 101px;
+
+  border: 4px solid transparent;
+  border-radius: 32px;
+
+  background: var(--color-scheme-foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.week_box:hover:not(:disabled),
+.week_box:focus:not(:disabled) {
+  outline: 4px solid var(--color-scheme-foreground-alt);
+  outline-offset: -4px;
+}
+
+.week_box:active:not(:disabled) {
+  background-color: var(--color-scheme-accent);
+  outline: 4px solid var(--color-scheme-border);
+  outline-offset: -4px;
+}
+
+.week {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+.numm {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
+}
+
+/* Поточний тиждень користувача */
+.current {
+  border: 4px solid var(--color-scheme-border);
+  background: var(--color-scheme-accent);
+}
+
+/* Обраний тиждень (може бути поточний або минулий) */
+.active {
+  border: 4px solid var(--color-scheme-border);
+  background: var(--color-scheme-accent);
+}
+
+/* Неактивні тижні (майбутні) */
+.week_box:disabled {
+  background-color: transparent;
+  background: var(--color-neutral-lightest);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 1440px) {
   .week_box {
-    padding: 16px;
-  
-    width: 97px;
-    height: 101px;
-  
-    border: 4px solid transparent;
-    border-radius: 32px;
-  
-    background: var(--color-scheme-foreground);
+    width: 113px;
+    height: 117px;
   }
-  
-  .weekButton:hover,
-  .weekButton:focus {
-    outline: 4px solid var(--color-scheme-foreground-alt);
-    outline-offset: -4px;
-  }
-  
-  .weekButton:active {
-    background-color: var(--color-scheme-accent);
-    outline: 4px solid var(--color-scheme-border);
-    outline-offset: -4px;
-  }
-  
-  .week {
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 150%;
-  }
-  
+
   .numm {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 140%;
-    letter-spacing: 0.01em;
+    font-size: 32px;
   }
-  
-  .active {
-    border: 4px solid var(--color-scheme-border);
-  
-    background: var(--color-scheme-accent);
+
+  .week {
+    font-size: 16px;
   }
-  
-  .current {
-    border: 4px;
-    background-color: var(--color-scheme-accent);
-  }
-  
-  .week_box:disabled {
-    background-color: transparent;
-    background: var(--color-neutral-lightest);
-    opacity: 0.6;
-  }
-  
-  @media screen and (min-width: 1440px) {
-    .weekButton {
-      font-size: 32px;
-    }
-  
-    .week {
-      font-size: 16px;
-    }
-  }
-  
+}

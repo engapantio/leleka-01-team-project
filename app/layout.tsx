@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import './globals.css';
-import SideBar from '@/components/SideBar/SideBar';
-import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 const latoSans = Lato({
   variable: '--font-family',
@@ -33,13 +32,7 @@ export default function RootLayout({
     <html lang="uk">
       <body className={`${latoSans.variable} ${comfortaaBold.variable}`}>
         <TanStackProvider>
-          <div className="layout-container">
-            <SideBar />
-            <div className="main-content-container">
-              <Breadcrumbs />
-              {children}
-            </div>
-          </div>
+          <AuthProvider>{children}</AuthProvider>
         </TanStackProvider>
       </body>
     </html>

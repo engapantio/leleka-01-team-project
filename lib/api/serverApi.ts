@@ -1,16 +1,35 @@
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
+import { User } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
+import { RefreshTokensResponse } from './clientApi';
 import { DiaryEntry } from '@/types/diary';
 
-export const checkSession = async () => {
+/**
+ * Refresh tokens
+ */
+export const refreshTokens = async (refreshToken: string) => {
   const cookiesStore = await cookies();
-  const response = await nextServer.get('users/current', {
+  console.log(refreshToken);
+  const response = await nextServer.post('/auth/refresh', { refreshToken }, {
     headers: {
       Cookie: cookiesStore.toString(),
     },
   });
   return response;
+};
+
+/**
+ * Get user
+ */
+export const getUser = async () => {
+  const cookiesStore = await cookies();
+  const response = await nextServer.get<User>('users/current', {
+    headers: {
+      Cookie: cookiesStore.toString(),
+    },
+  });
+  return { status: response.status, user: response.data };
 };
 
 // Journey //
@@ -47,6 +66,7 @@ export const getMomState = async (weekNumber: number) => {
 //=================diary==========================>
 export interface FetchDiaryEntriesResponse {
   entries: DiaryEntry[];
+  
 }
 
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {

@@ -5,7 +5,7 @@ export interface User {
   password?: string;
   gender?: 'boy' | 'girl' | null;
   dueDate?: string;
-  avatar?: string;
+  avatarUrl: string;
   createdAt: string;
   updatedAt: string;
 }
