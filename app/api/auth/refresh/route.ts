@@ -1,14 +1,17 @@
+// app/api/auth/session/route.ts
+
 import { NextRequest, NextResponse } from 'next/server';
-import { backendApi } from '../../api';
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { isAxiosError } from 'axios';
+import { backendApi } from '../../api';
 import { logErrorResponse } from '@/utils/logger';
 
-export async function POST(req: NextRequest) {
+
+export async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
-    const apiRes = await backendApi.post('auth/login', body);
+    const body = await request.json();
+    const apiRes = await backendApi.post('auth/refresh', body);
 
     const cookieStore = await cookies();
     const setCookie = apiRes.headers['set-cookie'];
