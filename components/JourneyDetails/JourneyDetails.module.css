@@ -1,0 +1,31 @@
+.imageWrapper {
+    width: 100%;
+    margin-bottom: 16px;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 24px;
+    display: block;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .imageWrapper {
+      max-width: 461px;
+    }
+  }
+  
+  @media screen and (min-width: 1440px) {
+    .imageWrapper {
+      width: 461px;
+    }
+    
+    .image {
+      width: 461px;
+      height: 379px;
+    }
+  }

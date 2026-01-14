@@ -1,5 +1,6 @@
 import { JourneyBaby, JourneyMom, Tab } from '@/types/journey';
 import Image from 'next/image';
+import styles from './JourneyDetails.module.css';
 
 interface JourneyDetailsProp {
   selectedTab: Tab;
@@ -25,7 +26,16 @@ const JourneyDetails = ({
       <div>
         {babyData && selectedTab === 'baby' && (
           <div>
-            <Image src={babyData.image} width={461} height={379} alt={babyData.analogy} />
+            <div className={styles.imageWrapper}>
+              <Image 
+                src={babyData.image} 
+                width={461} 
+                height={379} 
+                alt={babyData.analogy}
+                className={styles.image}
+                sizes="(max-width: 768px) 100vw, (max-width: 1440px) 461px, 461px"
+              />
+            </div>
             {babyData.analogy && <p>{babyData.analogy}</p>}
             <p>{babyData.babyActivity}</p>
             <p>{babyData.babyDevelopment}</p>
