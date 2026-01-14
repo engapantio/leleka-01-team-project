@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
-import { Tab, JourneyBaby, JourneyMom } from '@/types/journey';
+import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
 
 export const checkSession = async () => {

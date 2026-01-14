@@ -6,6 +6,7 @@ import { Field, Form, Formik} from "formik"
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { User } from '@/types/user'
+import { updateProfile } from '@/lib/api/clientApi'
 
 interface ProfileEditFormProps {
   dataUser?: User | null
@@ -14,8 +15,14 @@ interface ProfileEditFormProps {
 interface OrderFormValues {
     name: string
     email: string
-    gender: "boy" | "girl" | "" | null
-    dateOfBirth: string
+    gender: "boy" | "girl" | ""
+    dueDate: string
+}
+
+export interface FormValuesForBackend {
+    name: string
+    gender: "boy" | "girl" | ""
+    dueDate: string
 }
 
 
@@ -27,19 +34,35 @@ export default function ProfileEditForm({dataUser}:ProfileEditFormProps) {
     name: dataUser?.name || "",
     email: dataUser?.email || "",
     gender: dataUser?.gender || "",
-    dateOfBirth: dataUser?.dueDate || "",
+    dueDate: dataUser?.dueDate || "",
   }
 
 
-    const handleSave = (values: OrderFormValues) => {
-        console.log(values)
+    const handleSubmit = async (formValues: FormValuesForBackend) => {
+        // console.log(formValues)
+
+
+        const dataForm = (values:FormValuesForBackend) => {
+            return {
+                name: values.name,
+                gender: values.gender,
+                dueDate: values.dueDate
+            }
+        }
+        const payload = dataForm(formValues)
+        const payloadJSON = JSON.stringify(payload)
+      
+
+        console.log('payload:', payloadJSON)
+        const res = await updateProfile(payload);
+        console.log(res)
     }
 
 
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={handleSave}>
+            onSubmit={handleSubmit}>
 
             {({ values, setFieldValue, resetForm }) => (
                 <Form className={css.formWrapper}>
@@ -68,13 +91,13 @@ export default function ProfileEditForm({dataUser}:ProfileEditFormProps) {
                         </svg>
                     </div>
                     <div className={css.inputWrapper}>
-                          <label htmlFor="dateOfBirth-Id" className={css.label}>Планова дата пологів</label>
+                          <label htmlFor="dueDate-Id" className={css.label}>Планова дата пологів</label>
                         {/* <Field type='date' name='dateOfBirth' id='dateOfBirth-id'/> */}
                         
                     <DatePicker
-                        selected={values.dateOfBirth ? new Date(values.dateOfBirth) : null}
+                        selected={values.dueDate ? new Date(values.dueDate) : null}
                         onChange={(date: Date | null) =>
-                        setFieldValue('dateOfBirth', date ? date.toISOString().split('T')[0] : '')
+                        setFieldValue('dueDate', date ? date.toISOString().split('T')[0] : '')
                         }
                         className={`${css.input} ${css.inputDate}`}
                         dateFormat="yyyy-MM-dd"

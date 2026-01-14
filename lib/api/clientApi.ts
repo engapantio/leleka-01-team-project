@@ -2,6 +2,7 @@ import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
+import { FormValuesForBackend } from '@/components/ProfileEditForm/ProfileEditForm';
 
 export interface RegistrationDetails {
   name: string;
@@ -113,8 +114,26 @@ export const createDiaryEntry = async (
 //<=================diary==========================
 
 
-// profile
-export const getCurrentUser = async (): Promise<User> => {
-  const response = await nextServer.get<User>('/users/me');
-  return response.data;
-};
+//=================profile=========================
+interface UserRes {
+  id: string
+  name: string,
+  email: string,
+  gender: string,
+  dueDate: string
+  avatarUrl: string,
+}
+
+export const updateProfile = async (data: FormValuesForBackend) => {
+  const response = await nextServer.patch<UserRes>('/users', data)
+  return (
+    response.data
+  )
+}
+
+export const uploadAvatar = async (avatarFile: FormData ) => {
+  const res = await nextServer.patch('/users/avatar', avatarFile)
+  return (
+    res.data
+  )
+}

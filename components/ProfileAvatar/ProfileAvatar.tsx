@@ -4,6 +4,7 @@ import Image from "next/image";
 import css from './ProfileAvatar.module.css'
 import { useRef } from "react";
 import { User } from "@/types/user";
+import { uploadAvatar } from "@/lib/api/clientApi";
 
 
 interface ProfileAvatarProps {
@@ -20,10 +21,22 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
         fileInputRef.current?.click()
 }
 
-    const updateAvatar = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const updateAvatar = async (e:React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
-        console.log(file)
+        if (!file) {
+            return
+        }
+            
+        const formData = new FormData()
+        formData.append('avatar', file)
+        try {
+            await uploadAvatar(formData)
+
+        } catch (error){
+            console.error(error)
+        }
         
+
         // відправити на бекенд
     }
 
