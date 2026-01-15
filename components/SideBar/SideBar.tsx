@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useAuthStore } from '../../lib/store/authStore';
 import UserBar from '../UserBar/UserBar';
 import AuthBar from '../AuthBar/AuthBar';
@@ -24,7 +25,8 @@ const navItemsUnauth = [
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
+  const pathname = usePathname();
 
   const navItems = isAuthenticated ? navItemsAuth : navItemsUnauth;
 
@@ -78,7 +80,7 @@ export default function SideBar() {
             <Link
               key={item.name}
               href={item.href}
-              className={styles.navItem}
+              className={`${styles.navItem} ${pathname === item.href ? styles.active : ''}`}
               onClick={() => setIsOpen(false)}
             >
               <svg width={24} height={24} aria-hidden="true">
@@ -90,7 +92,7 @@ export default function SideBar() {
           <div className={styles.bottomDivider} />
         </nav>
 
-        {isAuthenticated && user ? <UserBar user={user} /> : <AuthBar />}
+        {isAuthenticated ? <UserBar /> : <AuthBar />}
       </aside>
       <div
         className={`${styles.overlay} ${isOpen ? styles.open : ''}`}
