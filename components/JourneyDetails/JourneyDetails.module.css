@@ -177,6 +177,10 @@ line-height: 150%;
   max-width: 1064px;
 }
 
+.btnWrapper {
+  max-width: 576px;;
+}
+
 .babyCard {
   display: flex;
   gap: 32px;
