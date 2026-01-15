@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import toast from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRouter } from 'next/navigation';
@@ -31,8 +33,7 @@ type FormValues = {
 export default function OnboardingForm() {
   const router = useRouter();
   const [succsess, setSuccsess] = useState(false);
-
-  // STATE
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setUser = useAuthStore(state => state.setUser);
 
@@ -61,6 +62,7 @@ export default function OnboardingForm() {
   const downloadBtnWidth = isDesktop ? 179 : 162;
 
   const handleSubmit = async (formValues: FormValues) => {
+    setIsSubmitting(true);
     try {
       const formData = new FormData();
 
@@ -83,11 +85,39 @@ export default function OnboardingForm() {
 
       if (res) {
         setUser(res);
+        toast.success('Профіль успішно оновлено!');
         setSuccsess(true);
         return res;
       }
     } catch (error) {
+      const axiosError = error as AxiosError<{ error?: string; message?: string }>;
+      const status = axiosError.response?.status;
+      let errorMessage = 'Виникла помилка при збереженні профілю.';
+
+      if (status === 400) {
+        errorMessage =
+          axiosError.response?.data?.message ||
+          axiosError.response?.data?.error ||
+          'Невірні дані. Перевірте правильність введених даних.';
+      } else if (status === 401) {
+        errorMessage = 'Сесія закінчилася. Будь ласка, увійдіть знову.';
+      } else if (axiosError.response?.data) {
+        errorMessage =
+          axiosError.response.data.message ||
+          axiosError.response.data.error ||
+          axiosError.message ||
+          errorMessage;
+      } else if (axiosError.message) {
+        errorMessage = axiosError.message;
+      }
+
+      toast.error(errorMessage, {
+        position: 'top-left',
+        duration: 5000,
+      });
       console.error('Error updating profile:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -137,8 +167,9 @@ export default function OnboardingForm() {
                   type="submit"
                   styles={{ width: '100%' }}
                   aria-label="Зберегти"
+                  disabled={isSubmitting}
                 >
-                  Зберегти
+                  {isSubmitting ? 'Збереження...' : 'Зберегти'}
                 </Button>
               </div>
             </Form>
