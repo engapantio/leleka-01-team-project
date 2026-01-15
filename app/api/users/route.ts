@@ -18,16 +18,26 @@ export async function PATCH(request: Request) {
             )
         }
 
-        const body = await request.json()
+        const contentType = request.headers.get('content-type') || '';
+        
+        let body;
+        const headers: Record<string, string> = {
+            Cookie: cookieStore.toString()
+        };
+
+        // Check if request is FormData
+        if (contentType.includes('multipart/form-data')) {
+            body = await request.formData();
+        } else {
+            body = await request.json();
+            headers['Content-Type'] = 'application/json';
+        }
         
         const response = await backendApi.patch('/users', body, {
-              headers: {
-                Cookie: cookieStore.toString()
-                }  
-            }
-                
-        )
-            return NextResponse.json({data: response.data, success: true}, {status: 200})
+            headers
+        })
+        
+        return NextResponse.json({data: response.data, success: true}, {status: 200})
     } catch (error){
         console.error(error)
         return NextResponse.json(

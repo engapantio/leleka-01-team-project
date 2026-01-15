@@ -1,196 +1,122 @@
-.wrapper {
-    width: 375px;
-    margin: auto;
-    max-height: 100dvh;
-    display: block;
-    animation: loading 0.3s ease-in;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  animation: loading 0.3s ease-in;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0;
   }
-  
-  @keyframes loading {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  100% {
+    opacity: 1;
   }
-  
-  
-  .formCard {
-    width: 100%;
-    margin: 0 auto;
-    padding: 13px 20px 29px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .logoBox {
-    position: relative;
-    width: 88px;
-    aspect-ratio: 112 / 48;
-    margin-bottom: 43px;
-  }
-  
-  .logoImg {
-    object-fit: contain;
-  }
-  
+}
+
+.title {
+  white-space: normal;
+  word-spacing: 9999px;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 120%;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--color-scheme-text);
+  margin-bottom: 32px;
+}
+
+.avatarBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.avatar {
+  position: relative;
+  width: 164px;
+  height: 164px;
+  margin-bottom: 24px;
+}
+
+.avatarImg {
+  object-fit: cover;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--color-scheme-text);
+}
+
+.error_input {
+  border: 1px solid red;
+  color: var(--color-red);
+}
+
+.error {
+  font-size: 12px;
+  color: var(--color-red);
+}
+
+.submitWrap {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
   .formContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .title {
-    white-space: normal;
-    word-spacing: 9999px;
-    font-family: var(--second-family);
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 120%;
-    letter-spacing: 0.01em;
-    text-align: center;
-    color: var(--color-scheme-text);
-    margin-bottom: 32px;
-  }
-  
-  .avatarBlock {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 32px;
-  }
-  
-  .avatar {
-    position: relative;
-    width: 164px;
-    height: 164px;
-    margin-bottom: 24px;
-  }
-  
-  .avatarImg {
-    object-fit: cover;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 100%;
-    padding: 0;
-  }
-  
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .label {
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 150%;
-    color: var(--color-scheme-text);
-  }
-  
-  .illustration {
-    display: none;
-    background: url('/img/onboardimgx2.jpg') center 85% / cover no-repeat;
-    min-height: 600px;
-    width: 100%;
-  }
-  
-  .error_input {
-    border: 1px solid red;
-    color: var(--color-red);
-  }
-  
-  .error {
-    font-size: 12px;
-    color: var(--color-red);
+    max-width: 480px;
   }
 
-  .submitWrap {
-    width: 100%;
+  .title {
+    word-spacing: normal;
+    font-size: 36px;
+    margin-bottom: 32px;
   }
-  
-  @media (min-width: 768px) {
-    .wrapper {
-      width: 768px;
-    }
-  
-    .formCard {
-      padding: 13px 32px 32px;
-    }
-  
-    .logoBox {
-      width: 105px;
-      margin-bottom: 123px;
-    }
-  
-    .formContainer {
-      width: 480px;
-      align-self: center;
-    }
-  
-    .title {
-      word-spacing: normal;
-      font-size: 36px;
-      margin-bottom: 32px;
-    }
-  
-    .form {
-      gap: 24px;
-      /*padding: 0 40px 40px;*/
-    }
+
+  .form {
+    gap: 24px;
   }
-  
-  @media (min-width: 1440px) {
-    .wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: stretch;
-      width: 100%;
-      margin: 0;
-      min-height: 100vh;
-    }
-  
-    .formCard {
-      width: 50%;
-      max-width: 592px;
-      padding: 32px 0 0;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  
-    .logoBox {
-      margin-bottom: 70px;
-    }
-  
-    .formContainer {
-      width: 480px;
-    }
-  
-    .title {
-      font-size: 48px;
-      margin-bottom: 32px;
-    }
-  
-    .avatar {
-      width: 179px;
-      height: 179px;
-      margin-bottom: 24px;
-    }
-  
-    .form {
-      gap: 24px;
-    }
-  
-    .illustration {
-      display: block;
-      width: 50%;
-    }
+}
+
+@media (min-width: 1440px) {
+  .formContainer {
+    max-width: 480px;
   }
+
+  .title {
+    font-size: 48px;
+    margin-bottom: 32px;
+  }
+
+  .avatar {
+    width: 179px;
+    height: 179px;
+    margin-bottom: 24px;
+  }
+
+  .form {
+    gap: 24px;
+  }
+}
   
