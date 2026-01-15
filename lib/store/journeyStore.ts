@@ -8,9 +8,9 @@ interface JourneyState {
   baby: Baby | null;
   mom: MomTip | null;
 
-  isLoaded: boolean;      // "хоч раз завершили спробу"
-  isLoading: boolean;     // "зараз вантажимо"
-  isPublic: boolean;      // чи використали public endpoint
+  isLoaded: boolean;      
+  isLoading: boolean;     
+  isPublic: boolean;      
   error: string | null;
 
   fetchJourneyData: (force?: boolean) => Promise<void>;
@@ -48,10 +48,10 @@ export const useJourneyStore = create<JourneyState>((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      // 1) перевіряємо сесію, але НЕ даємо їй завалити весь флоу
+     
       const canUsePrivate = await checkSession().catch(() => false);
 
-      // 2) рівно ОДИН запит: або private, або public
+    
       const data = canUsePrivate
         ? await getCurrentWeek()
         : await getCurrentWeekPublic();
@@ -79,7 +79,7 @@ export const useJourneyStore = create<JourneyState>((set, get) => ({
         error: 'Failed to fetch journey data',
       });
     } finally {
-      // 3) ВАЖЛИВО: щоб не висів Loader вічно
+      
       set({
         isLoading: false,
         isLoaded: true,
