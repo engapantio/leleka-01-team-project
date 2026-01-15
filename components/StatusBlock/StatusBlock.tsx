@@ -10,12 +10,12 @@ export default function StatusBlock({ weeks, days }: PregnancyStatusProps) {
     <div className={styles.statusBlockContainer}>
       <div className={styles.statusBlockWrapper}>
         <h4 className={styles.statusBlockText}>Тиждень</h4>
-        <p className={styles.statusBlockValue}>{weeks ?? "—"}</p>
+        <p className={styles.statusBlockValue}>{weeks ?? "1"}</p>
       </div>
 
       <div className={styles.statusBlockWrapper}>
         <h4 className={styles.statusBlockText}>Днів до зустрічі</h4>
-        <p className={styles.statusBlockValue}>{days ?? "—"}</p>
+        <p className={styles.statusBlockValue}>~{days}</p>
       </div>
     </div>
   );
