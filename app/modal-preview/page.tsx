@@ -4,7 +4,7 @@
 
 import { useState } from 'react';
 import AddTaskModal from '@/components/AddTaskModal/AddTaskModal';
-import { Task } from '@/types/diary';
+import { Task } from '@/types/task';
 
 export default function ModalPreviewPage() {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,18 +12,17 @@ export default function ModalPreviewPage() {
   // 🔹 Фейковая задача для режиму редагування
   const mockTask: Task = {
     id: 'test-task-id',
-    title: 'Купити молоко',
-    description: 'Без лактози',
-    completed: false,
+    // title: 'Купити молоко',
+    name: 'Без лактози',
+    isDone: false,
+    date: '2026-01-15T00:00:00.000Z',
   };
 
   return (
     <div style={{ padding: 40 }}>
       <h1>Modal preview — Edit task</h1>
 
-      <button onClick={() => setIsOpen(true)}>
-        Відкрити модалку
-      </button>
+      <button onClick={() => setIsOpen(true)}>Відкрити модалку</button>
 
       <AddTaskModal
         isOpen={isOpen}
@@ -33,8 +32,6 @@ export default function ModalPreviewPage() {
     </div>
   );
 }
-
-
 
 // // Нове завдання
 
@@ -65,7 +62,6 @@ export default function ModalPreviewPage() {
 //     </>
 //   );
 // }
-
 
 // // Новий запис у щоденнику (AddDiary)
 
@@ -106,4 +102,3 @@ export default function ModalPreviewPage() {
 //     </div>
 //   );
 // }
-

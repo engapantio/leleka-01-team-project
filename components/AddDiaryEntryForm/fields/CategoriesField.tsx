@@ -2,16 +2,18 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useField } from 'formik';
-import { CategoriesFieldProps, DiaryCategoryOption } from '@/types/diaryEntry';
+import { DiaryCategoryOption } from '@/types/diaryEntry';
 import { FieldControl } from './FieldControl';
 import s from '../AddDiaryEntryForm.module.css';
 
-export function CategoriesField({
-  name,
-  label,
-  placeholder,
-  options,
-}: CategoriesFieldProps) {
+interface CategoriesFieldProps {
+  name: string;
+  label: string;
+  placeholder: string;
+  options: DiaryCategoryOption[];
+}
+
+export function CategoriesField({ name, label, placeholder, options }: CategoriesFieldProps) {
   // The field's value is an array of DiaryCategoryOption objects
   const [field, meta, helpers] = useField<DiaryCategoryOption[]>(name);
   const [isOpen, setIsOpen] = useState(false);
@@ -58,22 +60,11 @@ export function CategoriesField({
 
   const dropdownId = `${name}-dropdown`;
   const triggerClass =
-    meta.touched && meta.error
-      ? `${s.selectTrigger} ${s.invalid}`
-      : s.selectTrigger;
+    meta.touched && meta.error ? `${s.selectTrigger} ${s.invalid}` : s.selectTrigger;
 
   return (
-    <FieldControl
-      label={label}
-      labelId={labelId}
-      error={meta.error}
-      touched={meta.touched}
-    >
-      <div
-        ref={containerRef}
-        className={s.selectWrapper}
-        data-open={isOpen || undefined}
-      >
+    <FieldControl label={label} labelId={labelId} error={meta.error} touched={meta.touched}>
+      <div ref={containerRef} className={s.selectWrapper} data-open={isOpen || undefined}>
         <button
           type="button"
           id={triggerId}
@@ -101,12 +92,7 @@ export function CategoriesField({
         </button>
 
         {isOpen && (
-          <div
-            id={dropdownId}
-            className={s.dropdown}
-            role="listbox"
-            aria-labelledby={labelId}
-          >
+          <div id={dropdownId} className={s.dropdown} role="listbox" aria-labelledby={labelId}>
             {options.length === 0 ? (
               <p className={s.empty}>Категорії недоступні</p>
             ) : (
@@ -123,7 +109,7 @@ export function CategoriesField({
                           onChange={() => toggleOption(option)}
                         />
                         <span className={s.checkboxBox} aria-hidden="true">
-                          {checked && <span className={s.checkboxMark} />} 
+                          {checked && <span className={s.checkboxMark} />}
                         </span>
                         <span className={s.optionLabel}>{option.title}</span>
                       </label>

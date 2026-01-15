@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import AddTaskForm from '../AddTaskForm/AddTaskForm';
 import styles from './AddTaskModal.module.css';
-import type { Task } from '../../types/diary';
+import type { Task } from '@/types/task';
 
 interface AddTaskModalProps {
   isOpen: boolean;
@@ -12,11 +12,7 @@ interface AddTaskModalProps {
   taskToEdit?: Task | null;
 }
 
-export default function AddTaskModal({
-  isOpen,
-  onClose,
-  taskToEdit = null,
-}: AddTaskModalProps) {
+export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: AddTaskModalProps) {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -84,31 +80,16 @@ export default function AddTaskModal({
       aria-label={title}
       onClick={handleBackdropClick}
     >
-      <div
-        className={styles.modal}
-        onClick={e => e.stopPropagation()}
-      >
-        <button
-          type="button"
-          className={styles.closeButton}
-          onClick={onClose}
-          aria-label="Закрити"
-        >
-          <svg
-            className={styles.closeIcon}
-            aria-hidden="true"
-            focusable="false"
-          >
+      <div className={styles.modal} onClick={e => e.stopPropagation()}>
+        <button type="button" className={styles.closeButton} onClick={onClose} aria-label="Закрити">
+          <svg className={styles.closeIcon} aria-hidden="true" focusable="false">
             <use href="/sprite.svg#icon-close" />
           </svg>
         </button>
 
         <h2 className={styles.modalTitle}>{title}</h2>
 
-        <AddTaskForm
-          taskToEdit={taskToEdit}
-          onClose={onClose}
-        />
+        <AddTaskForm taskToEdit={taskToEdit} onClose={onClose} />
       </div>
     </div>
   );

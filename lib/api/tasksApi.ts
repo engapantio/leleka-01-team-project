@@ -24,6 +24,6 @@ export const updateTask = async (
 export const createTask = async (
   payload: Pick<Task, 'name' | 'date'>
 ): Promise<Task> => {
-  const response = await api.post<Task>('/tasks', payload);
+  const response = await nextServer.post<Task>('/tasks', payload);
   return response.data;
 };

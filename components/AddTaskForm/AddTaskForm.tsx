@@ -5,13 +5,12 @@ import toast from 'react-hot-toast';
 
 import styles from './AddTaskForm.module.css';
 import type { Task } from '@/types/task';
-import { createTask, updateTask } from '@/lib/api/tasks';
+import { createTask, updateTask } from '@/lib/api/tasksApi';
 
 interface AddTaskFormProps {
   taskToEdit: Task | null;
   onClose: () => void;
 }
-
 
 type TaskFormValues = {
   name: string;
@@ -25,10 +24,7 @@ const validationSchema = Yup.object({
 
 const AddTaskForm: React.FC<AddTaskFormProps> = ({ taskToEdit, onClose }) => {
   const mutation = useMutation<Task, Error, TaskFormValues>({
-    mutationFn: values =>
-      taskToEdit?.id
-        ? updateTask(taskToEdit.id, values)
-        : createTask(values),
+    mutationFn: values => (taskToEdit?.id ? updateTask(taskToEdit.id, values) : createTask(values)),
     onSuccess: () => {
       toast.success('Завдання успішно збережено!');
       onClose();
@@ -40,9 +36,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ taskToEdit, onClose }) => {
 
   const initialValues: TaskFormValues = {
     name: taskToEdit?.name ?? '',
-    date:
-      taskToEdit?.date ??
-      new Date().toISOString().split('T')[0],
+    date: taskToEdit?.date ?? new Date().toISOString().split('T')[0],
   };
 
   return (
@@ -57,32 +51,14 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ taskToEdit, onClose }) => {
         <Form className={styles.form}>
           <div className={styles.field}>
             <label htmlFor="name">Завдання</label>
-            <Field
-              id="name"
-              name="name"
-              type="text"
-              className={styles.input}
-            />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className={styles.error}
-            />
+            <Field id="name" name="name" type="text" className={styles.input} />
+            <ErrorMessage name="name" component="div" className={styles.error} />
           </div>
 
           <div className={styles.field}>
             <label htmlFor="date">Дата</label>
-            <Field
-              id="date"
-              name="date"
-              type="date"
-              className={styles.input}
-            />
-            <ErrorMessage
-              name="date"
-              component="div"
-              className={styles.error}
-            />
+            <Field id="date" name="date" type="date" className={styles.input} />
+            <ErrorMessage name="date" component="div" className={styles.error} />
           </div>
 
           <button
@@ -90,9 +66,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ taskToEdit, onClose }) => {
             className={styles.submitButton}
             disabled={isSubmitting || mutation.isPending}
           >
-            {isSubmitting || mutation.isPending
-              ? 'Збереження...'
-              : 'Зберегти'}
+            {isSubmitting || mutation.isPending ? 'Збереження...' : 'Зберегти'}
           </button>
         </Form>
       )}

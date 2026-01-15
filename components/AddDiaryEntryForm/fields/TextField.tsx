@@ -1,9 +1,15 @@
 'use client';
 
 import { useField } from 'formik';
-import { TextFieldProps } from '@/types/diaryEntry';
 import { FieldControl } from './FieldControl';
 import s from '../AddDiaryEntryForm.module.css';
+
+interface TextFieldProps {
+  name: string;
+  label: string;
+  placeholder: string;
+  autoFocus: boolean;
+}
 
 export function TextField({ name, label, placeholder, autoFocus }: TextFieldProps) {
   const [field, meta] = useField(name);
@@ -11,12 +17,7 @@ export function TextField({ name, label, placeholder, autoFocus }: TextFieldProp
   const className = meta.touched && meta.error ? `${s.input} ${s.invalid}` : s.input;
 
   return (
-    <FieldControl
-      label={label}
-      htmlFor={inputId}
-      error={meta.error}
-      touched={meta.touched}
-    >
+    <FieldControl label={label} htmlFor={inputId} error={meta.error} touched={meta.touched}>
       <input
         {...field}
         id={inputId}
