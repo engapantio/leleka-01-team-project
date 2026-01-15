@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
-import { Tab, JourneyBaby, JourneyMom } from '@/types/journey';
+import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
 
 export const checkSession = async () => {
@@ -16,7 +16,7 @@ export const checkSession = async () => {
 // Journey //
 export const getCurrentWeek = async () => {
   const cookieStore = await cookies();
-  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current', {
+  const response = await nextServer.get<{ weekNumber: number }>('weeks/current', {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -26,7 +26,7 @@ export const getCurrentWeek = async () => {
 
 export const getBabyState = async (weekNumber: number) => {
   const cookieStore = await cookies();
-  const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`, {
+  const response = await nextServer.get<JourneyBaby>(`weeks/${weekNumber}/baby`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -36,7 +36,7 @@ export const getBabyState = async (weekNumber: number) => {
 
 export const getMomState = async (weekNumber: number) => {
   const cookieStore = await cookies();
-  const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`, {
+  const response = await nextServer.get<JourneyMom>(`weeks/${weekNumber}/mom`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
