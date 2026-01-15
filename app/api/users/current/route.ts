@@ -6,21 +6,14 @@ import { logErrorResponse } from '@/utils/logger';
 
 export async function GET() {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
 
-  if (!accessToken) {
-    return NextResponse.json({ error: 'Неавторизовано' }, { status: 401 });
-  }
   try {
-    const response = await backendApi.get('users/current', {
+    const { data } = await backendApi.get('users/current', {
       headers: {
         Cookie: cookieStore.toString(),
       },
     });
-    return NextResponse.json(
-      { user: response.data },
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    return NextResponse.json(data);
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

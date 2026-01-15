@@ -8,12 +8,16 @@ import { logout } from '@/lib/api/clientApi';
 import { useAuthStore } from '../../lib/store/authStore';
 import Modal from '../Modal/Modal';
 import Button from '../ui/Button/Button';
-
+import { User } from '@/types/user';
 import css from './UserBar.module.css';
 
-export default function UserBar() {
+interface Props {
+  user: User;
+}
+
+export default function UserBar({ user }: Props) {
   const router = useRouter();
-  const user = useAuthStore(state => state.user);
+  //const user = useAuthStore(state => state.user);
   console.log(user);
   const clearAuth = useAuthStore(state => state.clearAuth);
 
@@ -36,23 +40,22 @@ export default function UserBar() {
 
   return (
     <section className={css.userBar}>
-      {user && (
-        <div className={css.userInfo}>
-          <Image
-            className={css.avatar}
-            //just as an example
-            src={user.avatarUrl}
-            alt="User avatar"
-            width={40}
-            height={40}
-          />
-          <div>
-            <p className={css.name}>{user.name}</p>
-            <p className={css.email}>{user.email}</p>
-          </div>
+      (
+      <div className={css.userInfo}>
+        <Image
+          className={css.avatar}
+          //just as an example
+          src={user.avatarUrl}
+          alt="User avatar"
+          width={40}
+          height={40}
+        />
+        <div>
+          <p className={css.name}>{user.name}</p>
+          <p className={css.email}>{user.email}</p>
         </div>
-      )}
-
+      </div>
+      )
       <button
         type="button"
         className={css.logoutBtn}
@@ -64,7 +67,6 @@ export default function UserBar() {
           <use href="/sprite.svg#icon-logout" />
         </svg>
       </button>
-
       {isModalOpen && (
         <Modal title="Ви точно хочете вийти?" onClose={() => setIsModalOpen(false)}>
           <div className={css.modalActions}>
