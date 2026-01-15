@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { nextServer } from './api';
 import { User } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
-//import { RefreshTokensResponse } from './clientApi';
 import { DiaryEntry } from '@/types/diary';
 
 /**
@@ -28,7 +27,7 @@ export const getUser = async () => {
       Cookie: cookiesStore.toString(),
     },
   });
-  return  data ;
+  return data;
 };
 
 // Journey //
