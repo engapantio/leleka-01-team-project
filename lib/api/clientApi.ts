@@ -16,11 +16,6 @@ export interface LoginDetails {
   password: string;
 }
 
-export interface RefreshTokensResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
 /**
  * Register - sends to /api/auth/register which proxies to backend
  * Backend sends tokens in Set-Cookie headers
@@ -51,17 +46,17 @@ export const logout = async (): Promise<void> => {
 /**
  * Refresh tokens
  */
-export const refreshTokens = async (refreshToken: string) => {
-  const response = await nextServer.post('/auth/refresh', { refreshToken });
-  return response;
+export const checkSession = async () => {
+  const response = await nextServer.get('/auth/check');
+  return response.data.success;
 };
 
 /**
  * Get user
  */
 export const getUser = async () => {
-  const response = await nextServer.get<User>('users/current');
-  return { status: response.status, user: response.data };
+  const { data } = await nextServer.get<User>('users/current');
+  return data;
 };
 
 export const editProfile = async (formData: FormData): Promise<User> => {
@@ -118,30 +113,25 @@ export const createDiaryEntry = async (
     emotions,
   });
   return res.data;
-}
+};
 //<=================diary==========================
-
 
 //=================profile=========================
 interface UserRes {
-  id: string
-  name: string,
-  email: string,
-  gender: string,
-  dueDate: string
-  avatarUrl: string,
+  id: string;
+  name: string;
+  email: string;
+  gender: string;
+  dueDate: string;
+  avatarUrl: string;
 }
 
 export const updateProfile = async (data: FormValuesForBackend) => {
-  const response = await nextServer.patch<UserRes>('/users', data)
-  return (
-    response.data
-  )
-}
+  const response = await nextServer.patch<UserRes>('/users', data);
+  return response.data;
+};
 
-export const uploadAvatar = async (avatarFile: FormData ) => {
-  const res = await nextServer.patch('/users/avatar', avatarFile)
-  return (
-    res.data
-  )
-}
+export const uploadAvatar = async (avatarFile: FormData) => {
+  const res = await nextServer.patch('/users/avatar', avatarFile);
+  return res.data;
+};
