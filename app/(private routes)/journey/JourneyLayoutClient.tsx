@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
+import styles from './JourneyLayoutClient.module.css';
 
 type Props = {
   children: React.ReactNode;
@@ -15,27 +14,24 @@ export default function JourneyLayoutClient({ children, currentWeek }: Props) {
   const params = useParams<{ weekNumber?: string }>();
 
   const weekFromUrl = Number(params.weekNumber);
-
-  const [selectedWeek, setSelectedWeek] = useState<number>(
-    Number.isFinite(weekFromUrl) ? weekFromUrl : currentWeek
-  );
-
-  useEffect(() => {
-    if (Number.isFinite(weekFromUrl)) setSelectedWeek(weekFromUrl);
-  }, [weekFromUrl]);
+  const selectedWeek = Number.isFinite(weekFromUrl)
+    ? weekFromUrl
+    : currentWeek;
 
   const handleSelectWeek = (weekNumber: number) => {
-    setSelectedWeek(weekNumber);
+    if (weekNumber === selectedWeek) return;
     router.push(`/journey/${weekNumber}`);
   };
 
   return (
     <div>
-      <WeekSelector
-        currentWeek={currentWeek}
-        selectedWeek={selectedWeek}
-        onSelectedWeek={handleSelectWeek}
-      />
+      <div className={styles.weekSelectorWrapper}>
+        <WeekSelector
+          currentWeek={currentWeek}
+          selectedWeek={selectedWeek}
+          onSelectedWeek={handleSelectWeek}
+        />
+      </div>
       {children}
     </div>
   );

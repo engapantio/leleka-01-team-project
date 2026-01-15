@@ -1,27 +1,28 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import * as Yup from 'yup';
 import toast, { Toaster } from 'react-hot-toast';
 import { useId } from 'react';
 import { Formik, Form, Field, FormikHelpers, ErrorMessage } from 'formik';
+import { useAuthStore } from '@/lib/store/authStore';
 import css from './RegistrationForm.module.css';
 import { register, RegistrationDetails } from '@/lib/api/clientApi';
+import { registerSchema } from '@/utils/validationSchemas';
 
-const RegisterSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, ' Імʼя занадто коротке.')
-    .max(32, 'Імʼя занадто довге.')
-    .required('Будь ласка, введіть імʼя.'),
-  email: Yup.string()
-    .email('Невірно введена пошта.')
-    .required('Будь ласка, введіть пошту.')
-    .max(64, 'Пошта занадто довга.'),
-  password: Yup.string()
-    .min(8, 'Пароль занадто короткий.')
-    .max(128, 'Пароль занадто довгий.')
-    .required('Будь ласка, введіть пароль.'),
-});
+// const RegisterSchema = Yup.object().shape({
+//   name: Yup.string()
+//     .min(2, ' Імʼя занадто коротке.')
+//     .max(32, 'Імʼя занадто довге.')
+//     .required('Будь ласка, введіть імʼя.'),
+//   email: Yup.string()
+//     .email('Невірно введена пошта.')
+//     .required('Будь ласка, введіть пошту.')
+//     .max(64, 'Пошта занадто довга.'),
+//   password: Yup.string()
+//     .min(8, 'Пароль занадто короткий.')
+//     .max(128, 'Пароль занадто довгий.')
+//     .required('Будь ласка, введіть пароль.'),
+// });
 
 const initialValues: RegistrationDetails = {
   name: '',
@@ -33,6 +34,7 @@ const RegistrationForm = () => {
   const router = useRouter();
   // const [error, setError] = useState('');
   const fieldId = useId();
+    const setUser = useAuthStore(state => state.setUser);
   const handleSubmit = async (
     values: RegistrationDetails,
     actions: FormikHelpers<RegistrationDetails>
@@ -42,6 +44,7 @@ const RegistrationForm = () => {
       const res = await register(values);
       if (res) {
         toast.success('Реєстрація успішна!');
+        setUser(res);
         router.push('/profile/edit');
       } else {
         // setError('Виникла помилка при реєстрації.');
@@ -62,7 +65,7 @@ const RegistrationForm = () => {
     }
   };
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={RegisterSchema}>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema}>
       {({ errors, touched }) => (
         <Form className={css.form}>
           <fieldset className={css.fieldset}>
