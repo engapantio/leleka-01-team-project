@@ -1,16 +1,33 @@
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
+import { User } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
 
+/**
+ * Refresh tokens
+ */
 export const checkSession = async () => {
   const cookiesStore = await cookies();
-  const response = await nextServer.get('users/current', {
+  const response = await nextServer.get('/auth/check', {
     headers: {
       Cookie: cookiesStore.toString(),
     },
   });
-  return response;
+  return response.data.success;
+};
+
+/**
+ * Get user
+ */
+export const getUser = async () => {
+  const cookiesStore = await cookies();
+  const { data } = await nextServer.get<User>('users/current', {
+    headers: {
+      Cookie: cookiesStore.toString(),
+    },
+  });
+  return data;
 };
 
 // Journey //
