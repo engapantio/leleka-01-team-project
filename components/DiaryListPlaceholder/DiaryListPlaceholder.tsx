@@ -1,4 +1,4 @@
-import css from "./DairyListPlaceholder.module.css"
+import css from "./DiaryListPlaceholder.module.css"
 
 export default function DiaryListPlaceholder() {
     return (

@@ -3,6 +3,19 @@
   padding: 24px 16px;
   width: 335px;
   height: 715px;
+  background: var(--color-scheme-foreground);
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 704px;
+    height: 715px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .container {
+    width: 389px;
+    height: 727px;
+  }
 }
 
 .title {
@@ -12,6 +25,7 @@
   line-height: 140%;
   letter-spacing: 0.01em;
   color: var(--color-scheme-text);
+  margin-bottom: 16px;
 }
 
 .btnName {
@@ -20,21 +34,31 @@
   font-size: 14px;
   line-height: 160%;
   color: var(--color-scheme-text);
+  white-space: nowrap;
 }
 
 .btnContainer {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  height: 24px;
+  align-items: center;
+}
+
+.btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .topContainer {
-  margin-top: 24px;
-  margin-left: 16px;
-  margin-bottom: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 65px;
+  justify-content: space-between;
 }
 
 .list {

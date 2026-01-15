@@ -99,7 +99,7 @@ export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
 export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
   const cookieStore = cookies();
 
-  const res = await nextServer.get<DiaryEntry>(`/diary/${entryId}`, {
+  const res = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`, {
     headers: {
       Cookie: cookieStore.toString(),
     },

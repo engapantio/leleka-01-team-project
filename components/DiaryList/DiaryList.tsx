@@ -1,21 +1,33 @@
 import { useRouter } from "next/navigation";
-import DiaryListPlaceholder from "../DiaryListPlaceholder/DairyListPlaceholder";
+import DiaryListPlaceholder from "../DiaryListPlaceholder/DiaryListPlaceholder";
 import type { DiaryEntry } from "@/types/diary";
 import DiaryEntryCard from "../DiaryEntryCard/DiaryEntryCard";
 import css from "./DiaryList.module.css";
+import Loader from "../Loader/Loader";
+import { useEffect, useState } from "react";
 
 
 interface DiaryListProps {
-    entries: DiaryEntry[] | null;
-    isDesktop: boolean;
+    entries: DiaryEntry[];
+    loading: boolean;
     onSelectEntry: (entry: DiaryEntry) => void;
     onAdd: () => void;
 }
 
-export default function DiaryList({ entries, isDesktop, onSelectEntry, onAdd }: DiaryListProps) {
+export default function DiaryList({ entries, loading, onSelectEntry, onAdd }: DiaryListProps) {
 
     const router = useRouter();
 
+const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== "undefined" ? window.innerWidth >= 1440 : true);
+
+   useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth >= 1440);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    
     const handleEntryClick = (entry: DiaryEntry) => {
         if (isDesktop) {
             onSelectEntry(entry);
@@ -24,14 +36,19 @@ export default function DiaryList({ entries, isDesktop, onSelectEntry, onAdd }: 
         }
     };
 
+
+    if (loading) {
+        return <Loader />
+    }
+
     return (
         <div className={css.container}>
             <div className={css.topContainer}>
                 <h2 className={css.title}>Щоденник</h2>
                 <div className={css.btnContainer}>
                     <p className={css.btnName}>Новий запис</p>
-                    <button onClick={onAdd}><svg>
-    <use href="../../public/sprite.svg#add-icon" />
+                    <button className={css.btn} onClick={onAdd}><svg width="24" height="24" viewBox="0 0 32 32">
+    <use href="/sprite.svg#add-icon" />
                     </svg>
                     </button>
                 </div>

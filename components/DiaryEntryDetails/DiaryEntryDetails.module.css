@@ -2,9 +2,38 @@
   border-radius: 32px;
   width: 335px;
   height: 603px;
+  overflow: hidden;
   background: var(--color-scheme-foreground);
   padding-top: 31px;
   padding-left: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 704px;
+    height: 765px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    width: 643px;
+    height: 727px;
+  }
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-bottom: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .infoContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .titleContainer {
@@ -16,9 +45,7 @@
 
 .dateContainer {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 11px;
 }
 
 .title {
@@ -30,6 +57,12 @@
   color: var(--color-scheme-text);
 }
 
+@media screen and (min-width: 1440px) {
+  .title {
+    font-size: 20px;
+  }
+}
+
 .text {
   font-family: var(--font-family);
   font-weight: 400;
@@ -39,12 +72,25 @@
   margin-bottom: 8px;
 }
 
+@media screen and (min-width: 1440px) {
+  .text {
+    font-size: 16px;
+  }
+}
+
 .date {
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 12px;
   line-height: 160%;
   color: var(--color-scheme-text);
+  margin-bottom: 11px;
+}
+
+@media screen and (min-width: 1440px) {
+  .date {
+    font-size: 14px;
+  }
 }
 
 .list {
@@ -62,7 +108,14 @@
   border: 1px solid var(--opacity-transparent);
   border-radius: 100px;
   padding: 4px 10px;
-  width: 78px;
+  width: 74px;
   height: 27px;
   background: var(--opacity-neutral-darkest-5);
+}
+
+@media screen and (min-width: 1440px) {
+  .emotions {
+    font-size: 14px;
+    height: 30px;
+  }
 }

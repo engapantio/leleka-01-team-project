@@ -7,10 +7,23 @@
   background: var(--color-scheme-foreground-alt);
 }
 
+@media screen and (min-width: 768px) {
+  .container {
+    width: 672px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    width: 357px;
+    height: 97px;
+  }
+}
+
 .titleContainer {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .title {
@@ -21,12 +34,24 @@
   color: var(--color-scheme-text);
 }
 
+@media screen and (min-width: 1440px) {
+  .title {
+    font-size: 18px;
+  }
+}
+
 .date {
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 12px;
   line-height: 160%;
   color: var(--color-scheme-text);
+}
+
+@media screen and (min-width: 1440px) {
+  .date {
+    font-size: 14px;
+  }
 }
 
 .list {
@@ -44,7 +69,15 @@
   border: 1px solid var(--opacity-transparent);
   border-radius: 100px;
   padding: 2px 12px;
-  width: 119px;
   height: 25px;
   background: var(--color-scheme-foreground);
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 1440px) {
+  .emotions {
+    font-size: 16px;
+    height: 28px;
+  }
 }

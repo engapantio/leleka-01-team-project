@@ -1,34 +1,57 @@
+"use client";
+
 import DiaryEntryDetailsPlaceholder from "../DiaryEntryDetailsPlaceholder/DiaryEntryDetailsPlaceholder";
 import type { DiaryEntry } from "@/types/diary";
 import css from "./DiaryEntryDetails.module.css";
+import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
 
 interface DiaryEntryDetailsProps {
     entry: DiaryEntry | null;
+    isLoading?: boolean;
 onEdit?: (entry: DiaryEntry) => void;
     onDelete?: (entry: DiaryEntry) => void;
 }
 
-export default function DiaryEntryDetails({ entry, onEdit, onDelete }: DiaryEntryDetailsProps) {
+export default function DiaryEntryDetails({ entry, isLoading = false, onEdit, onDelete }: DiaryEntryDetailsProps) {
 
+    const [localEntry, setLocalEntry] = useState<DiaryEntry | null>(entry);
 
-    if (!entry) { return <DiaryEntryDetailsPlaceholder />; }
+    useEffect(() => {
+            setLocalEntry(entry);
+    }, [entry]);
+
+    if (isLoading) {
+        return <Loader />
+    }
+
+    if (!localEntry) { return <DiaryEntryDetailsPlaceholder />; }
 
     
     return (
         <div className={css.container}>
+            <div className={css.infoContainer}>
             <div className={css.titleContainer}>
-                <h2 className={css.title}>{entry.title}</h2>
-                <button onClick={() => onEdit?.(entry)}></button>
+                <h2 className={css.title}>{localEntry.title}</h2>
+                <button onClick={() => onEdit?.(localEntry)}><svg>
+                    <use href="/sprite.svg#icon-edit_square" />
+                </svg>
+                </button>
             </div>
             <div className={css.dateContainer}>
-                <p className={css.date}>{entry.date}</p>
-                <button onClick={()=> onDelete?.(entry)}></button>
-            </div>
+                <p className={css.date}>{localEntry.date}</p>
+                <button onClick={() => onDelete?.(localEntry)}>
+                    <svg>
+                    <use href="/sprite.svg#icon-delete_forever" />
+                </svg>
+                </button>
+                </div>
+                </div>
             <div>
-                <p className={css.text}>{entry.description}</p>
-                {entry.emotions.length > 0 && (
+                <p className={css.text}>{localEntry.description}</p>
+                {localEntry.emotions.length > 0 && (
                     <ul>
-                        {entry.emotions.map(emotion => (
+                        {localEntry.emotions.map((emotion) => (
                             <li className={css.emotions} key={emotion.id}>{emotion.title}</li>
                         ))}
                     </ul>

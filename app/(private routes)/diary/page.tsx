@@ -9,15 +9,15 @@ import { fetchDiaryEntries } from "@/lib/api/clientApi";
 
 
 export default function DiaryPage() {
-    const [entries, setEntries] = useState<DiaryEntry[] | null>(null);
+    const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null)
 
     const [isDesktop, setIsDesktop] = useState(false);
-
+    const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
+        const checkScreen = () => setIsDesktop(window.innerWidth >= 1440);
         checkScreen();
         window.addEventListener("resize", checkScreen);
         return () => window.removeEventListener("resize", checkScreen);
@@ -25,11 +25,15 @@ export default function DiaryPage() {
 
     useEffect(() => {
         const fetchEntries = async () => {
+            setLoading(true);
             try {
                 const res = await fetchDiaryEntries();
                 setEntries(res);
             } catch (err) {
                 console.error(err);
+                setEntries([]);
+            } finally {
+                setLoading(false);
             }
         };
         fetchEntries();
@@ -43,7 +47,7 @@ export default function DiaryPage() {
         <div>
             <div>
                 <DiaryList
-                    isDesktop={isDesktop}
+                    loading={loading}
                     onSelectEntry={setSelectedEntry}
                     entries={entries}
                     onAdd={handleAdd} />
