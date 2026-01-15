@@ -24,7 +24,7 @@ const navItemsUnauth = [
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   const navItems = isAuthenticated ? navItemsAuth : navItemsUnauth;
 
@@ -36,13 +36,13 @@ export default function SideBar() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const checkWidth = () => {
       if (window.innerWidth >= 1440) {
         setIsOpen(true);
       }
     };
-    checkWidth(); 
+    checkWidth();
     window.addEventListener('resize', checkWidth);
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
@@ -90,7 +90,7 @@ export default function SideBar() {
           <div className={styles.bottomDivider} />
         </nav>
 
-        {isAuthenticated ? <UserBar /> : <AuthBar />}
+        {isAuthenticated && user ? <UserBar user={user} /> : <AuthBar />}
       </aside>
       <div
         className={`${styles.overlay} ${isOpen ? styles.open : ''}`}
