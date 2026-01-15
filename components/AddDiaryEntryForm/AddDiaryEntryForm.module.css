@@ -109,7 +109,7 @@
     line-height: 1;
 }
 
-.chevron {
+.arrowDown {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
@@ -120,7 +120,7 @@
         stroke 0.2s ease;
 }
 
-.selectWrapper[data-open] .chevron {
+.selectWrapper[data-open] .arrowDown {
     transform: rotate(180deg);
 }
 
@@ -238,7 +238,7 @@
     color: var(--color-red);
 }
 
-.field[data-invalid] .chevron {
+.field[data-invalid] .arrowDown {
     stroke: var(--color-red);
 }
 

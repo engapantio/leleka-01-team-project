@@ -19,3 +19,11 @@ export const updateTask = async (
   const res = await nextServer.patch<Task>(`/tasks/${id}`, payload);
   return res.data;
 };
+
+
+export const createTask = async (
+  payload: Pick<Task, 'name' | 'date'>
+): Promise<Task> => {
+  const response = await api.post<Task>('/tasks', payload);
+  return response.data;
+};

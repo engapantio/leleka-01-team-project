@@ -95,8 +95,8 @@ export function CategoriesField({
               <span className={s.placeholder}>{placeholder}</span>
             )}
           </div>
-          <svg className={s.chevron} aria-hidden="true" focusable="false">
-            <use href="/icons.svg#icon-chevron_down" />
+          <svg className={s.arrowDown} aria-hidden="true" focusable="false">
+            <use href="/sprite.svg#icon-keyboard_arrow_down" />
           </svg>
         </button>
 

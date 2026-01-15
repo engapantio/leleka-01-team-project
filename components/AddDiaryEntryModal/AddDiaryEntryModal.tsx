@@ -94,7 +94,7 @@ export default function AddDiaryEntryModal({
               aria-hidden="true"
               focusable="false"
             >
-              <use href="/icons.svg#icon-close" />
+              <use href="/sprite.svg#icon-close" />
             </svg>
           </button>
         </div>

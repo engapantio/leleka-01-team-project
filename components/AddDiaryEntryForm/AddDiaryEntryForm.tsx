@@ -3,19 +3,24 @@
 import { Form, Formik, FormikHelpers } from 'formik';
 import { useMemo } from 'react';
 import { isAxiosError } from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
 import s from './AddDiaryEntryForm.module.css';
+
 import {
   AddDiaryEntryFormProps,
   AddDiaryEntryFormValues,
   DiaryCategoryOption,
 } from '@/types/diaryEntry';
+
 import { diaryEntrySchema } from '@/utils/diaryEntry';
+
 import {
   createDiaryEntry,
   updateDiaryEntry,
   DiaryEntryRequestPayload,
 } from '@/lib/api/diaryEntries';
-import { useQuery } from '@tanstack/react-query';
+
 import { TextField, TextareaField, CategoriesField } from './fields';
 
 export default function AddDiaryEntryForm({
@@ -28,27 +33,38 @@ export default function AddDiaryEntryForm({
   successMessage,
   errorMessage,
 }: AddDiaryEntryFormProps) {
+  /**
+   * 🔹 Завантаження категорій (емоцій) ЧЕРЕЗ NEXT API (без CORS)
+   */
   const {
-    data: emotionOptions,
+    data: emotionOptions = [],
     isLoading: isLoadingEmotions,
   } = useQuery<DiaryCategoryOption[]>({
     queryKey: ['emotions'],
     queryFn: async () => {
-      const res = await fetch('/lehlehka_app.emotions.json');
+      const res = await fetch('/api/emotions');
+
       if (!res.ok) {
-        throw new Error('Failed to fetch emotions');
+        throw new Error('Failed to load emotions');
       }
-      return res.json();
+
+      return res.json(); // 👈 тут сразу массив
     },
-    staleTime: Infinity, // Fetch once
   });
 
   const entryId = initialValues?.id;
+
+  /**
+   * 🔹 Якщо категорії передані через props — використовуємо їх
+   */
   const options =
     categoryOptions && categoryOptions.length > 0
       ? categoryOptions
-      : emotionOptions || [];
+      : emotionOptions;
 
+  /**
+   * 🔹 Початкові значення форми
+   */
   const formInitialValues: AddDiaryEntryFormValues = useMemo(
     () => ({
       title: initialValues?.title ?? '',
@@ -61,16 +77,20 @@ export default function AddDiaryEntryForm({
     [initialValues]
   );
 
+  /**
+   * 🔹 Сабміт
+   */
   async function handleSubmit(
     values: AddDiaryEntryFormValues,
     helpers: FormikHelpers<AddDiaryEntryFormValues>
   ) {
     const { setSubmitting, resetForm } = helpers;
+
     const requestPayload: DiaryEntryRequestPayload = {
       title: values.title.trim(),
       emotions: values.categories.map(option => option.id),
       description: values.description.trim(),
-      date: new Date().toISOString().slice(0, 10), // YYYY-MM-DD
+      date: new Date().toISOString().slice(0, 10),
     };
 
     try {
@@ -80,30 +100,25 @@ export default function AddDiaryEntryForm({
         throw new Error('Не вдалося визначити запис для оновлення.');
       }
 
-      const willUpdate = shouldUpdate && entryId != null;
-      const data = willUpdate
-        ? await updateDiaryEntry(entryId, requestPayload)
+      const data = shouldUpdate
+        ? await updateDiaryEntry(entryId!, requestPayload)
         : await createDiaryEntry(requestPayload);
 
       notify?.(
         'success',
-        successMessage ?? (willUpdate ? 'Запис оновлено' : 'Запис створено')
+        successMessage ?? (shouldUpdate ? 'Запис оновлено' : 'Запис створено')
       );
+
       onSuccess?.(data);
       resetForm();
     } catch (error) {
       let message = errorMessage ?? 'Не вдалося зберегти запис.';
 
       if (isAxiosError(error)) {
-        const responseMessage = (
-          error.response?.data as { message?: string } | undefined
-        )?.message;
-        if (responseMessage) {
-          message = responseMessage;
-        } else if (error.message) {
-          message = error.message;
-        }
-      } else if (error instanceof Error && error.message) {
+        message =
+          (error.response?.data as { message?: string })?.message ??
+          error.message;
+      } else if (error instanceof Error) {
         message = error.message;
       }
 
@@ -126,21 +141,23 @@ export default function AddDiaryEntryForm({
           <TextField
             name="title"
             label="Заголовок"
-            placeholder="Вкажіть назву запису"
+            placeholder="Введіть заголовок запису"
             autoFocus
           />
 
           <CategoriesField
             name="categories"
-            label="Емоції"
-            placeholder={isLoadingEmotions ? 'Завантаження...' : 'Оберіть емоції'}
+            label="Категорії"
+            placeholder={
+              isLoadingEmotions ? 'Завантаження...' : 'Оберіть категорії'
+            }
             options={options}
           />
 
           <TextareaField
             name="description"
             label="Опис"
-            placeholder="Додайте текст про свій стан"
+            placeholder="Запишіть, як ви себе відчуваєте"
           />
 
           <button
