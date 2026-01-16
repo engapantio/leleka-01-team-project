@@ -16,14 +16,41 @@ export default function ProfilePage() {
     setUser(user);
   }, [setUser, user]);
 
-  // замінити пропс
-  if (!user) {
-    return <p>Loading...</p>;
-  }
-  return (
-    <>
-      <ProfileAvatar user={user} />
-      <ProfileEditForm dataUser={user} />
+
+    const {
+        data: user,
+        isLoading,
+        isError
+    } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            const user = await getUser()
+            return user
+        },
+    })
+    console.log('query data:', user)
+
+
+    
+    // const setUser = useAuthStore(state => state.setUser)
+    // const {user} = useAuthStore()
+
+
+useEffect(() => {
+  // if (isLoading) toast('Завантаження...')
+  if (isLoading) {
+      <p>Завантаження</p>
+    }
+  if (isError) toast.error('Сталася помилка')
+  if (user) toast.success('Дані користувача завантажені')
+}, [isLoading, isError, user])
+    
+  if (isLoading) return <p>Loading...</p>
+  if (isError || !user) return <p>Сталася помилка</p>
+    return (
+     <>
+        <ProfileAvatar user={user}/>
+        <ProfileEditForm user={user} />
     </>
   );
 }
