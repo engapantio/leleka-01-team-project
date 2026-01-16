@@ -2,7 +2,7 @@ import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
-import { JourneyBaby, JourneyMom } from '@/types/journey';
+import { JourneyBaby, JourneyMom, FullWeekData } from '@/types/journey';
 
 export interface RegistrationDetails {
   name: string;
@@ -13,11 +13,6 @@ export interface RegistrationDetails {
 export interface LoginDetails {
   email: string;
   password: string;
-}
-
-export interface RefreshTokensResponse {
-  accessToken: string;
-  refreshToken: string;
 }
 
 /**
@@ -50,17 +45,17 @@ export const logout = async (): Promise<void> => {
 /**
  * Refresh tokens
  */
-export const refreshTokens = async (refreshToken: string) => {
-  const response = await nextServer.post('/auth/refresh', { refreshToken });
-  return response;
+export const checkSession = async () => {
+  const response = await nextServer.get('/auth/check');
+  return response.data.success;
 };
 
 /**
  * Get user
  */
 export const getUser = async () => {
-  const response = await nextServer.get<User>('users/current');
-  return { status: response.status, user: response.data };
+  const { data } = await nextServer.get<User>('users/current');
+  return data;
 };
 
 export const editProfile = async (formData: FormData): Promise<User> => {
@@ -74,9 +69,14 @@ export const editProfile = async (formData: FormData): Promise<User> => {
 
 // Journey //
 
-export const getCurrentWeek = async (): Promise<number> => {
-  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current');
-  return response.data.weekNumber;
+export const getCurrentWeek = async (): Promise<FullWeekData> => {
+  const response = await nextServer.get<FullWeekData>('/weeks/current');
+  return response.data;
+};
+
+export const getCurrentWeekPublic = async (): Promise<FullWeekData> => {
+  const { data } = await nextServer.get<FullWeekData>('/weeks/1');
+  return data;
 };
 
 export const getBabyState = async (weekNumber: number): Promise<JourneyBaby> => {
@@ -117,18 +117,17 @@ export const createDiaryEntry = async (
     emotions,
   });
   return res.data;
-}
+};
 //<=================diary==========================
-
 
 //=================profile=========================
 interface UserRes {
-  id: string
-  name: string,
-  email: string,
-  gender: string,
-  dueDate: string
-  avatarUrl: string,
+  id: string;
+  name: string;
+  email: string;
+  gender: string;
+  dueDate: string;
+  avatarUrl: string;
 }
 
 interface FormValuesForBackend {
@@ -137,15 +136,11 @@ interface FormValuesForBackend {
     dueDate: string
 }
 export const updateProfile = async (data: FormValuesForBackend) => {
-  const response = await nextServer.patch<UserRes>('/users', data)
-  return (
-    response.data
-  )
-}
+  const response = await nextServer.patch<UserRes>('/users', data);
+  return response.data;
+};
 
-export const uploadAvatar = async (avatarFile: FormData ) => {
-  const res = await nextServer.patch('/users/avatar', avatarFile)
-  return (
-    res.data
-  )
-}
+export const uploadAvatar = async (avatarFile: FormData) => {
+  const res = await nextServer.patch('/users/avatar', avatarFile);
+  return res.data;
+};

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 
 import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
@@ -22,8 +22,8 @@ export default function ProfilePage() {
     } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
-            const res = await getUser()
-            return res.user
+            const user = await getUser()
+            return user
         },
     })
     console.log('query data:', user)

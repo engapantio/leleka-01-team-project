@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useAuthStore } from '../../lib/store/authStore';
 import UserBar from '../UserBar/UserBar';
 import AuthBar from '../AuthBar/AuthBar';
@@ -25,6 +26,7 @@ const navItemsUnauth = [
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated } = useAuthStore();
+  const pathname = usePathname();
 
   const navItems = isAuthenticated ? navItemsAuth : navItemsUnauth;
 
@@ -36,13 +38,13 @@ export default function SideBar() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const checkWidth = () => {
       if (window.innerWidth >= 1440) {
         setIsOpen(true);
       }
     };
-    checkWidth(); 
+    checkWidth();
     window.addEventListener('resize', checkWidth);
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
@@ -78,7 +80,7 @@ export default function SideBar() {
             <Link
               key={item.name}
               href={item.href}
-              className={styles.navItem}
+              className={`${styles.navItem} ${pathname === item.href ? styles.active : ''}`}
               onClick={() => setIsOpen(false)}
             >
               <svg width={24} height={24} aria-hidden="true">
