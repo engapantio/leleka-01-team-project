@@ -5,24 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '../../lib/store/authStore';
+import { useJourneyStore } from '@/lib/store/journeyStore';
 import UserBar from '../UserBar/UserBar';
 import AuthBar from '../AuthBar/AuthBar';
 import styles from './SideBar.module.css';
-
-const navItemsAuth = [
-  { icon: 'icon-today', name: 'Мій день', href: '/' },
-  { icon: 'icon-conversion_path', name: 'Подорож', href: '/journey' },
-  { icon: 'icon-book_2', name: 'Щоденник', href: '/diary' },
-  { icon: 'icon-account_circle', name: 'Профіль', href: '/profile' },
-];
-
-const navItemsUnauth = [
-  { icon: 'icon-today', name: 'Мій день', href: '/auth/login' },
-  { icon: 'icon-conversion_path', name: 'Подорож', href: '/auth/login' },
-  { icon: 'icon-book_2', name: 'Щоденник', href: '/auth/login' },
-  { icon: 'icon-account_circle', name: 'Профіль', href: '/auth/login' },
-];
-
 
 type SideBarProps = {
   isOpen: boolean;
@@ -31,11 +17,24 @@ type SideBarProps = {
 
 export default function SideBar({ isOpen, onClose }: SideBarProps) {
   const { isAuthenticated } = useAuthStore();
+  const { weekNumber } = useJourneyStore();
   const pathname = usePathname();
+  const navItemsAuth = [
+    { icon: 'icon-today', name: 'Мій день', href: '/' },
+    { icon: 'icon-conversion_path', name: 'Подорож', href: `/journey/${weekNumber ?? 1}` },
+    { icon: 'icon-book_2', name: 'Щоденник', href: '/diary' },
+    { icon: 'icon-account_circle', name: 'Профіль', href: '/profile' },
+  ];
 
+  const navItemsUnauth = [
+    { icon: 'icon-today', name: 'Мій день', href: '/auth/login' },
+    { icon: 'icon-conversion_path', name: 'Подорож', href: '/auth/login' },
+    { icon: 'icon-book_2', name: 'Щоденник', href: '/auth/login' },
+    { icon: 'icon-account_circle', name: 'Профіль', href: '/auth/login' },
+  ];
   const navItems = isAuthenticated ? navItemsAuth : navItemsUnauth;
 
- useEffect(() => {
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
@@ -83,10 +82,7 @@ export default function SideBar({ isOpen, onClose }: SideBarProps) {
         {isAuthenticated ? <UserBar /> : <AuthBar />}
       </aside>
 
-      <div
-        className={`${styles.overlay} ${isOpen ? styles.open : ''}`}
-        onClick={onClose}
-      />
+      <div className={`${styles.overlay} ${isOpen ? styles.open : ''}`} onClick={onClose} />
     </>
   );
 }

@@ -1,27 +1,24 @@
-
 .header {
-    width: 100%;
-    height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--color-scheme-background);
-    padding-bottom: 24px;
+  width: 100%;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-scheme-background);
+  padding-bottom: 24px;
 }
 
-
 .logoImg {
-    height: auto;
+  height: auto;
 }
 
 .burgerBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-
-@media (min-width: 1440px) {
+@media only screen and (min-width: 1440px) {
   .header {
     display: none;
   }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
+import { useJourneyStore } from '@/lib/store/journeyStore';
 
 type Props = {
   children: React.ReactNode;
@@ -12,13 +13,14 @@ type Props = {
 export default function JourneyLayout({ children }: Props) {
   const router = useRouter();
   const params = useParams<{ slug?: string[] }>();
+  const { weekNumber } = useJourneyStore();
 
   const weekFromUrl = Number(params.slug?.[0]);
   const [selectedWeek, setSelectedWeek] = useState<number | null>(
     Number.isFinite(weekFromUrl) ? weekFromUrl : null
   );
 
-  const currentWeek = 16; // тимчасово, потім буде зі стора/беку
+  const currentWeek = weekNumber ?? 16; // тимчасово, потім буде зі стора/беку
 
   useEffect(() => {
     if (Number.isFinite(weekFromUrl)) setSelectedWeek(weekFromUrl);

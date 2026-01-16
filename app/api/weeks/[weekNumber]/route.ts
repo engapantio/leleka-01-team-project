@@ -21,7 +21,7 @@ export async function GET(request: NextRequest, { params }: WeekNumberParams) {
     //   );
     // }
 
-    const res = await backendApi.get(`weeks/${weekNum}/baby`, {
+    const res = await backendApi.get(`weeks/${weekNum}`, {
       headers: {
         Cookie: cookieStore.toString(),
       },

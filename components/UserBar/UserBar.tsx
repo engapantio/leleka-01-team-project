@@ -18,7 +18,7 @@ interface UserBarUser {
 
 export default function UserBar() {
   const router = useRouter();
-  const clearAuth = useAuthStore(state => state.clearAuth);
+  const { clearAuth, reinitializeAuth } = useAuthStore();
 
   const [user, setUser] = useState<UserBarUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +47,11 @@ export default function UserBar() {
       await logout();
       clearAuth();
       setIsModalOpen(false);
-      router.replace('/');
+      await reinitializeAuth();
+      router.push('/?auth_refresh=' + Date.now());
+      setTimeout(() => {
+        router.replace('/');
+      }, 200);
     } catch {
       toast.error('Не вдалося вийти з акаунта. Спробуйте ще раз.');
     } finally {
