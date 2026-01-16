@@ -69,16 +69,14 @@ const JourneyDetails = ({
           </div>
         )}
         {MomData && selectedTab === 'mom' && (
-          <div>
-            <div className={styles.momCard}>
-              <div className={styles.momBlock}>
-                <h2 className={styles.momBlockTitle}>Як ви можете почуватись</h2>
-                <div className={styles.momBlockFeelings}>
-                  <p className={styles.momBlockStiker}>{MomData.feelingsStates[0]}</p>
-                  <p className={styles.momBlockStiker}>{MomData.feelingsStates[1]}</p>
-                  <p className={styles.momBlockStiker}>{MomData.feelingsStates[2]}</p>
-                </div>
-                <p className={styles.momBlockText}>{MomData.sensationDescr}</p>
+          <div className={styles.momCardWrapper}>
+          <div className={styles.momCard}>
+            <div className={styles.momBlock}>
+              <h2 className={styles.momBlockTitle}>Як ви можете почуватись</h2>
+              <div className={styles.momBlockFeelings}>
+                <p className={styles.momBlockStiker}>{MomData.feelingsStates[0]}</p>
+                <p className={styles.momBlockStiker}>{MomData.feelingsStates[1]}</p>
+                <p className={styles.momBlockStiker}>{MomData.feelingsStates[2]}</p>
               </div>
 
               <div className={styles.momBlock}>
@@ -108,8 +106,10 @@ const JourneyDetails = ({
                   </div>
                 </div>
               </div>
+
             </div>
-            <TaskReminderCard />
+            </div>
+            <TaskReminderCard/>
           </div>
         )}
       </div>
