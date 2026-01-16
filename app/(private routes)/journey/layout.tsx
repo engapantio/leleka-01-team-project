@@ -32,7 +32,6 @@ export default function JourneyLayout({ children }: Props) {
 
   return (
     <div>
-      <GreetingBlock />
       <WeekSelector
         currentWeek={currentWeek}
         selectedWeek={selectedWeek}
