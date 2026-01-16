@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
-import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 
 type Props = {
   children: React.ReactNode;
