@@ -35,7 +35,10 @@ export default function ProfilePage() {
 
 
 useEffect(() => {
-  if (isLoading) toast('Завантаження...')
+  // if (isLoading) toast('Завантаження...')
+  if (isLoading) {
+      <p>Завантаження</p>
+    }
   if (isError) toast.error('Сталася помилка')
   if (user) toast.success('Дані користувача завантажені')
 }, [isLoading, isError, user])

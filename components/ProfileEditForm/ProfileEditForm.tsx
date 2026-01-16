@@ -13,7 +13,7 @@ import * as yup from 'yup'
 const schema = yup.object().shape({
   name: yup
     .string()
-    .required(),
+    .required('Ім’я обовязкове'),
   gender: yup
     .string()
     .oneOf(['boy', 'girl'], 'Оберіть стать'),
@@ -47,6 +47,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['user'] })
         },
+        
     })
     
 
@@ -73,7 +74,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
             initialValues={initialValues}
             onSubmit={handleSubmit}
             validationSchema={schema}
-            // enableReinitialize
+            enableReinitialize
             >
             {({ values, setFieldValue, resetForm }) => (
                 <Form className={css.formWrapper}>
