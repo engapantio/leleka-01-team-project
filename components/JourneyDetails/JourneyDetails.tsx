@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from './JourneyDetails.module.css';
 import clsx from 'clsx';
 import { Icon } from '../ui/Icon/Icon';
+import TaskReminderCard from '../TaskReminderCard/TaskReminderCard';
 
 interface JourneyDetailsProp {
   selectedTab: Tab;
@@ -59,7 +60,7 @@ const JourneyDetails = ({
           </div>
         )}
         {MomData && selectedTab === 'mom' && (
-          <div>
+          <div className={styles.momCardWrapper}>
           <div className={styles.momCard}>
             <div className={styles.momBlock}>
               <h2 className={styles.momBlockTitle}>Як ви можете почуватись</h2>
@@ -100,6 +101,7 @@ const JourneyDetails = ({
 
             </div>
             </div>
+            <TaskReminderCard/>
             </div>
         )}
       </div>
