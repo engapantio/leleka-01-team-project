@@ -6,7 +6,7 @@ import StatusBlock from '@/components/StatusBlock/StatusBlock';
 import BabyTodayCard from '@/components/BabyTodayCard/BabyTodayCard';
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 import TaskReminderCard from '@/components/TaskReminderCard/TaskReminderCard';
-import DiaryPage from './diary/page';
+import DiaryPage from './diary/DIaryPageClient';
 
 const MOCK = {
   weeks: 14,

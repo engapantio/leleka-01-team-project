@@ -42,6 +42,7 @@
   gap: 8px;
   height: 24px;
   align-items: center;
+  justify-content: center;
 }
 
 .btn {
@@ -49,7 +50,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -61,17 +62,41 @@
   justify-content: space-between;
 }
 
+.scrollWrapper {
+  height: 640px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
 .list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   list-style: none;
+  width: 100%;
   gap: 16px;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .listItem {
-  background: var(--color-scheme-foreground-alt);
-  border: 1px solid var(--color-scheme-foreground-alt);
-  border-radius: 16px;
-  padding: 16px;
-  width: 303px;
-  height: 91px;
-  padding: 16px;
+  height: auto;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 1440px) {
+  .scrollWrapper {
+    height: 655px;
+  }
+
+  .list {
+    height: 662px;
+  }
+
+  .listItem {
+    height: 91px;
+  }
 }

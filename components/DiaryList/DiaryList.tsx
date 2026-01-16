@@ -5,6 +5,7 @@ import DiaryEntryCard from "../DiaryEntryCard/DiaryEntryCard";
 import css from "./DiaryList.module.css";
 import Loader from "../Loader/Loader";
 import { useEffect, useState } from "react";
+import { useDiaryStore } from "@/lib/store/diaryStore";
 
 
 interface DiaryListProps {
@@ -15,6 +16,7 @@ interface DiaryListProps {
 }
 
 export default function DiaryList({ entries, loading, onSelectEntry, onAdd }: DiaryListProps) {
+
 
     const router = useRouter();
 
@@ -28,7 +30,10 @@ const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== "undefined
         return () => window.removeEventListener("resize", handleResize);
     }, []);
     
+const setSelectedEntry = useDiaryStore(s => s.setSelectedEntry);
+
     const handleEntryClick = (entry: DiaryEntry) => {
+        setSelectedEntry(entry);
         if (isDesktop) {
             onSelectEntry(entry);
         } else {
@@ -53,17 +58,19 @@ const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== "undefined
                     </button>
                 </div>
             </div>
+            <div className={css.scrollWrapper}>
             {!entries || entries.length === 0 ? (
                 <DiaryListPlaceholder />
             ) : (<ul className={css.list}>
                     {entries.map((entry) => (<li className={css.listItem} key={entry.id}>
-                        < DiaryEntryCard entry={entry}
+                        < DiaryEntryCard entry={entry} key={entry.id}
                             onClick={() => handleEntryClick(entry)}
                         />
                     </li>
                     ))}
-            </ul>
-            )}
+                </ul> 
+                )}
+                </div>
         </div>
     );
 }

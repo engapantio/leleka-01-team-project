@@ -90,6 +90,7 @@ export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
 
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
   const { data } = await nextServer.get<FetchDiaryEntriesResponse>('/diaries');
+
   return data.entries;
 };
 
