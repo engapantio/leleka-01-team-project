@@ -3,7 +3,6 @@ import { useAuthStore } from '@/lib/store/authStore';
 import css from './GreetingBlock.module.css';
 
 export default function GreetingBlock() {
-  //const { user, isAuthenticated } = useAuthStore();
   const { user, isAuthenticated } = useAuthStore();
 
   const getGreetingByTime = () => {
