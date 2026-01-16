@@ -134,6 +134,11 @@ export const updateDiaryEntryById = async (
 
 //=================profile=========================
 
+interface FormValuesForBackend {
+    name: string
+    gender: "boy" | "girl" | ""
+    dueDate: string
+}
 export const updateProfile = async (data: FormValuesForBackend) => {
   const response = await nextServer.patch<User>('/users', data);
   return response.data;
