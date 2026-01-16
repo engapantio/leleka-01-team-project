@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
-import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 
 type Props = {
   children: React.ReactNode;
@@ -32,7 +31,6 @@ export default function JourneyLayout({ children }: Props) {
 
   return (
     <div>
-      <GreetingBlock />
       <WeekSelector
         currentWeek={currentWeek}
         selectedWeek={selectedWeek}
