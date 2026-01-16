@@ -3,6 +3,7 @@ import { nextServer } from './api';
 import { User } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
+import { FullWeekData } from '@/types/journey';
 
 /**
  * Refresh tokens
@@ -38,7 +39,12 @@ export const getCurrentWeek = async () => {
       Cookie: cookieStore.toString(),
     },
   });
-  return response.data.weekNumber;
+  return response.data;
+};
+
+export const getCurrentWeekPublic = async (): Promise<FullWeekData> => {
+  const { data } = await nextServer.get<FullWeekData>('/weeks/1');
+  return data;
 };
 
 export const getBabyState = async (weekNumber: number) => {

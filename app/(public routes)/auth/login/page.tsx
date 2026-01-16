@@ -8,6 +8,7 @@ import AuthContainer from '@/components/AuthContainer/AuthContainer';
 import { loginSchema } from '@/utils/validationSchemas';
 import { useLogin } from '@/hooks/useAuth';
 import { LoginDetails } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 import css from './LoginPage.module.css';
 
 const initialValues: LoginDetails = {
@@ -17,24 +18,20 @@ const initialValues: LoginDetails = {
 
 const Login = () => {
   const router = useRouter();
-  // const [error, setError] = useState('');
-  const fieldId = useId();
 
+  const fieldId = useId();
+  const { reinitializeAuth } = useAuthStore();
   // TanStack Query mutation hook
   const loginMutation = useLogin();
 
-  /**
-   * Formik onSubmit - only called if validation passes
-   * Formik + Yup act as validation gate
-   */
   const handleSubmit = (values: LoginDetails, actions: FormikHelpers<LoginDetails>) => {
-    // Validation already passed at this point
-    // Call mutation (which triggers API call)
     loginMutation.mutate(values, {
-      onSuccess: () => {
-        // Redirect to home page on success
-        // Toast already shown by mutation hook
-        router.push('/');
+      onSuccess: async () => {
+        reinitializeAuth();
+        router.push('/?auth_refresh=' + Date.now());
+        setTimeout(() => {
+          router.replace('/');
+        }, 200);
       },
       onSettled: () => {
         // Reset form after mutation settles
