@@ -1,28 +1,45 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
-import { logout } from '@/lib/api/clientApi';
-import { useAuthStore } from '../../lib/store/authStore';
-import Modal from '../Modal/Modal';
-import Button from '../ui/Button/Button';
-import { User } from '@/types/user';
-import css from './UserBar.module.css';
 
-interface Props {
-  user: User;
+import { logout, getUser } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
+import Modal from '../Modal/Modal';
+import styles from './UserBar.module.css';
+
+interface UserBarUser {
+  name: string;
+  email: string;
+  avatarUrl: string;
 }
 
-export default function UserBar({ user }: Props) {
+export default function UserBar() {
   const router = useRouter();
-  //const user = useAuthStore(state => state.user);
-  console.log(user);
   const clearAuth = useAuthStore(state => state.clearAuth);
 
+  const [user, setUser] = useState<UserBarUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getUser();
+        setUser({
+          name: data.name,
+          email: data.email,
+          avatarUrl: data.avatarUrl,
+        });
+      } catch {
+        clearAuth();
+      }
+    };
+
+    fetchUser();
+  }, [clearAuth]);
 
   const handleLogoutConfirm = async () => {
     setIsLoading(true);
@@ -38,27 +55,27 @@ export default function UserBar({ user }: Props) {
     }
   };
 
+  if (!user) return null;
+
   return (
-    <section className={css.userBar}>
-      (
-      <div className={css.userInfo}>
+    <section className={styles.userBar}>
+      <div className={styles.userInfo}>
         <Image
-          className={css.avatar}
-          //just as an example
+          className={styles.avatar}
           src={user.avatarUrl}
           alt="User avatar"
           width={40}
           height={40}
         />
         <div>
-          <p className={css.name}>{user.name}</p>
-          <p className={css.email}>{user.email}</p>
+          <p className={styles.name}>{user.name}</p>
+          <p className={styles.email}>{user.email}</p>
         </div>
       </div>
-      )
+
       <button
         type="button"
-        className={css.logoutBtn}
+        className={styles.logoutBtn}
         onClick={() => setIsModalOpen(true)}
         disabled={isLoading}
         aria-label="Logout"
@@ -67,13 +84,22 @@ export default function UserBar({ user }: Props) {
           <use href="/sprite.svg#icon-logout" />
         </svg>
       </button>
+
       {isModalOpen && (
         <Modal title="Ви точно хочете вийти?" onClose={() => setIsModalOpen(false)}>
-          <div className={css.modalActions}>
-            <Button action={() => setIsModalOpen(false)}>Ні</Button>
-            <Button alternative action={handleLogoutConfirm}>
-              Так
-            </Button>
+          <div className={styles.modalActions}>
+            <button type="button" className={styles.buttonNo} onClick={() => setIsModalOpen(false)}>
+              <p className={styles.buttonText}>Ні</p>
+            </button>
+
+            <button
+              type="button"
+              className={styles.buttonYes}
+              onClick={handleLogoutConfirm}
+              disabled={isLoading}
+            >
+              <p className={styles.buttonText}>Так</p>
+            </button>
           </div>
         </Modal>
       )}

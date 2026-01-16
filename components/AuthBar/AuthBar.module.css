@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 0 16px;
+  padding: 0 16px 16px;
   width: 100%;
   margin: 0 auto;
 }
@@ -49,4 +49,17 @@
 
 .buttonLog:active {
   background-color: var(--color-scheme-accent);
+}
+
+.buttonText {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+}
+
+@media only screen and (min-width: 1440px) {
+  .buttonText {
+    font-size: 16px;
+  }
 }
