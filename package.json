@@ -14,7 +14,7 @@
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
     "@mui/system": "^7.3.7",
-    "@mui/x-date-pickers": "^8.24.0",
+    "@mui/x-date-pickers": "^8.25.0",
     "@tanstack/react-query": "^5.90.17",
     "@tanstack/react-query-devtools": "^5.91.2",
     "axios": "^1.13.2",
@@ -23,11 +23,11 @@
     "dayjs": "^1.11.19",
     "formik": "^2.4.9",
     "next": "^16.1.2",
-    "react": "19.2.3",
+    "react": "^19.2.3",
     "react-calendar": "^6.0.0",
     "react-datepicker": "^9.1.0",
     "react-day-picker": "^9.13.0",
-    "react-dom": "19.2.3",
+    "react-dom": "^19.2.3",
     "react-hot-toast": "^2.6.0",
     "react-select": "^5.10.2",
     "react-spinners": "^0.17.0",
@@ -35,7 +35,7 @@
     "toast": "^0.5.4",
     "yarn": "^1.22.22",
     "yup": "^1.7.1",
-    "zustand": "^5.0.9"
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@types/node": "^20.19.27",
