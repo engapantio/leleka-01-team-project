@@ -2,7 +2,6 @@ import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
 import { User } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
-import { FormValuesForBackend } from '@/components/ProfileEditForm/ProfileEditForm';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
 
 export interface RegistrationDetails {
@@ -132,6 +131,11 @@ interface UserRes {
   avatarUrl: string,
 }
 
+interface FormValuesForBackend {
+    name: string
+    gender: "boy" | "girl" | ""
+    dueDate: string
+}
 export const updateProfile = async (data: FormValuesForBackend) => {
   const response = await nextServer.patch<UserRes>('/users', data)
   return (

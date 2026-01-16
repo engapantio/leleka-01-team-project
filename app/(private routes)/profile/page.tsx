@@ -1,43 +1,51 @@
 'use client'
 
+
 import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
 import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
-// import { useEffect, useState } from "react";
-import { User } from "@/types/user";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/lib/api/clientApi";
+// import { useToastStore } from "@/lib/store/toastStore";
+import toast from "react-hot-toast";
 import { useEffect } from "react";
 
 
-const fakeUser: User = {
-  id: "1f143f82-bb18-4795-af3d-52ccf272ffd8",
-  name: "testName",
-  email: "test@test.com",
-  gender: "boy",
-  dueDate: "2026-02-12",
-  avatarUrl: "https://res.cloudinary.com/dwvvx8vqk/image/upload/default-avatar_zkouxm.png",
-  createdAt: "2026-01-12T20:38:59.722Z",
-  updatedAt: "2026-01-12T20:38:59.722Z"
-}
-// const userFromStore = useAuthStore
 
 export default function ProfilePage() {
-    const setUser = useAuthStore(state => state.setUser)
-    const user = useAuthStore(state => state.user)
-
-    useEffect(() => {
-        setUser(user)
-    }, [setUser])
 
 
 
-    // замінити пропс
-    if (!user) {
-        return <p>Loading...</p>
-    }
+    const {
+        data: user,
+        isLoading,
+        isError
+    } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            const res = await getUser()
+            return res.user
+        },
+    })
+    console.log('query data:', user)
+
+
+    
+    // const setUser = useAuthStore(state => state.setUser)
+    // const {user} = useAuthStore()
+
+
+useEffect(() => {
+  if (isLoading) toast('Завантаження...')
+  if (isError) toast.error('Сталася помилка')
+  if (user) toast.success('Дані користувача завантажені')
+}, [isLoading, isError, user])
+    
+  if (isLoading) return <p>Loading...</p>
+  if (isError || !user) return <p>Сталася помилка</p>
     return (
-        <>
-            <ProfileAvatar user={user} />
-            <ProfileEditForm dataUser={user} />
-        </>
-    )
+     <>
+        <ProfileAvatar user={user}/>
+        <ProfileEditForm user={user} />
+    </>
+);
 }

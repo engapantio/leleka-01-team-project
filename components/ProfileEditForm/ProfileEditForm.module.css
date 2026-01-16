@@ -52,7 +52,7 @@
     right: 30px;
     /* ← саме місце правої стрілки */
     top: 50%;
-    transform: translateY(20%);
+    /* transform: translateY(20%); */
     transition: transform 0.2s ease;
     pointer-events: none;
 }
