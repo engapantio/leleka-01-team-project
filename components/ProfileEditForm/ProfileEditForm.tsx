@@ -9,6 +9,7 @@ import { User } from '@/types/user'
 import { updateProfile } from '@/lib/api/clientApi'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as yup from 'yup'
+import Select from 'react-select'
 
 const schema = yup.object().shape({
   name: yup
@@ -16,7 +17,7 @@ const schema = yup.object().shape({
     .required('Ім’я обовязкове'),
   gender: yup
     .string()
-    .oneOf(['boy', 'girl'], 'Оберіть стать'),
+    .oneOf(['boy', 'girl', ''], 'Оберіть стать'),
   dueDate: yup
     .date()
     .min(new Date(), 'Дата має бути в майбутньому')
@@ -25,18 +26,25 @@ const schema = yup.object().shape({
 
 
 
+
 interface ProfileEditFormProps {
   user: User | null
 }
 
+type GenderFormValue = 'boy' | 'girl' | 'unknown'
+
 interface OrderFormValues {
     name: string
     email: string
-    gender: "boy" | "girl" | ''
+    gender: GenderFormValue
     dueDate: string
 }
 
-
+const options = [
+    { value: 'unknown', label: 'Ще не знаю' },
+    { value: 'girl', label: 'Дівчинка' },
+    { value: 'boy', label: 'Хлопчик'}
+]
 
 // значення приходять з бекенду
 export default function ProfileEditForm({user}: ProfileEditFormProps) {
@@ -55,7 +63,8 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
 
         mutation.mutate({
         name: values.name,
-        gender: values.gender,
+        gender: values.gender === 'unknown' ? '' : values.gender,
+
         dueDate: values.dueDate,
     })
     }
@@ -65,7 +74,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
     const initialValues: OrderFormValues = {
     name: user?.name ?? 'Дані не отримано',
     email: user?.email ?? '',
-    gender: user?.gender ?? '',
+    gender: user?.gender ?? 'unknown',
     dueDate: user?.dueDate ?? '',
 }
     console.log('initialValues:', initialValues)
@@ -79,7 +88,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
             {({ values, setFieldValue, resetForm }) => (
                 <Form className={css.formWrapper}>
                     <div className={css.inputWrapper}>
-                        <label htmlFor="name-Id" className={css.label}>Імя</label>
+                        <label htmlFor="name-Id" className={css.label}>Ім’я</label>
                         <Field type='text' name='name' id='name-Id' className={css.input} />
                         <ErrorMessage name='name'/>
                     </div>
@@ -90,19 +99,15 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         <ErrorMessage name='email'/>
                     </div>
                     <div className={css.inputWrapper}>
-                        <label htmlFor="gender-Id" className={css.label}>Стать дитини</label>
-                        <Field
-                        as='select'
-                        name='gender'
-                        id='gender-Id'
-                        className={`${css.input} ${css.gender}`} >
-                            <option value=''>Оберіть стать</option>
-                            <option value='girl'>Дівчинка</option>
-                            <option value='boy'>Хлопчик</option>
-                        </Field>
-                        <svg className={css.iconDown} width="24" height="24">
-                            <use href='/sprite.svg#icon-keyboard_arrow_down'/>
-                        </svg>
+
+                        <Select
+                            options={options}
+                            placeholder='Оберіть стать'
+                            value={options.find(opt => opt.value === values.gender)}
+                            onChange={(option)=> setFieldValue('gender', option?.value)}
+
+                        />
+                        
                     </div>
                     <div className={css.inputWrapper}>
                           <label htmlFor="dueDate-Id" className={css.label}>Планова дата пологів</label>
@@ -117,6 +122,9 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         popperPlacement="top-start"
                         name='dueDate'
                         />  
+                        {/* <svg className={css.iconDown} width="24" height="24">
+                            <use href='/sprite.svg#icon-keyboard_arrow_down'/>
+                        </svg> */}
                         <ErrorMessage name='dueDate'/>
                     </div>
                 
