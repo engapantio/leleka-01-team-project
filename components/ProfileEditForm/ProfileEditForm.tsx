@@ -1,6 +1,5 @@
 'use client'
 
-// import { useState, useRef, useEffect } from "react"
 import css from './ProfileEditForm.module.css'
 import { ErrorMessage, Field, Form, Formik} from "formik"
 import DatePicker from 'react-datepicker'
@@ -11,13 +10,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as yup from 'yup'
 import Select from 'react-select'
 
+
 const schema = yup.object().shape({
   name: yup
     .string()
     .required('Ім’я обовязкове'),
   gender: yup
     .string()
-    .oneOf(['boy', 'girl', ''], 'Оберіть стать'),
+    .oneOf(['boy', 'girl', '', 'unknown'], 'Оберіть стать'),
   dueDate: yup
     .date()
     .min(new Date(), 'Дата має бути в майбутньому')
@@ -99,28 +99,37 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         <ErrorMessage name='email'/>
                     </div>
                     <div className={css.inputWrapper}>
-
+                        <label htmlFor="gender-id" className={css.label}>Оберіть стать</label>
                         <Select
                             options={options}
                             placeholder='Оберіть стать'
+                            styles={{
+    control: (base) => ({
+      ...base,
+      height: '37px',
+      borderRadius: '12px',
+      backgroundColor: 'var(--opacity-neutral-darkest-5)',
+      border: '2px solid var(--opacity-transparent)',
+      boxShadow: 'none',
+    }),
+  }}
+
                             value={options.find(opt => opt.value === values.gender)}
                             onChange={(option)=> setFieldValue('gender', option?.value)}
-
                         />
-                        
                     </div>
                     <div className={css.inputWrapper}>
-                          <label htmlFor="dueDate-Id" className={css.label}>Планова дата пологів</label>
+                        <label htmlFor="dueDate-Id" className={css.label}>Планова дата пологів</label>
                         
                     <DatePicker
                         selected={values.dueDate ? new Date(values.dueDate) : null}
                         onChange={(date: Date | null) =>
-                        setFieldValue('dueDate', date ? date.toISOString().split('T')[0] : '')
-                        }
+                        setFieldValue('dueDate', date ? date.toISOString().split('T')[0] : '')}
                         className={`${css.input} ${css.inputDate}`}
                         dateFormat="yyyy-MM-dd"
                         popperPlacement="top-start"
                         name='dueDate'
+                        id='dueDate-id'
                         />  
                         {/* <svg className={css.iconDown} width="24" height="24">
                             <use href='/sprite.svg#icon-keyboard_arrow_down'/>

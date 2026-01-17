@@ -41,10 +41,6 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
         formData.append('avatar', file)
         
             mutation.mutate(formData)
-            // await uploadAvatar(formData)
-
-        
-            // console.error(error)
         
         // відправити на бекенд
     }
