@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { login, logout, register } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useJourneyStore } from '@/lib/store/journeyStore';
 import { LoginDetails, RegistrationDetails } from '@/lib/api/clientApi';
 import { User } from '@/types/user';
 import { AxiosError } from 'axios';
@@ -18,21 +19,18 @@ export function useLogin() {
   return useMutation({
     mutationFn: (credentials: LoginDetails) => login(credentials),
     onSuccess: (user: User) => {
-      // Update Zustand store with user from response
-      // Note: Cookies are already set by backend via Set-Cookie header
+      const resetJourney = useJourneyStore.getState().resetJourney;
       setUser(user);
+      resetJourney();
 
-      // Invalidate queries to refetch user data
       queryClient.invalidateQueries({ queryKey: ['user'] });
 
-      // Show success toast
       toast.success('Вхід успішно виконано!', {
         duration: 3000,
         position: 'top-right',
       });
     },
     onError: (error: AxiosError) => {
-      // Extract error message
       const errorMessage = error?.message || 'Ой... сталася помилка при вході';
 
       toast.error(errorMessage, {
@@ -52,8 +50,9 @@ export function useRegister() {
   return useMutation({
     mutationFn: (credentials: RegistrationDetails) => register(credentials),
     onSuccess: (user: User) => {
-      // Update Zustand store
+      const resetJourney = useJourneyStore.getState().resetJourney;
       setUser(user);
+      resetJourney();
 
       // Show success toast
       toast.success('Реєстрація успішна! Ви залогінені.', {
@@ -82,13 +81,10 @@ export function useLogout() {
   return useMutation({
     mutationFn: () => logout(),
     onSuccess: () => {
-      // Clear Zustand store
       clearAuth();
 
-      // Clear all queries
       queryClient.clear();
 
-      // Show success toast
       toast.success('Вихід успішно виконано!', {
         duration: 3000,
         position: 'top-right',

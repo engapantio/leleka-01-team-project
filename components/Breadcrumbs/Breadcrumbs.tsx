@@ -71,6 +71,7 @@ export default function Breadcrumbs({ currentLabel }: Props) {
 
   return (
     <nav className={css.breadcrumbs} aria-label="Breadcrumb">
+       <ul className={css.breadcrumbsList}>
       <li className={css.item}>
         <Link href="/" className={css.link}>
           Лелека
@@ -102,6 +103,7 @@ export default function Breadcrumbs({ currentLabel }: Props) {
           </li>
         </React.Fragment>
       ))}
+      </ul>
     </nav>
   );
 }

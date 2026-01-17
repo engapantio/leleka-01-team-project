@@ -1,63 +1,89 @@
 import { create } from 'zustand';
+import { checkSession, getCurrentWeek, getCurrentWeekPublic } from '../api/clientApi';
+import type { MomTip, Baby } from '@/types/journey';
 
-// 1. Описываем детальную структуру данных ребенка
-interface BabyData {
-  image?: string;
-  babySize?: string;      // Вес/Рост
-  babyWeight?: string;
-  babyActivity?: string;
-  babyDevelopment?: string; // Описание того, что происходит на этой неделе
-  analogy?: string;         // "Размером с яблоко"
-}
+interface JourneyState {
+  weekNumber: number | null;
+  daysToChildbirth: number | null;
+  baby: Baby | null;
+  mom: MomTip | null;
 
-// 2. Описываем структуру данных мамы
-interface MomTip {
-  tip: string;
-}
+  isLoaded: boolean;      
+  isLoading: boolean;     
+  isPublic: boolean;      
+  error: string | null;
 
-interface MomData {
-  comfortTips: MomTip[];
-}
-
-// 3. Описываем само хранилище
-interface JourneyStore {
-  currentWeek: number | null;
-  daysToDue: number | null;
-  isLoaded: boolean;
-  baby: BabyData | null;
-  mom: MomData | null;
-  
-  // Экшены (функции для управления данными)
-  setJourneyData: (data: Partial<Omit<JourneyStore, 'setJourneyData' | 'isLoaded'>>) => void;
-  setLoading: (loading: boolean) => void;
+  fetchJourneyData: (force?: boolean) => Promise<void>;
   resetJourney: () => void;
 }
 
-export const useJourneyStore = create<JourneyStore>((set) => ({
-  // Начальное состояние
-  currentWeek: null,
-  daysToDue: null,
-  isLoaded: false,
+export const useJourneyStore = create<JourneyState>((set, get) => ({
+  weekNumber: null,
+  daysToChildbirth: null,
   baby: null,
   mom: null,
 
-  // Устанавливаем данные и автоматически выключаем лоадер
-  setJourneyData: (data) => 
-    set((state) => ({ 
-      ...state, 
-      ...data, 
-      isLoaded: true 
-    })),
+  isLoaded: false,
+  isLoading: false,
+  isPublic: false,
+  error: null,
 
-  // Ручное управление загрузкой (если нужно)
-  setLoading: (loading) => set({ isLoaded: loading }),
+  resetJourney: () =>
+    set({
+      weekNumber: null,
+      daysToChildbirth: null,
+      baby: null,
+      mom: null,
+      isLoaded: false,
+      isLoading: false,
+      isPublic: false,
+      error: null,
+    }),
 
-  // Сброс данных (например, при выходе из аккаунта)
-  resetJourney: () => set({
-    currentWeek: null,
-    daysToDue: null,
-    isLoaded: false,
-    baby: null,
-    mom: null,
-  }),
+  fetchJourneyData: async (force = false) => {
+    const { isLoading, isLoaded } = get();
+    if (isLoading) return;
+    if (isLoaded && !force) return;
+
+    set({ isLoading: true, error: null });
+
+    try {
+     
+      const canUsePrivate = await checkSession().catch(() => false);
+
+    
+      const data = canUsePrivate
+        ? await getCurrentWeek()
+        : await getCurrentWeekPublic();
+
+      if (!data) {
+        set({
+          error: 'Empty response from server',
+          isPublic: !canUsePrivate,
+        });
+        return;
+      }
+
+      set({
+        weekNumber: data.weekNumber ?? null,
+        daysToChildbirth: data.daysToChildbirth ?? null,
+        baby: data.baby ?? null,
+        mom: data.momTip ?? null,
+
+        isPublic: !canUsePrivate,
+      });
+    } catch (e) {
+      console.error('Failed to fetch journey data:', e);
+
+      set({
+        error: 'Failed to fetch journey data',
+      });
+    } finally {
+      
+      set({
+        isLoading: false,
+        isLoaded: true,
+      });
+    }
+  },
 }));

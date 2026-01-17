@@ -1,27 +1,28 @@
 import { create } from 'zustand';
+import { getUser, checkSession } from '../api/clientApi';
 import { User } from '@/types/user';
 
 interface AuthStore {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  updateCompleted: boolean;
   setUser: (user: User | null) => void;
   setLoading: (loading: boolean) => void;
   clearAuth: () => void;
-  updateUser: (user: Partial<User>) => void;
+  reinitializeAuth: () => void;
 }
-
-
 
 export const useAuthStore = create<AuthStore>()(set => ({
   user: null,
   isAuthenticated: false,
-  isLoading: true, // Loading until session check completes
+  isLoading: true,
+  updateCompleted: false,
 
   setUser: (user: User | null) =>
     set({
       user,
-      isAuthenticated: !!user,
+      isAuthenticated: user ? true : false,
       isLoading: false,
     }),
 
@@ -34,8 +35,13 @@ export const useAuthStore = create<AuthStore>()(set => ({
       isLoading: false,
     }),
 
-  updateUser: (updatedUser: Partial<User>) =>
-    set(state => ({
-      user: state.user ? { ...state.user, ...updatedUser } : null,
-    })),
+  reinitializeAuth: async () => {
+    const isAuthenticated = await checkSession();
+    if (isAuthenticated) {
+      const user = await getUser();
+      set({ user, isAuthenticated: true , isLoading: false});
+    } else {
+      set({ user: null, isAuthenticated: false, isLoading: false });
+    }
+  },
 }));

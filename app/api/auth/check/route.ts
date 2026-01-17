@@ -17,10 +17,8 @@ export async function GET() {
   }
 
   if (refreshToken) {
-    const apiRes = await backendApi.get('users/current', {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
+    const apiRes = await backendApi.post('auth/refresh', {
+      refreshToken,
     });
     const setCookie = apiRes.headers['set-cookie'];
     if (setCookie) {

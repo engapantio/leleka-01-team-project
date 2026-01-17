@@ -13,11 +13,12 @@
 }
 
 .avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
 }
-
 .name {
   font-weight: 500;
   font-size: 14px;
@@ -47,21 +48,88 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
+
+  border-radius: 25%;
+  transition: background-color 0.25s ease;
 }
 
+.logoutBtn:hover,
 .logoutBtn:focus-visible {
-  outline: 2px solid var(--color-scheme-foreground);
-  outline-offset: 2px;
+  background-color: var(--opacity-neutral-darkest-5);
+}
+
+.logoutBtn:active {
+  background-color: var(--opacity-neutral-darkest-15);
 }
 
 .modalActions {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 24px;
   justify-content: center;
-  margin-top: 24px;
+  margin-top: 48px;
+}
+
+.buttonNo {
+  width: 100%;
+  border: none;
+  border-bottom: 4px solid var(--color-scheme-accent);
+  background-color: var(--color-scheme-foreground-alt);
+  border-radius: 100px;
+  padding: 10px 24px;
+  width: 268px;
+  height: 42px;
+
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.buttonNo:hover,
+.buttonNo:focus {
+  background-color: var(--color-scheme-background);
+  border-bottom: 4px solid var(--color-scheme-border);
+}
+
+.buttonNo:active {
+  background-color: var(--color-neutral-light);
+}
+
+.buttonYes {
+  width: 100%;
+  border: none;
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  background-color: var(--opacity-neutral-darkest-5);
+  border-radius: 100px;
+  padding: 10px 24px;
+  width: 268px;
+  height: 42px;
+
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.buttonYes:hover,
+.buttonYes:focus {
+  background-color: var(--color-scheme-foreground);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+.buttonYes:active {
+  background-color: var(--color-scheme-accent);
+}
+
+.buttonText {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .modalActions {
+    flex-direction: row;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -71,5 +139,23 @@
 
   .email {
     font-size: 14px;
+  }
+
+  .avatar {
+    height: 44px;
+  }
+
+  .buttonNo {
+    padding: 10px 24px;
+    height: 46px;
+  }
+
+  .buttonYes {
+    padding: 10px 24px;
+    height: 46px;
+  }
+
+  .buttonText {
+    font-size: 16px;
   }
 }

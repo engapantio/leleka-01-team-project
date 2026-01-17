@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
-import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import LayoutClient from './layoutClient';
 import './globals.css';
 
 const latoSans = Lato({
@@ -28,11 +28,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="uk">
       <body className={`${latoSans.variable} ${comfortaaBold.variable}`}>
         <TanStackProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <LayoutClient>{children}</LayoutClient>
         </TanStackProvider>
       </body>
     </html>

@@ -6,8 +6,8 @@ import toast from 'react-hot-toast';
 import type { DiaryEntry } from '@/types/diary';
 import DiaryEntryDetails from '@/components/DiaryEntryDetails/DiaryEntryDetails';
 import { deleteDiaryEntryById, fetchDiaryEntryById } from '@/lib/api/clientApi';
-import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
-import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
+//import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
+import ConfirmationModal from '@/components/ConfirmationModalDelete/ConfirmationModalDelete';
 import Loading from '@/app/loading';
 
 export default function DiaryEntryIdPage() {
@@ -70,9 +70,9 @@ export default function DiaryEntryIdPage() {
   return (
     <div>
       <DiaryEntryDetails entry={entry} onEdit={handleEdit} onDelete={handleDelete} />
-      {isEditModalOpen && <AddDiaryEntryModal />}
+      {/* {isEditModalOpen && <AddDiaryEntryModal  />} */}
 
-      {isDeleteModalOpen && <ConfirmationModal />}
+      {/* {isDeleteModalOpen && <ConfirmationModal />} */}
     </div>
   );
 }

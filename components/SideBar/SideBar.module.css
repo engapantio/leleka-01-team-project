@@ -96,6 +96,10 @@
   background-color: var(--opacity-neutral-darkest-5);
 }
 
+.active {
+  background-color: var(--color-scheme-foreground);;
+}
+
 .bottomDivider {
   margin-top: auto;
   margin-bottom: 16px;

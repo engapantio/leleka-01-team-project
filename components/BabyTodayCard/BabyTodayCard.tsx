@@ -1,40 +1,51 @@
+import css from './BabyTodayCard.module.css';
 import Image from 'next/image';
-import styles from './BabyTodayCard.module.css';
 
-type BabyTodayCardProps = {
-  title?: string;
-  imageUrl?: string;
-  sizeText?: string;
-  achievementText?: string;
-};
+export interface BabyTodayCardProps {
+  img: string;
+  height?: number;
+  weight?: number;
+  activity?: string;
+  info?: string;
+  analogy: string;
+}
 
 export default function BabyTodayCard({
-  title = 'Baby today',
-  imageUrl,
-  sizeText,
-  achievementText,
+  img,
+  height,
+  weight,
+  activity,
+  info,
+  analogy,
 }: BabyTodayCardProps) {
   return (
-    <section className={styles.BabyTodayContainer}>
-      <h3 className={styles.title}>{title}</h3>
-
-      <div className={styles.contentWrap}>
-        <div className={styles.imageWrap}>
-          {imageUrl ? (
-            <Image className={styles.image} src={imageUrl} alt="Baby" width={600} height={600} />
-          ) : null}
+    <div className={css.BabyTodayContainer}>
+      <h2 className={css.title}>Малюк сьогодні</h2>
+      <div className={css.contentWrap}>
+        <div className={css.imageWrap}>
+          <Image
+            src={img}
+            alt={analogy}
+            width={257}
+            height={194}
+            className={css.image}
+          />
         </div>
-
-        <div className={styles.textWrap}>
-          {sizeText ? (
-            <p className={styles.text}>
-              <span className={styles.boldText}>{sizeText}</span>
-            </p>
-          ) : null}
-
-          {achievementText ? <p className={styles.textInfo}>{achievementText}</p> : null}
+        <div className={css.textWrap}>
+          <p className={css.boldText}>
+            Розмір: <span className={css.text}> Приблизно {height} см</span>
+          </p>
+          <p className={css.boldText}>
+            Вага: <span className={css.text}> Близько {weight} грам</span>
+          </p>
+          <p className={css.boldText}>
+            Активність: <span className={css.text}> {activity}</span>
+          </p>
         </div>
       </div>
-    </section>
+      <div>
+        <p className={css.textInfo}>{info}</p>
+      </div>
+    </div>
   );
 }
