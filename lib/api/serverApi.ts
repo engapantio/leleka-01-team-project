@@ -10,7 +10,7 @@ import { FullWeekData } from '@/types/journey';
  */
 export const checkSession = async () => {
   const cookiesStore = await cookies();
-  const response = await nextServer.get('/api/auth/check', {
+  const response = await nextServer.get('/auth/check', {
     headers: {
       Cookie: cookiesStore.toString(),
     },
