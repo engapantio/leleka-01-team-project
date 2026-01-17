@@ -3,7 +3,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const nextServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? '' : `http://localhost:${process.env.PORT || 3000}`),
   withCredentials: true, // Include cookies in requests
 });
 

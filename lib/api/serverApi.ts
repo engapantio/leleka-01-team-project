@@ -9,12 +9,12 @@ import { DiaryEntry } from '@/types/diary';
  */
 export const checkSession = async () => {
   const cookiesStore = await cookies();
-  const response = await nextServer.get('/auth/check', {
+  const response = await nextServer.get('/api/auth/check', {
     headers: {
       Cookie: cookiesStore.toString(),
     },
   });
-  return response.data.success;
+  return response;
 };
 
 /**
