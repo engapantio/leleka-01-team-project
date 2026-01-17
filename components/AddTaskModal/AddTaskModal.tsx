@@ -12,11 +12,7 @@ interface AddTaskModalProps {
   taskToEdit?: Task | null;
 }
 
-export default function AddTaskModal({
-  isOpen,
-  onClose,
-  taskToEdit = null,
-}: AddTaskModalProps) {
+export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: AddTaskModalProps) {
   // 🔹 ESC + body scroll lock
   useEffect(() => {
     if (!isOpen) return;
@@ -52,12 +48,7 @@ export default function AddTaskModal({
       onClick={handleBackdropClick}
     >
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <button
-          type="button"
-          className={styles.closeButton}
-          onClick={onClose}
-          aria-label="Закрити"
-        >
+        <button type="button" className={styles.closeButton} onClick={onClose} aria-label="Закрити">
           <svg className={styles.closeIcon} aria-hidden="true" focusable="false">
             <use href="/sprite.svg#icon-close" />
           </svg>

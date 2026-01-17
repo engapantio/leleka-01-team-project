@@ -47,8 +47,7 @@ export default function AddDiaryEntryModal({
 
   if (!isOpen) return null;
 
-  const modalTitle =
-    title ?? (mode === 'edit' ? 'Редагувати запис' : 'Новий запис');
+  const modalTitle = title ?? (mode === 'edit' ? 'Редагувати запис' : 'Новий запис');
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
@@ -62,19 +61,10 @@ export default function AddDiaryEntryModal({
       onClick={handleBackdropClick}
       className={[styles.backdrop, backdropClassName].filter(Boolean).join(' ')}
     >
-      <div
-        className={[styles.panel, className, contentClassName]
-          .filter(Boolean)
-          .join(' ')}
-      >
+      <div className={[styles.panel, className, contentClassName].filter(Boolean).join(' ')}>
         <div className={styles.header}>
           <h3 className={styles.title}>{modalTitle}</h3>
-          <button
-            type="button"
-            aria-label="Закрити"
-            onClick={onClose}
-            className={styles.closeBtn}
-          >
+          <button type="button" aria-label="Закрити" onClick={onClose} className={styles.closeBtn}>
             <svg className={styles.closeIcon} aria-hidden="true">
               <use href="/sprite.svg#icon-close" />
             </svg>

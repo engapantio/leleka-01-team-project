@@ -9,21 +9,6 @@ import css from './RegistrationForm.module.css';
 import { register, RegistrationDetails } from '@/lib/api/clientApi';
 import { registerSchema } from '@/utils/validationSchemas';
 
-// const RegisterSchema = Yup.object().shape({
-//   name: Yup.string()
-//     .min(2, ' Імʼя занадто коротке.')
-//     .max(32, 'Імʼя занадто довге.')
-//     .required('Будь ласка, введіть імʼя.'),
-//   email: Yup.string()
-//     .email('Невірно введена пошта.')
-//     .required('Будь ласка, введіть пошту.')
-//     .max(64, 'Пошта занадто довга.'),
-//   password: Yup.string()
-//     .min(8, 'Пароль занадто короткий.')
-//     .max(128, 'Пароль занадто довгий.')
-//     .required('Будь ласка, введіть пароль.'),
-// });
-
 const initialValues: RegistrationDetails = {
   name: '',
   email: '',
@@ -34,7 +19,8 @@ const RegistrationForm = () => {
   const router = useRouter();
   // const [error, setError] = useState('');
   const fieldId = useId();
-    const setUser = useAuthStore(state => state.setUser);
+  const setUser = useAuthStore(state => state.setUser);
+  const reinitializeAuth = useAuthStore(state => state.reinitializeAuth);
   const handleSubmit = async (
     values: RegistrationDetails,
     actions: FormikHelpers<RegistrationDetails>
@@ -45,6 +31,7 @@ const RegistrationForm = () => {
       if (res) {
         toast.success('Реєстрація успішна!');
         setUser(res);
+        reinitializeAuth();
         router.push('/profile/edit');
       } else {
         // setError('Виникла помилка при реєстрації.');

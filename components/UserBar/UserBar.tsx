@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 import { logout, getUser } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useJourneyStore } from '@/lib/store/journeyStore';
 import Modal from '../Modal/Modal';
 import styles from './UserBar.module.css';
 
@@ -46,8 +47,11 @@ export default function UserBar() {
     try {
       await logout();
       clearAuth();
+      setUser(null);
+      const { resetJourney } = useJourneyStore.getState();
+      resetJourney();
       setIsModalOpen(false);
-      await reinitializeAuth();
+      reinitializeAuth();
       router.push('/?auth_refresh=' + Date.now());
       setTimeout(() => {
         router.replace('/');

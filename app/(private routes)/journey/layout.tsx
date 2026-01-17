@@ -1,44 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-
-import WeekSelector from '@/components/WeekSelector/WeekSelector';
+import { useEffect } from 'react';
 import { useJourneyStore } from '@/lib/store/journeyStore';
+import JourneyLayoutClient from './JourneyLayoutClient';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function JourneyLayout({ children }: Props) {
-  const router = useRouter();
-  const params = useParams<{ slug?: string[] }>();
-  const { weekNumber } = useJourneyStore();
-
-  const weekFromUrl = Number(params.slug?.[0]);
-  const [selectedWeek, setSelectedWeek] = useState<number | null>(
-    Number.isFinite(weekFromUrl) ? weekFromUrl : null
-  );
-
-  const currentWeek = weekNumber ?? 16; // тимчасово, потім буде зі стора/беку
-
+  const weekNumber = useJourneyStore(s => s.weekNumber);
+  const fetchJourneyData = useJourneyStore(s => s.fetchJourneyData);
+  
   useEffect(() => {
-    if (Number.isFinite(weekFromUrl)) setSelectedWeek(weekFromUrl);
-  }, [weekFromUrl]);
+    fetchJourneyData();
+  }, [fetchJourneyData]);
 
-  const handleSelectWeek = (weekNumber: number) => {
-    setSelectedWeek(weekNumber);
-    router.push(`/journey/${weekNumber}`);
-  };
+  const currentWeek = weekNumber ?? 16; // fallback на 16, якщо ще не завантажилось
 
   return (
-    <div>
-      <WeekSelector
-        currentWeek={currentWeek}
-        selectedWeek={selectedWeek}
-        onSelectedWeek={handleSelectWeek}
-      />
+    <JourneyLayoutClient currentWeek={currentWeek}>
       {children}
-    </div>
+    </JourneyLayoutClient>
   );
 }

@@ -9,3 +9,8 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+export interface editProfileData {
+  name?: string;
+  gender?: 'boy' | 'girl' | null;
+  dueDate?: string;
+}
