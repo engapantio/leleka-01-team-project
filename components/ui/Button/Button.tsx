@@ -8,6 +8,7 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset";
   alternative?: boolean;
   action?: () => void;
+  disabled?: boolean;
 };
 
 function Button({
@@ -16,6 +17,7 @@ function Button({
   alternative,
   type = "button",
   action,
+  disabled,
 }: ButtonProps) {
   return (
     <button
@@ -23,6 +25,7 @@ function Button({
       style={styles}
       type={type}
       className={alternative ? css.alternativeButton : css.button}
+      disabled={disabled}
     >
       {children}
     </button>

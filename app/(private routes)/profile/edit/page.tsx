@@ -32,7 +32,7 @@ type FormValues = {
 
 export default function OnboardingForm() {
   const router = useRouter();
-  const [succsess, setSuccsess] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setUser = useAuthStore(state => state.setUser);
@@ -86,7 +86,7 @@ export default function OnboardingForm() {
       if (res) {
         setUser(res);
         toast.success('Профіль успішно оновлено!');
-        setSuccsess(true);
+        setSuccess(true);
         return res;
       }
     } catch (error) {
@@ -178,10 +178,10 @@ export default function OnboardingForm() {
       </div>
 
       {/* Modal */}
-      {succsess && (
+      {success && (
         <Modal
           title="Реєстрацію завершено"
-          onClose={() => setSuccsess(false)}
+          onClose={() => setSuccess(false)}
           styles={{
             justifyContent: 'center',
             gap: 25,
