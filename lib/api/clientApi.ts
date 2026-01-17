@@ -1,6 +1,6 @@
 import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
-import { User } from '@/types/user';
+import { User, editProfileData } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
 import { JourneyBaby, JourneyMom, FullWeekData } from '@/types/journey';
 import { FormValuesForBackend } from '@/components/ProfileEditForm/ProfileEditForm';
@@ -59,12 +59,8 @@ export const getUser = async () => {
   return data;
 };
 
-export const editProfile = async (formData: FormData): Promise<User> => {
-  const response = await nextServer.patch<User>('/users', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+export const editProfile = async (data: editProfileData): Promise<User> => {
+  const response = await nextServer.patch<User>('/users', data);
   return response.data;
 };
 
@@ -122,17 +118,9 @@ export const createDiaryEntry = async (
 //<=================diary==========================
 
 //=================profile=========================
-interface UserRes {
-  id: string;
-  name: string;
-  email: string;
-  gender: string;
-  dueDate: string;
-  avatarUrl: string;
-}
 
 export const updateProfile = async (data: FormValuesForBackend) => {
-  const response = await nextServer.patch<UserRes>('/users', data);
+  const response = await nextServer.patch<User>('/users', data);
   return response.data;
 };
 

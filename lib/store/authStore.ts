@@ -11,7 +11,6 @@ interface AuthStore {
   setLoading: (loading: boolean) => void;
   clearAuth: () => void;
   reinitializeAuth: () => void;
-  updateUser: (user: Partial<User>) => void;
 }
 
 export const useAuthStore = create<AuthStore>()(set => ({
@@ -40,13 +39,9 @@ export const useAuthStore = create<AuthStore>()(set => ({
     const isAuthenticated = await checkSession();
     if (isAuthenticated) {
       const user = await getUser();
-      set({ user, isAuthenticated: true });
+      set({ user, isAuthenticated: true , isLoading: false});
     } else {
-      set({ user: null, isAuthenticated: false });
+      set({ user: null, isAuthenticated: false, isLoading: false });
     }
   },
-  updateUser: (updatedUser: Partial<User>) =>
-    set(state => ({
-      user: state.user ? { ...state.user, ...updatedUser } : null,
-    })),
 }));
