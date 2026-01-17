@@ -16,10 +16,9 @@ interface DiaryListProps {
     entries: DiaryEntry[];
     loading: boolean;
     onSelectEntry: (entry: DiaryEntry) => void;
-    onAdd: () => void;
 }
 
-export default function DiaryList({ entries, loading, onSelectEntry, onAdd }: DiaryListProps) {
+export default function DiaryList({ entries, loading, onSelectEntry}: DiaryListProps) {
 
     const queryClient = useQueryClient();
 

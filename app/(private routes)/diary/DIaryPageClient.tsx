@@ -55,7 +55,6 @@ export default function DiaryPageClient() {
         <DiaryList
           entries={entries}
           loading={false}
-          onAdd={() => {}}
           onSelectEntry={handleSelectEntry}
           />
           
@@ -64,7 +63,7 @@ export default function DiaryPageClient() {
               <DiaryEntryDetails
                 entry={selectedEntry}
                 onEdit={() => {} }
-              onDelete={()=> {}}
+              
             />
           ) : <DiaryEntryDetailsPlaceholder />}
         </div>
@@ -77,7 +76,6 @@ export default function DiaryPageClient() {
             <DiaryList
               entries={entries}
               loading={false}
-              onAdd={()=> {}}
               onSelectEntry={handleSelectEntry}
             />
           ) : <DiaryListPlaceholder />}
