@@ -108,7 +108,7 @@ export default function OnboardingForm() {
               //console.log('✅ Avatar uploaded:', data);
               resolve();
             },
-            onError: (err: any) => {
+            onError: (err: unknown) => {
               console.error('❌ Avatar upload failed:', err);
               reject(err);
             },
@@ -139,7 +139,7 @@ export default function OnboardingForm() {
               console.log('✅ Profile updated:', data);
               resolve();
             },
-            onError: (err: any) => {
+            onError: (err: unknown) => {
               console.error('❌ Profile update failed:', err);
               reject(err);
             },
