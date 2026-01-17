@@ -3,31 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import css from './DIaryPageClient.module.css';
-import GreetingBlock from "@/components/GreetingBlock/GreetingBlock";
 import DiaryList from "@/components/DiaryList/DiaryList";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
-import AddDiaryEntryModal from "@/components/AddDiaryEntryModal/AddDiaryEntryModal";
-import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
 import { fetchDiaryEntries } from "@/lib/api/clientApi";
 import { DiaryEntry } from "@/types/diary";
 import DiaryListPlaceholder from "@/components/DiaryListPlaceholder/DiaryListPlaceholder";
+import DiaryEntryDetailsPlaceholder from "@/components/DiaryEntryDetailsPlaceholder/DiaryEntryDetailsPlaceholder";
 
 export default function DiaryPageClient() {
   const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
-  // const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  // const openAddModal = () => setIsAddModalOpen(true);
-  // const closeAddModal = () => setIsAddModalOpen(false);
-
-  // const openEditModal = () => setIsEditModalOpen(true);
-  // const closeEditModal = () => setIsEditModalOpen(false);
-
-  // const openDeleteModal = () => setIsDeleteModalOpen(true);
-  // const closeDeleteModal = () => setIsDeleteModalOpen(false);
 
   useEffect(() => {
     const checkScreen = () => setIsDesktop(window.innerWidth >= 1440);
@@ -71,7 +57,8 @@ export default function DiaryPageClient() {
           loading={false}
           onAdd={() => {}}
           onSelectEntry={handleSelectEntry}
-        />
+          />
+          
         <div>
             {hasEntries && selectedEntry ? (
               <DiaryEntryDetails
@@ -79,7 +66,7 @@ export default function DiaryPageClient() {
                 onEdit={() => {} }
               onDelete={()=> {}}
             />
-          ) : null}
+          ) : <DiaryEntryDetailsPlaceholder />}
         </div>
       </div>
     )}
@@ -96,17 +83,6 @@ export default function DiaryPageClient() {
           ) : <DiaryListPlaceholder />}
       </>
     )}
-
-      {/* {isAddModalOpen && <AddDiaryEntryModal onClose={closeAddModal} />}
-      {isEditModalOpen && selectedEntry && (
-        <AddDiaryEntryModal entry={selectedEntry} onClose={closeEditModal} />
-      )}
-      {isDeleteModalOpen && selectedEntry && (
-        <ConfirmationModal
-          onClose={closeDeleteModal}
-          onConfirm={() => console.log("Delete", selectedEntry.id)}
-        />
-      )} */}
     </div>
   );
 }

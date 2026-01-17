@@ -1,6 +1,6 @@
 'use client';
 
-import css from './ConfirmationModal.module.css';
+import css from './ConfirmationModalDelete.module.css';
 import Modal from '../Modal/Modal';
 import Button from '../ui/Button/Button';
 import { useEffect, useState } from 'react';
