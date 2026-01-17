@@ -73,14 +73,14 @@ export default function OnboardingForm() {
 
   const validationSchema = Yup.object({
     gender: Yup.string()
-<<<<<<< HEAD
+ HEAD
       .oneOf(validGenders, 'Оберіть стать')
-=======
+
       .oneOf(
         genderOptions.map(o => o.label),
         'Ще не знаю'
       )
->>>>>>> main
+main
       .required('Оберіть стать'),
     dueDate: Yup.string()
       .required('Вкажіть дату')
@@ -377,7 +377,7 @@ export default function OnboardingForm() {
             </Button>
           </Modal>
         )}
->>>>>>> main
+ main
       </div>
 
       {/* Modal */}
