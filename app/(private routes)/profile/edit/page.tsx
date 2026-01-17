@@ -104,8 +104,8 @@ export default function OnboardingForm() {
         console.log('📸 Uploading avatar...');
         await new Promise<void>((resolve, reject) => {
           avatarMutation.mutate(formValues.avatar!, {
-            onSuccess: data => {
-              console.log('✅ Avatar uploaded:', data);
+            onSuccess: () => {
+              //console.log('✅ Avatar uploaded:', data);
               resolve();
             },
             onError: (err: any) => {
