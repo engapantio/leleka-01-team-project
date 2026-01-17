@@ -87,19 +87,22 @@ export interface FetchDiaryEntriesResponse {
 }
 
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const res = await nextServer.get<FetchDiaryEntriesResponse>('/diaries', {
     headers: {
       Cookie: cookieStore.toString(),
+      
     },
   });
+  console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
+
   return res.data.entries;
 };
 
 export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
   const cookieStore = cookies();
 
-  const res = await nextServer.get<DiaryEntry>(`/diary/${entryId}`, {
+  const res = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
