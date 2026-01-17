@@ -38,7 +38,7 @@ type FormValues = {
 export default function OnboardingForm() {
   const router = useRouter();
   const [success, setSuccess] = useState(false);
-<<<<<<< HEAD
+ HEAD
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setUser = useAuthStore(state => state.setUser);
@@ -48,7 +48,7 @@ export default function OnboardingForm() {
     { label: 'хлопчик' },
     { label: 'дівчинка' },
   ];
-=======
+
   const [error, setError] = useState<string | null>(null);
   const profileMutation = useUpdateProfileMutation();
   const avatarMutation = useUpdateAvatarMutation();
@@ -141,7 +141,7 @@ main
         });
       }
 
-<<<<<<< HEAD
+ HEAD
       // Convert gender from Ukrainian to backend format
       const genderMap: Record<string, string> = {
         'хлопчик': 'boy',
@@ -190,7 +190,7 @@ main
       console.error('Error updating profile:', error);
     } finally {
       setIsSubmitting(false);
-=======
+
       const profileUpdate: Record<string, string | null> = {};
 
       if (formValues.gender) {
@@ -236,7 +236,7 @@ main
       const errorMessage = 'Failed to save profile';
       setError(errorMessage);
       console.error('❌ Error:', err, errorMessage);
->>>>>>> main
+ main
     }
   };
 
@@ -297,7 +297,7 @@ main
             </Form>
           )}
         </Formik>
-=======
+
     <section className={styles.wrapper}>
       <div className={styles.formCard}>
         <div className={styles.logoBox}>
