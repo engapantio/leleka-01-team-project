@@ -3,6 +3,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { editProfile } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { User } from '@/types/user';
 
 interface UpdateProfilePayload {
   gender?: string;
@@ -24,7 +25,7 @@ export function useUpdateProfileMutation() {
 
       return editProfile(cleanPayload);
     },
-    onSuccess: updatedUser => {
+    onSuccess: (updatedUser: User) => {
       console.log('📥 Server returned updated user:', updatedUser);
       const { setUser, reinitializeAuth } = useAuthStore.getState();
       setUser(updatedUser);

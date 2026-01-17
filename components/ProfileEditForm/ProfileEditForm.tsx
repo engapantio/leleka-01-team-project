@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { User } from '@/types/user';
 import { updateProfile } from '@/lib/api/clientApi';
-//import { useAuthStore } from '@/lib/store/authStore';
+import { useAuthStore } from '@/lib/store/authStore';
 
 interface ProfileEditFormProps {
   dataUser?: User | null;
@@ -28,6 +28,7 @@ export interface FormValuesForBackend {
 
 // значення приходять з бекенду
 export default function ProfileEditForm({ dataUser }: ProfileEditFormProps) {
+  // const { setUser } = useAuthStore();
   const initialValues: OrderFormValues = {
     name: dataUser?.name || '',
     email: dataUser?.email || '',

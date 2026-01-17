@@ -118,17 +118,9 @@ export const createDiaryEntry = async (
 //<=================diary==========================
 
 //=================profile=========================
-interface UserRes {
-  id: string;
-  name: string;
-  email: string;
-  gender: string;
-  dueDate: string;
-  avatarUrl: string;
-}
 
 export const updateProfile = async (data: FormValuesForBackend) => {
-  const response = await nextServer.patch<UserRes>('/users', data);
+  const response = await nextServer.patch<User>('/users', data);
   return response.data;
 };
 
