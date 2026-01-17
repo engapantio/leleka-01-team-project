@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <main className="main-container">
       <GreetingBlock />
-      {/* <div className="widgets-wrapper">
+      <div className="widgets-wrapper">
         <div className="left-section">
           <StatusBlock weeks={MOCK.weeks} days={MOCK.days} />
           <BabyTodayCard
@@ -43,9 +43,8 @@ export default function Home() {
           <TaskReminderCard />
           <FeelingCheckCard />
         </div>
-      </div> */}
+      </div>
       <div className='diary-page'>
-        <DiaryPage />
       </div>
     </main>
   );
