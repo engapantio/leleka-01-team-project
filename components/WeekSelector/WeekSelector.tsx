@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+'use client';
+
+import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import css from './WeekSelector.module.css';
 import { useDragScroll } from '@/hooks/useDragScroll';
@@ -16,20 +18,16 @@ const WeekSelector = ({
   onSelectedWeek,
   setActiveTab,
 }: WeekSelectorProps) => {
-  const weeks = useMemo(() => Array.from({ length: 42 }, (_, i) => i + 1), []);
+  const totalWeeks = 42;
+  const weeks = Array.from({ length: totalWeeks }, (_, i) => i + 1);
 
   const containerRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const {
-    onMouseDown,
-    onMouseLeave,
-    onMouseUp,
-    onMouseMove,
-    didDrag,
-    resetDragFlag,
-  } = useDragScroll<HTMLUListElement>('horizontal', containerRef);
+  const { onMouseDown, onMouseLeave, onMouseUp, onMouseMove } =
+    useDragScroll<HTMLUListElement>('horizontal', containerRef);
 
+  // Автоматичний скрол до вибраного тижня
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -38,35 +36,42 @@ const WeekSelector = ({
     if (!weekToScroll) return;
 
     if (weekToScroll < 5) {
-      container.scrollTo({ left: 0, behavior: 'smooth' });
+      container.scrollTo({
+        left: 0,
+        behavior: 'smooth',
+      });
       return;
     }
 
-    const targetIndex = Math.min(
-      Math.max(weekToScroll - 1, 0),
-      weeks.length - 1
-    );
+    const targetIndex = Math.min(weekToScroll - 1, weeks.length - 1);
     const targetElement = itemRefs.current[targetIndex];
-    if (!targetElement) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const targetRect = targetElement.getBoundingClientRect();
+    if (targetElement) {
+      const offsetLeft = targetElement.offsetLeft;
+      const containerWidth = container.offsetWidth;
+      const scrollLeft = Math.max(0, offsetLeft - containerWidth / 2);
 
-    const currentScrollLeft = container.scrollLeft;
-    const targetCenter =
-      currentScrollLeft +
-      (targetRect.left - containerRect.left) +
-      targetRect.width / 2;
+      container.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth',
+      });
+    }
+  }, [selectedWeek, currentWeek, weeks.length]);
 
-    container.scrollTo({
-      left: Math.max(0, targetCenter - containerRect.width / 2),
-      behavior: 'smooth',
-    });
-  }, [selectedWeek, currentWeek, weeks]);
+  // Обробка кліку на тиждень
+  const handleWeekClick = (weekNumber: number) => {
+    if (currentWeek !== null && weekNumber > currentWeek) {
+      return;
+    }
 
-  const handleSelect = (weekNumber: number) => {
-    if (weekNumber === selectedWeek) return;
-    setActiveTab?.();
+    if (weekNumber === selectedWeek) {
+      return;
+    }
+
+    if (setActiveTab) {
+      setActiveTab();
+    }
+
     onSelectedWeek(weekNumber);
   };
 
@@ -75,27 +80,19 @@ const WeekSelector = ({
       className={css.container}
       ref={containerRef}
       onMouseDown={onMouseDown}
-     onMouseLeave={() => {
-  onMouseLeave();
-  resetDragFlag();
-}}
-onMouseUp={() => {
-  onMouseUp();
-  setTimeout(() => resetDragFlag(), 0);
-}}
+      onMouseLeave={onMouseLeave}
+      onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
     >
       {weeks.map((weekNumber, index) => {
         const isCurrentWeek = currentWeek === weekNumber;
         const isSelectedWeek = selectedWeek === weekNumber;
-        const isFutureWeek =
-          currentWeek !== null && weekNumber > currentWeek;
+        const isFutureWeek = currentWeek !== null && weekNumber > currentWeek;
 
         return (
           <li
             key={weekNumber}
-            className={css.item}
-            ref={(el) => {
+            ref={el => {
               itemRefs.current[index] = el;
             }}
           >
@@ -103,18 +100,11 @@ onMouseUp={() => {
               className={clsx(
                 css.week_box,
                 isCurrentWeek && css.current,
-                isSelectedWeek && css.active,
-                isFutureWeek && css.disabled
+                isSelectedWeek && css.active
               )}
               disabled={isFutureWeek}
               type="button"
-              onClick={(e) => {
-                if (didDrag()) {
-                  e.preventDefault();
-                  return;
-                }
-                if (!isFutureWeek) handleSelect(weekNumber);
-              }}
+              onClick={() => handleWeekClick(weekNumber)}
             >
               <span className={css.numm}>{weekNumber}</span>
               <span className={css.week}>Тиждень</span>
