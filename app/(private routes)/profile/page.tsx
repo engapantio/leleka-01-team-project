@@ -6,7 +6,14 @@ import ProfileEditForm from '@/components/ProfileEditForm/ProfileEditForm';
 // import { useEffect, useState } from "react";
 import { useAuthStore } from '@/lib/store/authStore';
 
-// const userFromStore = useAuthStore
+import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
+import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
+
+
 
 export default function ProfilePage() {
   const setUser = useAuthStore(state => state.setUser);
@@ -31,13 +38,9 @@ export default function ProfilePage() {
     console.log('query data:', user)
 
 
-    
-    // const setUser = useAuthStore(state => state.setUser)
-    // const {user} = useAuthStore()
 
 
 useEffect(() => {
-  // if (isLoading) toast('Завантаження...')
   if (isLoading) {
       <p>Завантаження</p>
     }
