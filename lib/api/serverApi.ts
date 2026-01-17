@@ -10,7 +10,7 @@ import { FullWeekData } from '@/types/journey';
  */
 export const checkSession = async () => {
   const cookiesStore = await cookies();
-  const response = await nextServer.get('/auth/check', {
+  const response = await nextServer.get('/api/auth/check', {
     headers: {
       Cookie: cookiesStore.toString(),
     },
@@ -48,12 +48,12 @@ export const editProfile = async (data: editProfileData) => {
 // Journey //
 export const getCurrentWeek = async () => {
   const cookieStore = await cookies();
-  const response = await nextServer.get<{ weekNumber: number }>('weeks/current', {
+  const response = await nextServer.get<{ weekNumber: number }>('/weeks/current', {
     headers: {
       Cookie: cookieStore.toString(),
     },
   });
-  return response.data;
+  return response.data.weekNumber;
 };
 
 export const getCurrentWeekPublic = async (): Promise<FullWeekData> => {
@@ -63,7 +63,7 @@ export const getCurrentWeekPublic = async (): Promise<FullWeekData> => {
 
 export const getBabyState = async (weekNumber: number) => {
   const cookieStore = await cookies();
-  const response = await nextServer.get<JourneyBaby>(`weeks/${weekNumber}/baby`, {
+  const response = await nextServer.get<JourneyBaby>(`/weeks/${weekNumber}/baby`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -73,7 +73,7 @@ export const getBabyState = async (weekNumber: number) => {
 
 export const getMomState = async (weekNumber: number) => {
   const cookieStore = await cookies();
-  const response = await nextServer.get<JourneyMom>(`weeks/${weekNumber}/mom`, {
+  const response = await nextServer.get<JourneyMom>(`/weeks/${weekNumber}/mom`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
