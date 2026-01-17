@@ -3,7 +3,6 @@ import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import LayoutClient from './layoutClient';
 import './globals.css';
-import DeleteEntryModal from '@/components/DeleteEntryModal/DeleteEntryModal';
 
 const latoSans = Lato({
   variable: '--font-family',
@@ -35,7 +34,6 @@ export default function RootLayout({
       <body className={`${latoSans.variable} ${comfortaaBold.variable}`}>
         <TanStackProvider>
           <LayoutClient>{children}</LayoutClient>
-          <DeleteEntryModal />
         </TanStackProvider>
       </body>
     </html>

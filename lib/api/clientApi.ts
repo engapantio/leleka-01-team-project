@@ -88,6 +88,12 @@ export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
 
 //=================diary==========================>
 
+interface UpdateDiaryEntryById {
+  title: string;
+  description: string;
+  emotions: string[];
+}
+
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
   const { data } = await nextServer.get<FetchDiaryEntriesResponse>('/diaries');
 
@@ -114,6 +120,14 @@ export const createDiaryEntry = async (
     description,
     emotions,
   });
+  return res.data;
+};
+
+export const updateDiaryEntryById = async (
+  entryId: string,
+  data: UpdateDiaryEntryById
+): Promise<DiaryEntry> => {
+  const res = await nextServer.put<DiaryEntry>(`/diaries/${entryId}`, data);
   return res.data;
 };
 //<=================diary==========================

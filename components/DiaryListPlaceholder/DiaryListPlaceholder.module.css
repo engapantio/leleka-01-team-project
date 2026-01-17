@@ -1,3 +1,17 @@
+.container {
+  background: var(--color-scheme-foreground);
+  border-radius: 32px;
+  padding: 24px 16px;
+  width: 335px;
+  height: 97px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 704px;
+  }
+}
+
 .text {
   font-family: var(--font-family);
   font-weight: 400;

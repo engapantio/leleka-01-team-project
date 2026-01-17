@@ -4,27 +4,101 @@ import type { DiaryEntry } from '@/types/diary';
 import css from './DiaryEntryDetails.module.css';
 import Loader from '../Loader/Loader';
 import dateTransform from '../../utils/dateTransform';
-import { useDeleteEntryStore } from '@/lib/store/useDeleteEntryStore';
+import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteDiaryEntryById, updateDiaryEntryById } from '@/lib/api/clientApi';
+import toast from 'react-hot-toast';
+import DiaryEntryDetailsPlaceholder from '../DiaryEntryDetailsPlaceholder/DiaryEntryDetailsPlaceholder';
+import { useRouter } from 'next/navigation';
+import ConfirmationModal from '../ConfirmationModalDelete/ConfirmationModalDelete';
 
 interface DiaryEntryDetailsProps {
   entry: DiaryEntry | null;
   isLoading?: boolean;
-  onEdit?: (entry: DiaryEntry) => void;
+    onEdit?: (entry: DiaryEntry) => void;
 }
 
 export default function DiaryEntryDetails({
-  entry,
+  entry: initialEntry,
   isLoading = false,
-  onEdit,
 }: DiaryEntryDetailsProps) {
-  const openModal = useDeleteEntryStore((state) => state.openModal);
+    const router = useRouter();
+  const queryClient = useQueryClient();
+  const [entry, setEntry] = useState<DiaryEntry | null>(initialEntry);
+
+  useEffect(() => {
+  setEntry(initialEntry);
+}, [initialEntry]);
+
+
+  const [isDesktop, setIsDesktop] = useState<boolean>(
+    typeof window !== 'undefined' ? window.innerWidth >= 1440 : true
+  );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1440);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  const { mutate: deleteEntry } = useMutation({
+    mutationFn: (id: string) => deleteDiaryEntryById(id),
+onSuccess: () => {
+  toast.success('Запис видалено');
+  queryClient.invalidateQueries({ queryKey: ['diaries'] });
+
+  if (isDesktop) {
+    setEntry(null);
+
+  } else {
+    router.back();
+  }
+  setIsModalOpen(false); 
+},
+      onError: (err) => {
+        toast.error('Не вдалося видалити запис');
+      console.error('Не вдалося видалити запис', err);
+    },
+  });
+
+  const { mutate: updateEntry } = useMutation<
+  DiaryEntry,
+  unknown,
+  DiaryEntry
+>({
+  mutationFn: (updatedEntry: DiaryEntry) =>
+    updateDiaryEntryById(
+      updatedEntry.id,
+      {
+        title: updatedEntry.title,
+        description: updatedEntry.description,
+        emotions: updatedEntry.emotions.map(e => e.title),
+      }
+    ),
+  onSuccess: (data) => {
+    toast.success('Запис оновлено');
+    queryClient.invalidateQueries({ queryKey: ['diaries'] });
+    setEntry(data);
+    setIsEditModalOpen(false);
+  },
+  onError: () => {
+    toast.error('Не вдалося оновити запис');
+  },
+});
+
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (!entry) {
-    return
+    return isDesktop ? <DiaryEntryDetailsPlaceholder /> : null;
   }
 
   return (
@@ -35,7 +109,7 @@ export default function DiaryEntryDetails({
 
           <button
             className={css.btn}
-            onClick={() => onEdit?.(entry)}
+            onClick={() => setIsEditModalOpen(true)}
             aria-label="Edit diary entry"
           >
             <svg width="24" height="24" viewBox="0 0 32 32">
@@ -49,12 +123,14 @@ export default function DiaryEntryDetails({
 
           <button
             className={css.btn}
-            onClick={() => openModal(entry)}
+            onClick={() => setIsModalOpen(true)}
+
             aria-label="Delete diary entry"
           >
             <svg width="24" height="24" viewBox="0 0 32 32">
               <use href="/sprite.svg#icon-delete_forever" />
             </svg>
+            
           </button>
         </div>
       </div>
@@ -70,6 +146,29 @@ export default function DiaryEntryDetails({
           ))}
         </ul>
       )}
+      {isModalOpen && entry && (
+        <ConfirmationModal
+          title={`Видалити "${entry.title}"?`}
+          handler={() => deleteEntry(entry.id)}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
+      {/* {isEditModalOpen && entry && (
+  <EditDiaryEntryModal
+  entry={entry}
+  onClose={() => setIsEditModalOpen(false)}
+  handler={(updatedData: { title: string; description: string; emotions: string[] }) => {
+    if (!entry) return;
+
+    updateEntry({
+      ...entry,
+      title: updatedData.title,
+      description: updatedData.description,
+      emotions: updatedData.emotions.map(e => ({ id: '', title: e })), 
+    });
+  }}
+/>
+)} */}
     </div>
   );
 }
