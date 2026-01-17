@@ -14,7 +14,6 @@ export default function DiaryPage() {
 
     const [isDesktop, setIsDesktop] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const checkScreen = () => setIsDesktop(window.innerWidth >= 1440);
@@ -39,9 +38,7 @@ export default function DiaryPage() {
         fetchEntries();
     }, []);
     
-    const handleAdd = () => {
-        setIsModalOpen(true);
-    };
+
 
     return (
         <div>
@@ -49,15 +46,13 @@ export default function DiaryPage() {
                 <DiaryList
                     loading={loading}
                     onSelectEntry={setSelectedEntry}
-                    entries={entries}
-                    onAdd={handleAdd} />
+                    entries={entries} />
                 
                 {isDesktop && selectedEntry && (
                     <DiaryEntryDetails
                         entry={selectedEntry} />
                 )}
             </div>
-            {isModalOpen && <></>}
         </div>
     );
 }
