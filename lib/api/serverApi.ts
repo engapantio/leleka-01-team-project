@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
-import { User } from '@/types/user';
+import { User, editProfileData } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
 import { FullWeekData } from '@/types/journey';
@@ -29,6 +29,20 @@ export const getUser = async () => {
     },
   });
   return data;
+};
+
+/**
+ * Edit user
+ */
+
+export const editProfile = async (data: editProfileData) => {
+  const cookieStore = await cookies();
+  const res = await nextServer.patch('/users', data, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res.data;
 };
 
 // Journey //

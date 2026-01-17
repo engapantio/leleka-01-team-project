@@ -28,7 +28,7 @@ export interface FormValuesForBackend {
 
 // значення приходять з бекенду
 export default function ProfileEditForm({ dataUser }: ProfileEditFormProps) {
-  const { updateUser } = useAuthStore();
+  // const { setUser } = useAuthStore();
   const initialValues: OrderFormValues = {
     name: dataUser?.name || '',
     email: dataUser?.email || '',
