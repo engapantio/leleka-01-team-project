@@ -1,9 +1,13 @@
 .wrapper {
-    width: 375px;
+    width: 100%;
+    max-width: 375px;
     margin: auto;
-    max-height: 100dvh;
+    max-height: 100vh;
     display: block;
     animation: loading 0.3s ease-in;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 0;
   }
   
   @keyframes loading {
@@ -21,6 +25,9 @@
     padding: 13px 20px 29px;
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
+    /* box-sizing: border-box;
+    overflow-x: hidden; */
   }
   
   .logoBox {
@@ -28,6 +35,7 @@
     width: 88px;
     aspect-ratio: 112 / 48;
     margin-bottom: 43px;
+    /* align-self: center; */
   }
   
   .logoImg {
@@ -39,11 +47,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    /* max-width: 335px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 0; */
   }
   
   .title {
     white-space: normal;
-    word-spacing: 9999px;
+    word-spacing: normal;
     font-family: var(--second-family);
     font-weight: 700;
     font-size: 36px;
@@ -52,6 +65,16 @@
     text-align: center;
     color: var(--color-scheme-text);
     margin-bottom: 32px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  
+  .noWrap {
+    white-space: nowrap;
   }
   
   .avatarBlock {
@@ -77,13 +100,24 @@
     flex-direction: column;
     gap: 24px;
     width: 100%;
+    max-width: 100%;
     padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .field {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .field > * {
+    width: 100%;
+    max-width: 100%;
   }
   
   .label {
@@ -92,11 +126,12 @@
     font-size: 14px;
     line-height: 150%;
     color: var(--color-scheme-text);
+    width: 100%;
   }
   
   .illustration {
     display: none;
-    background: url('/img/onboardimgx2.jpg') center 85% / cover no-repeat;
+    background: url('/onboard.jpg') center 85% / cover no-repeat;
     min-height: 600px;
     width: 100%;
   }
@@ -113,36 +148,87 @@
 
   .submitWrap {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (max-width: 1439px) {
     .wrapper {
-      width: 768px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+      overflow-x: visible;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
   
     .formCard {
       padding: 13px 32px 32px;
+      overflow-x: visible;
+      width: auto;
+      /* max-width: 480px; */
+      /* align-items: center; */
+      margin: 0;
     }
   
     .logoBox {
       width: 105px;
       margin-bottom: 123px;
+      /* align-self: left; */
     }
   
     .formContainer {
-      width: 480px;
-      align-self: center;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      overflow-x: visible;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   
     .title {
       word-spacing: normal;
-      font-size: 36px;
       margin-bottom: 32px;
+      width: 100%;
+      text-align: center;
     }
   
     .form {
       gap: 24px;
-      /*padding: 0 40px 40px;*/
+      overflow-x: visible;
+      width: 100%;
+      max-width: 480px;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field {
+      align-items: center;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .label {
+      text-align: left;
+      width: 100%;
+    }
+
+    .submitWrap {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      justify-content: center;
     }
   }
   
@@ -152,29 +238,40 @@
       justify-content: space-between;
       align-items: stretch;
       width: 100%;
+      max-width: 100%;
       margin: 0;
       min-height: 100vh;
+      overflow-x: visible;
     }
   
     .formCard {
       width: 50%;
-      max-width: 592px;
-      padding: 32px 0 0;
-      margin-left: auto;
+      /* max-width: 592px; */
+      padding: 32px 64px 0;
+      margin-left: -156px !important;
       margin-right: auto;
+      overflow-x: visible;
+      flex-shrink: 0;
     }
   
     .logoBox {
       margin-bottom: 70px;
+      align-self: flex-start;
     }
   
     .formContainer {
-      width: 480px;
+      width: 100%;
+      max-width: 480px;
+      overflow-x: visible;
+      padding: 0;
     }
   
     .title {
       font-size: 48px;
       margin-bottom: 32px;
+      width: 100%;
+      word-spacing: normal;
+      line-height: 120%;
     }
   
     .avatar {
@@ -185,11 +282,23 @@
   
     .form {
       gap: 24px;
+      overflow-x: visible;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .field {
+      align-items: flex-start;
+    }
+
+    .label {
+      text-align: left;
     }
   
     .illustration {
       display: block;
       width: 50%;
+      flex-shrink: 0;
     }
   }
   
