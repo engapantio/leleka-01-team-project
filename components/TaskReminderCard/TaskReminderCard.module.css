@@ -37,13 +37,14 @@
   row-gap: 16px;
 }
 .TasksList{
-  scrollbar-gutter: stable both-edges;
+  max-height: 584px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
 }
 .TaskItem{
-  min-height: 37px;
+ 
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -109,6 +110,9 @@ color: var(--color-scheme-text);
   .TaskReminderCard{
     max-height: 671px;
   }
+  .TasksList{
+    max-height: 623px;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -127,5 +131,8 @@ color: var(--color-scheme-text);
   }
   .TaskText {
     font-size: 14px;
+  }
+  .TasksList{
+    max-height: 389px;
   }
 }
