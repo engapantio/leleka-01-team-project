@@ -16,7 +16,7 @@ export const updateTask = async (
   id: string,
   payload: Partial<Omit<Task, 'id'>>
 ): Promise<Task> => {
-  const res = await nextServer.patch<Task>(`/tasks/${id}`, payload);
+  const res = await nextServer.patch<Task>('/tasks', { id, ...payload });
   return res.data;
 };
 
