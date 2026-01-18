@@ -25,6 +25,8 @@
     padding: 13px 20px 29px;
     display: flex;
     flex-direction: column;
+          margin-top: auto;
+      margin-bottom: auto;
     /* align-items: center; */
     /* box-sizing: border-box;
     overflow-x: hidden; */
@@ -131,9 +133,11 @@
   
   .illustration {
     display: none;
-    background: url('/onboard.jpg') center 85% / cover no-repeat;
-    min-height: 600px;
-    width: 100%;
+    background: url('/onboard.webp') center 85% / cover no-repeat;
+    height: 900px;
+    width: 720px;
+    margin-top: auto;
+    margin-bottom: auto;
   }
   
   .error_input {
@@ -175,6 +179,7 @@
       /* max-width: 480px; */
       /* align-items: center; */
       margin: 0;
+
     }
   
     .logoBox {
@@ -220,7 +225,7 @@
     }
 
     .label {
-      text-align: left;
+      text-align: center;
       width: 100%;
     }
 
@@ -251,7 +256,7 @@
       margin-left: -156px !important;
       margin-right: auto;
       overflow-x: visible;
-      flex-shrink: 0;
+
     }
   
     .logoBox {
@@ -297,8 +302,7 @@
   
     .illustration {
       display: block;
-      width: 50%;
-      flex-shrink: 0;
+      width: 720px;
     }
   }
   
