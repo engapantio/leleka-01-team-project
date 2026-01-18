@@ -102,3 +102,12 @@ export function useLogout() {
     },
   });
 }
+export function useAuth() {
+  const user = useAuthStore(state => state.user);
+  const isAuthenticated = !!user;
+
+  return {
+    user,
+    isAuthenticated,
+  };
+}

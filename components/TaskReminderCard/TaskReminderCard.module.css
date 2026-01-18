@@ -2,7 +2,7 @@
   border: 0px solid var(--opacity-neutral-darkest-15);
   border-radius: 32px;
   padding: 24px;
-  /* width: 100%; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -73,6 +73,7 @@
 
 @media (min-width: 1440px) {
   .TaskReminderCard {
+    width:390px;
     height: 499px;
   }
 }
