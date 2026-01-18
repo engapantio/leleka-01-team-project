@@ -144,7 +144,6 @@ onSuccess: () => {
       onSuccess: (updatedData: DiaryEntry) => {
         setEntry(updatedData);
         setIsEditModalOpen(false);
-        toast.success('Запис оновлено');
         queryClient.invalidateQueries({ queryKey: ['diaries'] });
       },
       notify: (type, message) => {
