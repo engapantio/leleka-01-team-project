@@ -173,7 +173,9 @@ export default function OnboardingForm() {
           <Image src={Logo} alt="Leleka" fill priority className={styles.logoImg} />
         </div>
         <div className={styles.formContainer}>
-          <h1 className={styles.title}>Давайте познайомимося ближче</h1>
+          <h1 className={styles.title}>
+            Давайте <span className={styles.noWrap}>познайомимося</span> ближче
+          </h1>
 
           <Formik
             initialValues={initialValues}
