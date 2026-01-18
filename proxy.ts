@@ -17,11 +17,25 @@ export async function proxy(request: NextRequest) {
 
   if (!accessToken) {
     if (refreshToken) {
-      await checkSession();
-      // Check if cookies were set by the API route (they're already in the shared cookie store)
-      const updatedAccessToken = cookiesStore.get('accessToken')?.value;
-      if (updatedAccessToken) {
-        // Cookies were set by the API route, continue with the request
+      const data = await checkSession();
+      const setCookie = data.headers['set-cookie'];
+      if (setCookie) {
+        const cookiesArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+
+        for (const cookie of cookiesArray) {
+          const parsed = parse(cookie);
+          const options = {
+            expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+            path: parsed.Path,
+            maxAge: Number(parsed['Max-Age']),
+          };
+          if (parsed.accessToken) {
+            cookiesStore.set('accessToken', parsed.accessToken, options);
+          }
+          if (parsed.refreshToken) {
+            cookiesStore.set('refreshToken', parsed.refreshToken, options);
+          }
+        }
         if (isPublicRoute) {
           return NextResponse.redirect(new URL('/', request.url), {
             headers: {

@@ -174,7 +174,7 @@ export default function OnboardingForm() {
         </div>
         <div className={styles.formContainer}>
           <h1 className={styles.title}>
-            Давайте <span className={styles.noWrap}>познайомимося</span> ближче
+            Давайте познайомимося ближче
           </h1>
 
           <Formik
@@ -182,7 +182,7 @@ export default function OnboardingForm() {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting }) => (
+            {({ }) => (
               <Form className={styles.form}>
                 {error && (
                   <div
