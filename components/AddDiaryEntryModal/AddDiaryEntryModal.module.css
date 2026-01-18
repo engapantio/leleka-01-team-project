@@ -39,11 +39,12 @@
 
 .panel {
     width: min(100%, 640px);
+    max-height: calc(100dvh - 32px);
     background: #fff;
     color: inherit;
     border-radius: 36px;
     box-shadow: 0 40px 80px rgba(15, 23, 42, 0.16);
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -96,6 +97,8 @@
 
 .content {
     padding: 0 24px 32px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 @media (min-width: 768px) {
