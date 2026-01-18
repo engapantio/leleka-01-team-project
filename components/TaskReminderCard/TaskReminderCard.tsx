@@ -16,13 +16,12 @@ export default function TaskReminderCard() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
 
-  // Завантажуємо задачі при маунті
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         setIsLoading(true);
         const tasksFromServer = await getTasks();
-        setTasks(tasksFromServer); // tasksFromServer має бути Task[]
+        setTasks(tasksFromServer);
       } catch (error) {
         console.error('Failed to load tasks:', error);
       } finally {
@@ -44,19 +43,15 @@ export default function TaskReminderCard() {
       setIsModalOpen(true);
     }
   };
-
-  // Обробка кліку на чекбокс
+  const handleTaskCreated = (newTask: Task) => {
+    setTasks(prev => [newTask, ...prev]);
+  };
   const toggleTask = async (task: Task) => {
     if (!task.id) return;
 
     try {
-      // Відправляємо PATCH на бекенд
       const updatedTask = await updateTask(task.id, { isDone: !task.isDone });
-
-      // Оновлюємо стан після відповіді
-      setTasks(prev =>
-        prev.map(t => (t.id === task.id ? updatedTask : t))
-      );
+      setTasks(prev => prev.map(t => (t.id === task.id ? updatedTask : t)));
     } catch (error) {
       console.error('Failed to update task:', error);
     }
@@ -99,7 +94,7 @@ export default function TaskReminderCard() {
 
                 <div className={css.TaskTextBlock}>
                   <span className={css.TaskDate}>
-                    {new Date(task.date).toLocaleDateString('uk-UA')}
+                    {new Date(task.date).toLocaleDateString('uk-UA').slice(0,5)}
                   </span>
                   <p className={`${css.TaskText} ${task.isDone ? css.Completed : ''}`}>
                     {task.name}
@@ -111,7 +106,11 @@ export default function TaskReminderCard() {
         )}
       </div>
 
-      <AddTaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <AddTaskModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onTaskCreated={handleTaskCreated}
+      />
     </div>
   );
 }

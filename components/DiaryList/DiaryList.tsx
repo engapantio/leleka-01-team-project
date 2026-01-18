@@ -16,6 +16,7 @@ interface DiaryListProps {
     entries: DiaryEntry[];
     loading: boolean;
     onSelectEntry: (entry: DiaryEntry) => void;
+    children?: React.ReactNode;
 }
 
 export default function DiaryList({ entries, loading, onSelectEntry}: DiaryListProps) {

@@ -9,6 +9,7 @@ import { updateProfile } from '@/lib/api/clientApi'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as yup from 'yup'
 import Select from 'react-select'
+import toast from 'react-hot-toast'
 
 
 const schema = yup.object().shape({
@@ -53,6 +54,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
     const mutation = useMutation({
         mutationFn: updateProfile,
         onSuccess: () => {
+            toast.success('Дані оновлено')
             queryClient.invalidateQueries({ queryKey: ['user'] })
         },
         
@@ -69,7 +71,6 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
     })
     }
 
-    console.log('значенння перед initialValues', user)
     
     const initialValues: OrderFormValues = {
     name: user?.name ?? 'Дані не отримано',
@@ -77,7 +78,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
     gender: user?.gender ?? 'unknown',
     dueDate: user?.dueDate ?? '',
 }
-    console.log('initialValues:', initialValues)
+    // console.log('initialValues:', initialValues)
     return (
         <Formik<OrderFormValues>
             initialValues={initialValues}
@@ -85,18 +86,17 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
             validationSchema={schema}
             enableReinitialize
             >
-            {({ values, setFieldValue, resetForm }) => (
+            {({ values, setFieldValue, resetForm, dirty }) => (
                 <Form className={css.formWrapper}>
                     <div className={css.inputWrapper}>
                         <label htmlFor="name-Id" className={css.label}>Ім’я</label>
                         <Field type='text' name='name' id='name-Id' className={css.input} />
-                        <ErrorMessage name='name'/>
+                        <ErrorMessage name='name' component='div' className={css.errorMessageSchema}/>
                     </div>
                 
                     <div className={css.inputWrapper}>
                         <label htmlFor="email-Id" className={css.label}>Пошта</label>
                         <Field type='email' disabled name='email' id='email-Id' className={css.input} />
-                        <ErrorMessage name='email'/>
                     </div>
                     <div className={css.inputWrapper}>
                         <label htmlFor="gender-id" className={css.label}>Оберіть стать</label>
@@ -126,13 +126,13 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         {/* <svg className={css.iconDown} width="24" height="24">
                             <use href='/sprite.svg#icon-keyboard_arrow_down'/>
                         </svg> */}
-                        <ErrorMessage name='dueDate'/>
+                        <ErrorMessage name='dueDate' component='div' className={css.errorMessageSchema} />
                     </div>
                 
                 
                     <div className={css.divButtons}>
                         <button type="button" onClick={() => resetForm()} className={css.buttonCancel}>Відмінити зміни</button>
-                        <button type='submit' className={css.buttonSave}>Зберегти зміни</button>
+                        <button type='submit' disabled={!dirty || mutation.isPending} className={css.buttonSave}>Зберегти зміни</button>
                     </div>
                 
             </Form>   

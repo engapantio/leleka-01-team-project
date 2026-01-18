@@ -5,8 +5,8 @@ import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
 import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/lib/api/clientApi";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
+// import toast from "react-hot-toast";
+// import { useEffect } from "react";
 
 
 
@@ -17,12 +17,12 @@ export default function ProfilePage() {
     const {
         data: user,
         isLoading,
-        isError
+        isError,
     } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
             const user = await getUser()
-            return user
+            return (user)
         },
     })
     console.log('query data:', user)
@@ -30,13 +30,13 @@ export default function ProfilePage() {
 
 
 
-useEffect(() => {
-  if (isLoading) {
-      <p>Завантаження</p>
-    }
-  if (isError) toast.error('Сталася помилка')
-  if (user) toast.success('Дані користувача завантажені')
-}, [isLoading, isError, user])
+// useEffect(() => {
+//   if (isLoading) {
+//       <p>Завантаження</p>
+//     }
+//   if (isError) toast.error('Сталася помилка')
+//   if (isSuccess) toast.success('Дані користувача завантажені')
+// }, [isLoading, isError, isSuccess])
     
   if (isLoading) return <p>Loading...</p>
   if (isError || !user) return <p>Сталася помилка</p>

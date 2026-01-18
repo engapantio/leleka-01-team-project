@@ -41,7 +41,10 @@ export async function GET() {
   }
 }
 
-// POST
+
+
+// ------------------- POST -------------------
+
 export async function POST(request: Request) {
   try {
     const cookieHeader = await getCookieHeader();

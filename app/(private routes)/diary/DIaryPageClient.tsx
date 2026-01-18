@@ -65,22 +65,22 @@ export default function DiaryPageClient() {
                 onEdit={() => {} }
               
             />
-          ) : <DiaryEntryDetailsPlaceholder />}
+            ) :
+              <DiaryEntryDetailsPlaceholder />
+            }
         </div>
       </div>
     )}
 
     {!isDesktop && (
-      <>
-          {hasEntries ? (
-            <DiaryList
-              entries={entries}
-              loading={false}
-              onSelectEntry={handleSelectEntry}
-            />
-          ) : <DiaryListPlaceholder />}
-      </>
-    )}
+  <DiaryList
+    entries={entries}
+    loading={false}
+    onSelectEntry={handleSelectEntry}
+  >
+    {entries && entries.length > 0 ? null : <DiaryListPlaceholder />}
+  </DiaryList>
+)}
     </div>
   );
 }

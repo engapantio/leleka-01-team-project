@@ -10,10 +10,15 @@ interface AddTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   taskToEdit?: Task | null;
+  onTaskCreated?: (task: Task) => void;
 }
 
-export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: AddTaskModalProps) {
-  // 🔹 ESC + body scroll lock
+export default function AddTaskModal({
+  isOpen,
+  onClose,
+  taskToEdit = null,
+  onTaskCreated,
+}: AddTaskModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -56,7 +61,11 @@ export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: Add
 
         <h2 className={styles.modalTitle}>{title}</h2>
 
-        <AddTaskForm taskToEdit={taskToEdit} onClose={onClose} />
+        <AddTaskForm
+          taskToEdit={taskToEdit}
+          onClose={onClose}
+          onTaskCreated={onTaskCreated}
+        />
       </div>
     </div>,
     document.body

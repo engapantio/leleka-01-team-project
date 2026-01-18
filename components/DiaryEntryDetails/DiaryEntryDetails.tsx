@@ -145,7 +145,18 @@ onSuccess: () => {
       onSuccess: (updatedData: DiaryEntry) => {
         setEntry(updatedData);
         setIsEditModalOpen(false);
-        queryClient.invalidateQueries({ queryKey: ['diaries'] });
+        queryClient.setQueryData<DiaryEntry[]>(['diaries'], (old) => {
+    if (!old) return old;
+
+    return old.map((item) =>
+      item.id === updatedData.id
+        ? {
+            ...item,
+            ...updatedData,
+          }
+        : item
+    );
+  });
       },
       notify: (type, message) => {
         type === 'success' ? toast.success(message) : toast.error(message);

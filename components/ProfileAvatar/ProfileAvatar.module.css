@@ -5,8 +5,7 @@
     flex-direction: column;
     align-items: center;
     width: 335px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 16px;
 }
 
 .avatarWrapper{
@@ -62,6 +61,12 @@
     width: 335px;
     height: 38px;
 }
+.uploadButton:hover{
+    background: var(--color-scheme-background);
+}
+.uploadButton:active{
+    background: var(--color-neutral-light);
+}
 
 @media(min-width: 768px){
 
@@ -88,6 +93,8 @@
 @media(min-width: 1440px){
     .wrapper {
         width: 644px;
+        padding-left: 0;
+
     }
     .uploadButton{
         height: 42px;

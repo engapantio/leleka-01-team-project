@@ -30,11 +30,7 @@ export default function UserBar() {
     queryKey: ['user'],
     queryFn: async () => {
       const data = await getUser();
-      return {
-        name: data.name,
-        email: data.email,
-        avatarUrl: data.avatarUrl,
-      };
+      return (data)
     },
     staleTime: 0,
     retry: false,

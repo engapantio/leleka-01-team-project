@@ -1,12 +1,14 @@
 'use client'
 
 import Image from "next/image";
+import toast from "react-hot-toast";
 import css from './ProfileAvatar.module.css'
 import { useRef } from "react";
 import { User } from "@/types/user";
 import { uploadAvatar } from "@/lib/api/clientApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
+
 
 
 interface ProfileAvatarProps {
@@ -20,6 +22,7 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     const mutation = useMutation({
         mutationFn: uploadAvatar,
         onSuccess: () => {
+            toast.success('Аватар оновлено')
             queryClient.invalidateQueries({ queryKey: ['user'] })
         },
     })
@@ -33,8 +36,10 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
 
     const updateAvatar = async (e:React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
-        if (!file) {
-            return
+        if (!file) return
+         if (!['image/jpeg', 'image/jpg'].includes(file.type)) {
+        toast.error('Дозволені тільки файли .jpg або .jpeg');
+        return;
         }
             
         const formData = new FormData()

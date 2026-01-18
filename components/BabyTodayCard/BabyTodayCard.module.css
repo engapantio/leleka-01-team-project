@@ -49,15 +49,19 @@
 .text {
   font-weight: 400;
   display: inline;
+  line-height: 1.5;
+  font-size: 14px;
+  font-family: var(--font-family);
 }
 
 .boldText {
   font-weight: 700;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 16px;
+  line-height: 1.5;
   overflow-y: auto;
   scrollbar-gutter: stable both-edges;
   height: 100%;
+  font-family: var(--font-family);
 }
 
 .textInfo {
