@@ -100,7 +100,6 @@
 - **Node.js** 18+ 
 - **npm** 9+
 - **Git**
-- Backend API running (see [Backend Setup](#backend-setup))
 
 ### Installation
 
@@ -261,7 +260,7 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) or GitHub [contributors page](https://git
 
 ## 📝 License
 
-This project is licensed under the **MIT License** - see [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** 
 
 ---
 
@@ -305,7 +304,6 @@ Found a bug? Please create an issue with:
 
 ## 📞 Support
 
-- 📧 Email: support@leleka.app
 - 💬 GitHub Issues: [Report Issues](https://github.com/engapantio/leleka-01-team-project/issues)
 - 📖 Documentation: [Wiki](https://github.com/engapantio/leleka-01-team-project/wiki)
 
