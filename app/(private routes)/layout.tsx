@@ -14,7 +14,7 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
   const pathname = usePathname();
   const showSidebar = pathname !== '/profile/edit';
   const showBreadcrumbs = pathname !== '/profile/edit';
-  const showGreetingBlock = pathname !== '/profile';
+  const showGreetingBlock = pathname !== '/profile' && pathname !== '/profile/edit';
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
