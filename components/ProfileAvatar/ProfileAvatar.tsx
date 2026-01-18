@@ -20,7 +20,7 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     const mutation = useMutation({
         mutationFn: uploadAvatar,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['user'] })
+            queryClient.invalidateQueries({ queryKey: ['user', 'profile'] })
         },
     })
 
