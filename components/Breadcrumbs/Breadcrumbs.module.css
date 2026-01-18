@@ -1,5 +1,7 @@
 
 .breadcrumbsList{
+    padding-top: 24px;
+    padding-bottom: 16px;
     font-family: var(--font-family);
     display: flex;
     align-items: center;

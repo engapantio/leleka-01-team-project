@@ -1,0 +1,29 @@
+.layoutContainer{
+  margin: 0 auto;
+  padding: 0 20px;
+  min-width: 280px;
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .layoutContainer {
+    max-width: 768px;
+    padding: 0px 32px;
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .layoutContainer {
+    max-width: 1440px;
+    flex-direction: row;
+    gap: 32px;
+  }
+  .mainContentContainer {
+    margin-left: 312px;
+    flex: 1;
+  }
+}

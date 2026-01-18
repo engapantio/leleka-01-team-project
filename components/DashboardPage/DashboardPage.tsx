@@ -40,6 +40,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboardContainer}>
+      <div className={styles.leftSection}>
       <StatusBlock weeks={weekNumber} days={daysToChildbirth} />
       <BabyTodayCard
         img={baby?.image ?? 'https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af25.webp'}
@@ -50,8 +51,11 @@ export default function Dashboard() {
         analogy={baby?.analogy ?? 'Фото дитини'}
       />
       <MomTipCard adviceForMom={`${mom?.dailyTip ?? ''} ${mom?.comfortTip?.tip ?? ''}`} />
+      </div>
+      <div className={styles.rightSection}>
       <TaskReminderCard />
       <FeelingCheckCard />
+      </div>
     </div>
   );
 }

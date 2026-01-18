@@ -6,6 +6,7 @@ import SideBar from '@/components/SideBar/SideBar';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import Header from '@/components/Header/Header';
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
+import css from "./Layout.module.css"
 interface PrivateLayoutProps {
   children: React.ReactNode;
 }
@@ -20,10 +21,10 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="layout-container">
+    <div className={css.layoutContainer}>
       {showHeader && <Header onMenuClick={() => setIsSidebarOpen(true)} />}
       {showSidebar && <SideBar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />}
-      <div className="main-content-container">
+      <div className={css.mainContentContainer}>
         {showBreadcrumbs && <Breadcrumbs />}
         {showGreetingBlock && <GreetingBlock />}
         {children}
