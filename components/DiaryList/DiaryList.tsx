@@ -6,10 +6,10 @@ import css from "./DiaryList.module.css";
 import Loader from "../Loader/Loader";
 import { useEffect, useState } from "react";
 import { useDiaryStore } from "@/lib/store/diaryStore";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createDiaryEntry } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
 import AddDiaryEntryModal from "../AddDiaryEntryModal/AddDiaryEntryModal";
+import { useQueryClient } from "@tanstack/react-query";
+
 
 
 interface DiaryListProps {
@@ -47,21 +47,6 @@ const setSelectedEntry = useDiaryStore(s => s.setSelectedEntry);
         }
     };
 
-    const { mutate: addEntry } = useMutation({
-    mutationFn: ({ title, description, emotions }: { title: string; description: string; emotions: string[] }) =>
-        createDiaryEntry(title, description, emotions),
-    onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['diaries'] });
-        toast.success('Запис додано');
-        setIsModalOpen(false);
-    },
-    onError: () => {
-        toast.error('Не вдалося додати запис');
-    }
-    });
-    
-    
-
     if (loading) {
         return <Loader />
     }
@@ -91,12 +76,18 @@ const setSelectedEntry = useDiaryStore(s => s.setSelectedEntry);
                 </ul> 
                 )}
             </div>
-            {/* {isModalOpen && (
-                <AddDiaryEntryModal
-                    onClose={() => setIsModalOpen(false)}
-                    handler={(data: Partial<DiaryEntry>) => addEntry(data)}
-                />
-            )} */}
+<AddDiaryEntryModal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  mode="create"
+  formProps={{
+    onSuccess: () => {
+  setIsModalOpen(false);
+  toast.success('Запис додано');
+  queryClient.invalidateQueries({ queryKey: ['diaries'] });
+},
+  }}
+/>
         </div>
     );
 }

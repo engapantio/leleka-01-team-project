@@ -3,7 +3,7 @@ import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
 
 const Register = () => {
   return (
-    <AuthContainer imagePath="/register.jpg">
+    <AuthContainer imagePath="/register.webp">
       <RegistrationForm />
     </AuthContainer>
   );

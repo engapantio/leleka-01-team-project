@@ -41,7 +41,7 @@ const Login = () => {
   };
 
   return (
-    <AuthContainer imagePath="/login.jpg">
+    <AuthContainer imagePath="/login.webp">
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}

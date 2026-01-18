@@ -29,42 +29,47 @@ export const FormikDatePickerBirthday = ({ name, mxWidth }: Props) => {
   };
 
   return (
-    <DesktopDatePicker
-      format="DD/MM/YY"
-      value={value}
-      onChange={handleChange}
-      slots={{
-        openPickerIcon: KeyboardArrowDownIcon,
-      }}
-      slotProps={{
-        popper: {
-          sx: {
-            zIndex: 9999,
+    <div style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+      <DesktopDatePicker
+        format="DD/MM/YY"
+        value={value}
+        onChange={handleChange}
+        slots={{
+          openPickerIcon: KeyboardArrowDownIcon,
+        }}
+        slotProps={{
+          popper: {
+            sx: {
+              zIndex: 9999,
+            },
           },
-        },
 
-        textField: {
-          sx: {
-            maxWidth: mxWidth,
-            width: '100%',
-            borderColor: 'transparent',
-            background: 'var(--color-neutral-lightest)',
-            borderRadius: '12px',
-
-            '& .MuiOutlinedInput-notchedOutline': {},
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '12px',
-            },
-            '& .MuiPickersSectionList-root': {
-              color: 'var(--color-neutral)',
-              padding: '10px 0',
-            },
-            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+          textField: {
+            sx: {
+              maxWidth: mxWidth || '100%',
+              width: '100%',
               borderColor: 'transparent',
+              background: 'var(--color-neutral-lightest)',
+              borderRadius: '12px',
+              boxSizing: 'border-box',
+
+              '& .MuiOutlinedInput-notchedOutline': {},
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '12px',
+                width: '100%',
+                maxWidth: '100%',
+              },
+              '& .MuiPickersSectionList-root': {
+                color: 'var(--color-neutral)',
+                padding: '10px 0',
+              },
+              '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'transparent',
+              },
             },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 };

@@ -19,6 +19,13 @@ const TanStackProvider = ({ children }: Props) => {
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
       <Toaster
+        containerStyle={{
+    top: '20px',
+    right: '20px',
+    maxHeight: '400px', // Limit the max height of the toaster container
+    overflowY: 'auto',  // Enable scrolling if too many toasts
+    zIndex: 9999
+  }}
         position="top-right"
         reverseOrder={false}
         gutter={8}

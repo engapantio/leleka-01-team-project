@@ -1,13 +1,17 @@
 'use client';
 
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import AddDiaryEntryModal from '../AddDiaryEntryModal/AddDiaryEntryModal';
 
 import css from './FeelingCheckCard.module.css';
 
 export default function FeelingCheckCard() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isAuthenticated = useAuthStore(s => s.isAuthenticated);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,7 +32,7 @@ export default function FeelingCheckCard() {
         <p className={css.text}>Занотуйте незвичні відчуття у тілі.</p>
       </div>
 
-      {/* кнопка без сторонніх компонентів */}
+     
       <button
         className={css.AddTaskButton}
         style={{ height: 42, width: 225 }}
@@ -38,24 +42,18 @@ export default function FeelingCheckCard() {
         Зробити запис у щоденник
       </button>
 
-      {/* тимчасова заглушка замість Modal */}
-      {isOpen && (
-        <div className={css.modalOverlay}>
-          <div className={css.modal}>
-            <h3>Щоденник</h3>
-
-            <p>Форма щоденника буде підключена пізніше</p>
-
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className={css.closeButton}
-            >
-              Закрити
-            </button>
-          </div>
-        </div>
-      )}
+      <AddDiaryEntryModal
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+  mode="create"
+  formProps={{
+    onSuccess: () => {
+  setIsOpen(false);
+  toast.success('Запис додано');
+  queryClient.invalidateQueries({ queryKey: ['diaries'] });
+},
+  }}
+/>
     </div>
   );
 }

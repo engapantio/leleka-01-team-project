@@ -64,6 +64,11 @@
   }
 }
 
+.scrollWrapper {
+  overflow-y: auto;
+  height: 475px;
+}
+
 .text {
   font-family: var(--font-family);
   font-weight: 400;
