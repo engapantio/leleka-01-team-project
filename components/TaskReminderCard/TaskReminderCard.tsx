@@ -16,12 +16,13 @@ export default function TaskReminderCard() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
 
+  // Завантажуємо задачі при маунті
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         setIsLoading(true);
-        const data = await getTasks();
-        setTasks(data);
+        const tasksFromServer = await getTasks();
+        setTasks(tasksFromServer); // tasksFromServer має бути Task[]
       } catch (error) {
         console.error('Failed to load tasks:', error);
       } finally {
@@ -44,15 +45,18 @@ export default function TaskReminderCard() {
     }
   };
 
+  // Обробка кліку на чекбокс
   const toggleTask = async (task: Task) => {
     if (!task.id) return;
 
     try {
-      const updatedTask = await updateTask(task.id, {
-        isDone: !task.isDone,
-      });
+      // Відправляємо PATCH на бекенд
+      const updatedTask = await updateTask(task.id, { isDone: !task.isDone });
 
-      setTasks(prev => prev.map(t => (t.id === task.id ? updatedTask : t)));
+      // Оновлюємо стан після відповіді
+      setTasks(prev =>
+        prev.map(t => (t.id === task.id ? updatedTask : t))
+      );
     } catch (error) {
       console.error('Failed to update task:', error);
     }
