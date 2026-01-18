@@ -68,7 +68,7 @@ export const AvatarPicker = ({
     <div className={css.avatar_picker_wrapper} style={{ ...styles }}>
       <div className={css.preview_avatar}>
         <Image
-          src={previewUrl || initialPhoto || '/logo.svg'}
+          src={previewUrl || initialPhoto || '/onboardingAvatar.svg'}
           alt="Preview avatar"
           width={132}
           height={132}

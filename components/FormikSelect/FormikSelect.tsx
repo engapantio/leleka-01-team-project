@@ -14,6 +14,7 @@ interface FormikSelectProps {
   placeholder?: string;
 }
 
+
 export default function FormikSelect({ name, options, placeholder }: FormikSelectProps) {
   const { values, setFieldValue } = useFormikContext<any>();
 
@@ -49,9 +50,16 @@ export default function FormikSelect({ name, options, placeholder }: FormikSelec
           backgroundColor: 'var(--color-neutral-lightest)',
           minHeight: '48px',
           boxShadow: 'none',
+          width: '100%',
+          maxWidth: '100%',
           '&:hover': {
             borderColor: 'transparent',
           },
+        }),
+        container: (baseStyles) => ({
+          ...baseStyles,
+          width: '100%',
+          maxWidth: '100%',
         }),
         placeholder: (baseStyles) => ({
           ...baseStyles,

@@ -57,8 +57,6 @@ export async function PATCH(
       headers: { Cookie: cookieHeader },
     });
 
-    console.log(`Diary entry ${entryId} updated successfully`);
-
     return NextResponse.json(res.data);
   } catch (error) {
     if (error instanceof Error) {
