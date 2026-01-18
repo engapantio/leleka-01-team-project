@@ -109,7 +109,7 @@ onSuccess: () => {
           </button>
         </div>
       </div>
-
+<div className={css.scrollWrapper}>
       <p className={css.text}>{entry.description}</p>
 
       {entry.emotions.length > 0 && (
@@ -119,8 +119,9 @@ onSuccess: () => {
               {emotion.title}
             </li>
           ))}
-        </ul>
-      )}
+          </ul>
+        )}
+        </div>
       {isModalOpen && entry && (
         <ConfirmationModal
           title={`Видалити "${entry.title}"?`}
