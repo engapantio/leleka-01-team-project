@@ -103,22 +103,14 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         <Select
                             options={options}
                             placeholder='Оберіть стать'
-                            styles={{
-    control: (base) => ({
-      ...base,
-      height: '37px',
-      borderRadius: '12px',
-      backgroundColor: 'var(--opacity-neutral-darkest-5)',
-      border: '2px solid var(--opacity-transparent)',
-      boxShadow: 'none',
-    }),
-  }}
+                            className={css.genderSelect}
+                            classNamePrefix="gender"
 
                             value={options.find(opt => opt.value === values.gender)}
                             onChange={(option)=> setFieldValue('gender', option?.value)}
                         />
                     </div>
-                    <div className={css.inputWrapper}>
+                    <div className={css.inputWrapper} >
                         <label htmlFor="dueDate-Id" className={css.label}>Планова дата пологів</label>
                         
                     <DatePicker
