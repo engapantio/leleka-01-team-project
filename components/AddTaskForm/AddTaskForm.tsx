@@ -10,6 +10,7 @@ import { createTask, updateTask } from '@/lib/api/tasksApi';
 interface AddTaskFormProps {
   taskToEdit: Task | null;
   onClose: () => void;
+  onTaskCreated?: (task: Task) => void;
 }
 
 type TaskFormValues = {
@@ -22,11 +23,19 @@ const validationSchema = Yup.object({
   date: Yup.string().required('Дата обов’язкова'),
 });
 
-const AddTaskForm: React.FC<AddTaskFormProps> = ({ taskToEdit, onClose }) => {
+const AddTaskForm: React.FC<AddTaskFormProps> = ({
+  taskToEdit,
+  onClose,
+  onTaskCreated,
+}) => {
   const mutation = useMutation<Task, Error, TaskFormValues>({
-    mutationFn: values => (taskToEdit?.id ? updateTask(taskToEdit.id, values) : createTask(values)),
-    onSuccess: () => {
+    mutationFn: values =>
+      taskToEdit?.id ? updateTask(taskToEdit.id, values) : createTask(values),
+    onSuccess: newTask => {
       toast.success('Завдання успішно збережено!');
+      if (!taskToEdit && onTaskCreated) {
+        onTaskCreated(newTask);
+      }
       onClose();
     },
     onError: error => {
