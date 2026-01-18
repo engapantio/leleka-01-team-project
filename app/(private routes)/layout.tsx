@@ -14,13 +14,14 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
   const pathname = usePathname();
   const showSidebar = pathname !== '/profile/edit';
   const showBreadcrumbs = pathname !== '/profile/edit';
-  const showGreetingBlock = ! pathname.includes('/profile')  ;
+  const showGreetingBlock = pathname !== '/profile' && pathname !== '/profile/edit';
+  const showHeader = pathname !== '/profile/edit';
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="layout-container">
-      <Header onMenuClick={() => setIsSidebarOpen(true)} />
+      {showHeader && <Header onMenuClick={() => setIsSidebarOpen(true)} />}
       {showSidebar && <SideBar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />}
       <div className="main-content-container">
         {showBreadcrumbs && <Breadcrumbs />}

@@ -83,7 +83,7 @@ export default function OnboardingForm() {
               //console.log('✅ Avatar uploaded:', data);
               resolve();
             },
-            onError: (err: any) => {
+            onError: (err: unknown) => {
               console.error('❌ Avatar upload failed:', err);
               reject(err);
             },
@@ -114,7 +114,7 @@ export default function OnboardingForm() {
               console.log('✅ Profile updated:', data);
               resolve();
             },
-            onError: (err: any) => {
+            onError: (err: unknown) => {
               console.error('❌ Profile update failed:', err);
               reject(err);
             },
@@ -148,14 +148,16 @@ export default function OnboardingForm() {
           <Image src='/company-logo.svg' alt="Leleka" fill priority className={styles.logoImg} />
         </div>
         <div className={styles.formContainer}>
-          <h1 className={styles.title}>Давайте познайомимося ближче</h1>
+          <h1 className={styles.title}>
+            Давайте познайомимося ближче
+          </h1>
 
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({  }) => (
+            {({ }) => (
               <Form className={styles.form}>
                 {error && (
                   <div
