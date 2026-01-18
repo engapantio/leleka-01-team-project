@@ -77,11 +77,7 @@ export async function POST(request: Request) {
   }
 }
 
-<<<<<<< HEAD
-// PATCH
-=======
 // ------------------- PATCH -------------------
->>>>>>> 08f39f0 (update)
 export async function PATCH(request: Request) {
   try {
     const cookieHeader = await getCookieHeader();
@@ -90,11 +86,6 @@ export async function PATCH(request: Request) {
 
     if (!id) return NextResponse.json({ error: 'Task id is required' }, { status: 400 });
 
-<<<<<<< HEAD
-=======
-    console.log('PATCH /tasks payload:', payload);
-
->>>>>>> 08f39f0 (update)
     const response = await backendApi.patch<Task>(`/tasks/${id}`, payload, {
       headers: { Cookie: cookieHeader },
     });
