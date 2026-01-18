@@ -37,7 +37,8 @@
   row-gap: 16px;
 }
 .TasksList{
-  scrollbar-gutter: stable both-edges;
+  max-height: 584px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -93,11 +94,17 @@
   .TaskReminderCard{
     max-height: 671px;
   }
+  .TasksList{
+    max-height: 623px;
+  }
 }
 
 @media (min-width: 1440px) {
   .TaskReminderCard {
     width:390px;
     height: 499px;
+  }
+  .TasksList{
+    max-height: 389px;
   }
 }
