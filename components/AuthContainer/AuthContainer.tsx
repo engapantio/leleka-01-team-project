@@ -12,13 +12,13 @@ export default function AuthContainer({ children, imagePath }: AuthContainerProp
       <div className={css.container}>
         <div className={css.logo}>
           <Image
-            src="/leleka-logo.svg"
+            src="/company-logo.svg"
             alt="Leleka logo"
             className={css.logoImage}
-            width={30}
-            height={30}
+            width={105}
+            height={45}
           />
-          <p>Лелека</p>
+          {/* <p>Лелека</p> */}
         </div>
         <div className={css.content}>{children}</div>
       </div>
