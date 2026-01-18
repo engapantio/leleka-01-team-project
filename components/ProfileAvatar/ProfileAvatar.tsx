@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import toast from "react-hot-toast";
 import css from './ProfileAvatar.module.css'
 import { useRef } from "react";
 import { User } from "@/types/user";
@@ -21,8 +22,13 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     const mutation = useMutation({
         mutationFn: uploadAvatar,
         onSuccess: () => {
+<<<<<<< HEAD
             toast.success('Аватар оновлено')
             queryClient.invalidateQueries({ queryKey: ['user'] })
+=======
+            toast.success('Фото оновлено')
+            queryClient.invalidateQueries({ queryKey: ['user', 'profile'] })
+>>>>>>> b2f67d0 (remove toast from useEffect)
         },
     })
 
