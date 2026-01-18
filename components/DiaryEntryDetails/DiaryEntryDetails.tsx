@@ -6,11 +6,12 @@ import Loader from '../Loader/Loader';
 import dateTransform from '../../utils/dateTransform';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteDiaryEntryById, updateDiaryEntryById } from '@/lib/api/clientApi';
+import { deleteDiaryEntryById } from '@/lib/api/clientApi';
 import toast from 'react-hot-toast';
 import DiaryEntryDetailsPlaceholder from '../DiaryEntryDetailsPlaceholder/DiaryEntryDetailsPlaceholder';
 import { useRouter } from 'next/navigation';
 import ConfirmationModal from '../ConfirmationModalDelete/ConfirmationModalDelete';
+import AddDiaryEntryModal from '../AddDiaryEntryModal/AddDiaryEntryModal';
 
 interface DiaryEntryDetailsProps {
   entry: DiaryEntry | null;
@@ -66,32 +67,6 @@ onSuccess: () => {
       console.error('Не вдалося видалити запис', err);
     },
   });
-
-  const { mutate: updateEntry } = useMutation<
-  DiaryEntry,
-  unknown,
-  DiaryEntry
->({
-  mutationFn: (updatedEntry: DiaryEntry) =>
-    updateDiaryEntryById(
-      updatedEntry.id,
-      {
-        title: updatedEntry.title,
-        description: updatedEntry.description,
-        emotions: updatedEntry.emotions.map(e => e.title),
-      }
-    ),
-  onSuccess: (data) => {
-    toast.success('Запис оновлено');
-    queryClient.invalidateQueries({ queryKey: ['diaries'] });
-    setEntry(data);
-    setIsEditModalOpen(false);
-  },
-  onError: () => {
-    toast.error('Не вдалося оновити запис');
-  },
-});
-
 
   if (isLoading) {
     return <Loader />;
@@ -153,22 +128,32 @@ onSuccess: () => {
           onClose={() => setIsModalOpen(false)}
         />
       )}
-      {/* {isEditModalOpen && entry && (
-  <EditDiaryEntryModal
-  entry={entry}
-  onClose={() => setIsEditModalOpen(false)}
-  handler={(updatedData: { title: string; description: string; emotions: string[] }) => {
-    if (!entry) return;
+{isEditModalOpen && entry && (
+  <AddDiaryEntryModal
+    isOpen={isEditModalOpen}
+    onClose={() => setIsEditModalOpen(false)}
+    mode="edit"
+    title="Редагувати запис"
+    formProps={{
+      initialValues: {
+        id: entry.id,
+        title: entry.title,
+        description: entry.description,
+        categories: entry.emotions,
+      },
+      onSuccess: (updatedData: DiaryEntry) => {
+        setEntry(updatedData);
+        setIsEditModalOpen(false);
+        toast.success('Запис оновлено');
+        queryClient.invalidateQueries({ queryKey: ['diaries'] });
+      },
+      notify: (type, message) => {
+        type === 'success' ? toast.success(message) : toast.error(message);
+      },
+    }}
+  />
+)}
 
-    updateEntry({
-      ...entry,
-      title: updatedData.title,
-      description: updatedData.description,
-      emotions: updatedData.emotions.map(e => ({ id: '', title: e })), 
-    });
-  }}
-/>
-)} */}
     </div>
   );
 }

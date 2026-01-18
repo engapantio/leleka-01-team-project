@@ -5,6 +5,8 @@
   max-height: 715px;
   height: auto;
   background: var(--color-scheme-foreground);
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 @media screen and (min-width: 768px) {
   .container {
@@ -79,8 +81,6 @@
   width: 100%;
   gap: 16px;
   margin: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .listItem {
