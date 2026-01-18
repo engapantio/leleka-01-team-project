@@ -82,8 +82,6 @@ export async function PATCH(request: Request) {
 
     if (!id) return NextResponse.json({ error: 'Task id is required' }, { status: 400 });
 
-    console.log('PATCH /tasks payload:', payload);
-
     const response = await backendApi.patch<Task>(`/tasks/${id}`, payload, {
       headers: { Cookie: cookieHeader },
     });
