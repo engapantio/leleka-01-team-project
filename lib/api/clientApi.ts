@@ -3,7 +3,6 @@ import { DiaryEntry } from '../../types/diary';
 import { User, editProfileData } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
 import { JourneyBaby, JourneyMom, FullWeekData } from '@/types/journey';
-import { FormValuesForBackend } from '@/components/ProfileEditForm/ProfileEditForm';
 
 export interface RegistrationDetails {
   name: string;
