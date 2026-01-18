@@ -61,6 +61,12 @@
     width: 335px;
     height: 38px;
 }
+.uploadButton:hover{
+    background: var(--color-scheme-background);
+}
+.uploadButton:active{
+    background: var(--color-neutral-light);
+}
 
 @media(min-width: 768px){
 

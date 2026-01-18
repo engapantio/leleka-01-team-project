@@ -35,8 +35,10 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
 
     const updateAvatar = async (e:React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
-        if (!file) {
-            return
+        if (!file) return
+         if (!['image/jpeg', 'image/jpg'].includes(file.type)) {
+        toast.error('Дозволені тільки файли .jpg або .jpeg');
+        return;
         }
             
         const formData = new FormData()
