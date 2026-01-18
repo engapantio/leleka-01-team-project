@@ -1,13 +1,19 @@
-import JourneyPageClient from './[weekNumber]/JourneyPage.client';
-
-import css from './JourneyPage.module.css';
+import { redirect } from 'next/navigation';
+import { getCurrentWeek, getCurrentWeekPublic, checkSession } from '@/lib/api/serverApi';
 
 const JourneyPage = async () => {
-  return (
-    <section>
-      <JourneyPageClient />
-    </section>
-  );
+  try {
+    const canUsePrivate = await checkSession().catch(() => false);
+
+    const currentWeekData = canUsePrivate ? await getCurrentWeek() : await getCurrentWeekPublic();
+
+    const weekNumber = currentWeekData?.weekNumber ?? 1;
+
+    redirect(`/journey/${weekNumber}`);
+  } catch (error) {
+    // Якщо помилка, перенаправляємо на перший тиждень
+    redirect('/journey/1');
+  }
 };
 
 export default JourneyPage;

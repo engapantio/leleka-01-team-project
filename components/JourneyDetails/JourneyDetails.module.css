@@ -127,7 +127,6 @@ background: var(--opacity-neutral-darkest-5);
 display: flex;
 align-items: center;
 text-align: center;
-margin-bottom: 8px;
 }
 
 .momBlockText  {
@@ -198,6 +197,11 @@ line-height: 150%;
 width: 461px;
 height: 379px;
     }
+
+.momCardWrapper {
+  display: flex;
+  gap: 24px;
+}
 
     .momCard{
   max-width: 650px;

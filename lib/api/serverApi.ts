@@ -1,8 +1,9 @@
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
-import { User } from '@/types/user';
+import { User, editProfileData } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
+import { FullWeekData } from '@/types/journey';
 
 /**
  * Refresh tokens
@@ -30,6 +31,20 @@ export const getUser = async () => {
   return data;
 };
 
+/**
+ * Edit user
+ */
+
+export const editProfile = async (data: editProfileData) => {
+  const cookieStore = await cookies();
+  const res = await nextServer.patch('/users', data, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res.data;
+};
+
 // Journey //
 export const getCurrentWeek = async () => {
   const cookieStore = await cookies();
@@ -38,7 +53,12 @@ export const getCurrentWeek = async () => {
       Cookie: cookieStore.toString(),
     },
   });
-  return response.data.weekNumber;
+  return response.data;
+};
+
+export const getCurrentWeekPublic = async (): Promise<FullWeekData> => {
+  const { data } = await nextServer.get<FullWeekData>('/weeks/1');
+  return data;
 };
 
 export const getBabyState = async (weekNumber: number) => {
@@ -67,19 +87,22 @@ export interface FetchDiaryEntriesResponse {
 }
 
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const res = await nextServer.get<FetchDiaryEntriesResponse>('/diaries', {
     headers: {
       Cookie: cookieStore.toString(),
+      
     },
   });
+  console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
+
   return res.data.entries;
 };
 
 export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
   const cookieStore = cookies();
 
-  const res = await nextServer.get<DiaryEntry>(`/diary/${entryId}`, {
+  const res = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`, {
     headers: {
       Cookie: cookieStore.toString(),
     },

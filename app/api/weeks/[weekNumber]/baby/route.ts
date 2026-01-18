@@ -14,12 +14,12 @@ export async function GET(request: NextRequest, { params }: WeekNumberParams) {
     const { weekNumber } = await params;
     const weekNum = Number(weekNumber);
 
-    if (isNaN(weekNum) || weekNum < 1 || weekNum > 40) {
-      return NextResponse.json(
-        { error: 'Invalid weekNumber. Must be between 1 and 40' },
-        { status: 400 }
-      );
-    }
+    // if (isNaN(weekNum) || weekNum < 1 || weekNum > 40) {
+    //   return NextResponse.json(
+    //     { error: 'Invalid weekNumber. Must be between 1 and 40' },
+    //     { status: 400 }
+    //   );
+    // }
 
     const res = await backendApi.get(`weeks/${weekNum}/baby`, {
       headers: {

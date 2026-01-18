@@ -1,82 +1,78 @@
-.TaskReminderCard{
-    border: 0px solid var(--opacity-neutral-darkest-15);
-    border-radius: 32px;
-    padding: 24px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-    background-color:var( --color-pastel-pink-lighter);
-    margin-bottom: 32px;
-    
+.TaskReminderCard {
+  border: 0px solid var(--opacity-neutral-darkest-15);
+  border-radius: 32px;
+  padding: 24px;
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  background-color: var(--color-pastel-pink-lighter);
+  margin-bottom: 32px;
 }
 
-.TaskReminderTitle{
-    font-family: var(--second-family);
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--color-neutral-darkest);
+.TaskReminderTitle {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-neutral-darkest);
 }
 
-.TopBlock{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.TopBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.AddTaskIconButton{
-    border: none;
-    background-color: transparent;
-    font: inherit;
-    color: inherit;
+.AddTaskIconButton {
+  border: none;
+  background-color: transparent;
+  font: inherit;
+  color: inherit;
 }
 
-.TasksContainer{
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
+.TasksContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 }
 
-.NoTasksYetTitle{
-    font-family: var(--font-family);
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 160%;
-    color: var(--color-neutral-darkest);
+.NoTasksYetTitle {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 160%;
+  color: var(--color-neutral-darkest);
 }
-.AddTsksText{
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 150%;
-    color: var(--color-neutral-darkest);
-}
-
-.AddTaskButton{
-    border: none;
-    background-color: var(--color-pastel-pink-light);
-    border-bottom: 4px solid #ffcbd3;
-    border-radius: 100px;
-    padding: 10px 24px;
-    width: 173px;
-    height: 42px;
-    font-weight: 500;
-   
+.AddTsksText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--color-neutral-darkest);
 }
 
-.NoTasksContainer{
-    display: flex;
-    flex-direction: column;
-    gap:4px;
+.AddTaskButton {
+  border: none;
+  background-color: var(--color-pastel-pink-light);
+  border-bottom: 4px solid #ffcbd3;
+  border-radius: 100px;
+  padding: 10px 24px;
+  width: 173px;
+  height: 42px;
+  font-weight: 500;
 }
 
-
-@media (min-width: 768px){
-  
+.NoTasksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-@media (min-width:1440px){
-    .TaskReminderCard{
-        height: 499px;
-    }
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1440px) {
+  .TaskReminderCard {
+    height: 499px;
+  }
 }

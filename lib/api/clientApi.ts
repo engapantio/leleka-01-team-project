@@ -1,6 +1,6 @@
 import { nextServer } from './api';
 import { DiaryEntry } from '../../types/diary';
-import { User } from '@/types/user';
+import { User, editProfileData } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
 import { JourneyBaby, JourneyMom, FullWeekData } from '@/types/journey';
 
@@ -58,12 +58,8 @@ export const getUser = async () => {
   return data;
 };
 
-export const editProfile = async (formData: FormData): Promise<User> => {
-  const response = await nextServer.patch<User>('/users', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+export const editProfile = async (data: editProfileData): Promise<User> => {
+  const response = await nextServer.patch<User>('/users', data);
   return response.data;
 };
 
@@ -91,8 +87,15 @@ export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
 
 //=================diary==========================>
 
+interface UpdateDiaryEntryById {
+  title: string;
+  description: string;
+  emotions: string[];
+}
+
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
   const { data } = await nextServer.get<FetchDiaryEntriesResponse>('/diaries');
+
   return data.entries;
 };
 
@@ -102,7 +105,7 @@ export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> 
 };
 
 export const deleteDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
-  const res = await nextServer.delete<DiaryEntry>(`/diary/${entryId}`);
+  const res = await nextServer.delete<DiaryEntry>(`/diaries/${entryId}`);
   return res.data;
 };
 
@@ -111,24 +114,24 @@ export const createDiaryEntry = async (
   description: string,
   emotions: string[]
 ): Promise<DiaryEntry> => {
-  const res = await nextServer.post<DiaryEntry>('/diary', {
+  const res = await nextServer.post<DiaryEntry>('/diaries', {
     title,
     description,
     emotions,
   });
   return res.data;
 };
+
+export const updateDiaryEntryById = async (
+  entryId: string,
+  data: UpdateDiaryEntryById
+): Promise<DiaryEntry> => {
+  const res = await nextServer.put<DiaryEntry>(`/diaries/${entryId}`, data);
+  return res.data;
+};
 //<=================diary==========================
 
 //=================profile=========================
-interface UserRes {
-  id: string;
-  name: string;
-  email: string;
-  gender: string;
-  dueDate: string;
-  avatarUrl: string;
-}
 
 interface FormValuesForBackend {
     name: string
@@ -136,7 +139,7 @@ interface FormValuesForBackend {
     dueDate: string
 }
 export const updateProfile = async (data: FormValuesForBackend) => {
-  const response = await nextServer.patch<UserRes>('/users', data);
+  const response = await nextServer.patch<User>('/users', data);
   return response.data;
 };
 

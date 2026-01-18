@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import AddTaskForm from '../AddTaskForm/AddTaskForm';
 import styles from './AddTaskModal.module.css';
@@ -13,31 +13,7 @@ interface AddTaskModalProps {
 }
 
 export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: AddTaskModalProps) {
-  const [mounted, setMounted] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  /**
-   * 🔹 Створюємо portal-контейнер ТІЛЬКИ на клієнті
-   */
-  useEffect(() => {
-    setMounted(true);
-
-    if (!containerRef.current) {
-      const el = document.createElement('div');
-      el.setAttribute('data-modal-root', 'add-task-modal');
-      document.body.appendChild(el);
-      containerRef.current = el;
-    }
-
-    return () => {
-      containerRef.current?.remove();
-      containerRef.current = null;
-    };
-  }, []);
-
-  /**
-   * 🔹 Escape + блокування скролу
-   */
+  // 🔹 ESC + body scroll lock
   useEffect(() => {
     if (!isOpen) return;
 
@@ -46,7 +22,6 @@ export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: Add
     };
 
     document.addEventListener('keydown', handleEscape);
-
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
@@ -56,23 +31,15 @@ export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: Add
     };
   }, [isOpen, onClose]);
 
-  /**
-   * ❗ КЛЮЧЕВО:
-   * - не mounted → null
-   * - не isOpen → null
-   * - немає container → null
-   */
-  if (!mounted || !isOpen || !containerRef.current) return null;
+  if (!isOpen) return null;
 
   const title = taskToEdit ? 'Редагувати завдання' : 'Нове завдання';
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    if (e.target === e.currentTarget) onClose();
   };
 
-  const modal = (
+  return createPortal(
     <div
       className={styles.backdrop}
       role="dialog"
@@ -91,8 +58,7 @@ export default function AddTaskModal({ isOpen, onClose, taskToEdit = null }: Add
 
         <AddTaskForm taskToEdit={taskToEdit} onClose={onClose} />
       </div>
-    </div>
+    </div>,
+    document.body
   );
-
-  return createPortal(modal, containerRef.current);
 }

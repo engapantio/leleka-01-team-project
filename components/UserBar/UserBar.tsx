@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 import { logout, getUser } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useJourneyStore } from '@/lib/store/journeyStore';
 import Modal from '../Modal/Modal';
 import styles from './UserBar.module.css';
 
@@ -18,7 +19,7 @@ interface UserBarUser {
 
 export default function UserBar() {
   const router = useRouter();
-  const clearAuth = useAuthStore(state => state.clearAuth);
+  const { clearAuth, reinitializeAuth } = useAuthStore();
 
   const [user, setUser] = useState<UserBarUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,8 +47,15 @@ export default function UserBar() {
     try {
       await logout();
       clearAuth();
+      setUser(null);
+      const { resetJourney } = useJourneyStore.getState();
+      resetJourney();
       setIsModalOpen(false);
-      router.replace('/');
+      reinitializeAuth();
+      router.push('/?auth_refresh=' + Date.now());
+      setTimeout(() => {
+        router.replace('/');
+      }, 200);
     } catch {
       toast.error('Не вдалося вийти з акаунта. Спробуйте ще раз.');
     } finally {

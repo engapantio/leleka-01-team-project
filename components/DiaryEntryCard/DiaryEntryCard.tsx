@@ -1,3 +1,4 @@
+import dateTransform from "@/utils/dateTransform";
 import css from "./DiaryEntryCard.module.css";
 import type { DiaryEntry } from '@/types/diary';
 
@@ -12,7 +13,7 @@ export default function DiaryEntryCard({ entry, onClick }: DiaryEntryCardProps) 
         <div className={css.container} onClick={onClick}>
             <div className={css.titleContainer}>
             <h3 className={css.title}>{entry.title}</h3>
-                <p className={css.date}>{entry.date}</p>
+                <p className={css.date}>{dateTransform(entry.date)}</p>
                 </div>
             {entry.emotions.length > 0 && (
                 <ul className={css.list}>
