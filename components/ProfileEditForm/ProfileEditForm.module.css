@@ -1,20 +1,14 @@
 .formWrapper{
     margin-top: 32px;
-    margin-left: auto;
-    margin-right: auto;
 
-    padding-left: 20px;
-    padding-right: 20px;
     padding-top: 0;
     padding-bottom: 0;
 
-    width: 375px;
+    width: 335px;
 
     display: flex;
     flex-direction: column;
     gap: 24px;
-
-    /* position: relative; */
 }
 .inputWrapper{
     display: flex;
@@ -180,9 +174,7 @@
 }
 @media(min-width:768px){
     .formWrapper{
-        width: 768px;
-        padding-left: 32px;
-        padding-right: 32px;
+        width: 704px;
     }
     .divButtons{
         width: 704px;
