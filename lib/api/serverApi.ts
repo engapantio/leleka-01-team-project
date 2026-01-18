@@ -94,7 +94,6 @@ export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
       
     },
   });
-  console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
 
   return res.data.entries;
 };

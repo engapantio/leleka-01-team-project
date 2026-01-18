@@ -22,14 +22,14 @@ export default function Dashboard() {
   const isLoaded = useJourneyStore(s => s.isLoaded);
 
   useEffect(() => {
-    console.log('🔄 Auth state changed:', { isAuthenticated, userId: user?.id });
+    
     resetJourney();
     fetchJourneyData(true);
   }, [isAuthenticated, user?.id, resetJourney, fetchJourneyData]);
 
   useEffect(() => {
     if (!isLoaded) {
-      console.log('📋 Initial load ');
+    
       fetchJourneyData();
     }
   }, [isLoaded, fetchJourneyData]);

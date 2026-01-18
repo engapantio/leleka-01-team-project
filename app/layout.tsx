@@ -7,14 +7,14 @@ import './globals.css';
 const latoSans = Lato({
   variable: '--font-family',
   weight: ['400', '700'],
-  subsets: ['latin'],
+  subsets: ['latin-ext', 'latin'],
   display: 'swap',
 });
 
 const comfortaaBold = Comfortaa({
   variable: '--second-family',
   weight: ['700'],
-  subsets: ['latin'],
+  subsets: ['latin-ext', 'latin', 'cyrillic'],
   display: 'swap',
 });
 
