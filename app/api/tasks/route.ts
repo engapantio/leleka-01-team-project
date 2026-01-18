@@ -18,7 +18,7 @@ async function getCookieHeader() {
     .join('; ');
 }
 
-// ------------------- GET -------------------
+// GET
 export async function GET() {
   try {
     const cookieHeader = await getCookieHeader();
@@ -41,7 +41,7 @@ export async function GET() {
   }
 }
 
-// ------------------- POST -------------------
+// POST
 export async function POST(request: Request) {
   try {
     const cookieHeader = await getCookieHeader();
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   }
 }
 
-// ------------------- PATCH -------------------
+// PATCH
 export async function PATCH(request: Request) {
   try {
     const cookieHeader = await getCookieHeader();
