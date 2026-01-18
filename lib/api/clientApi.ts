@@ -88,8 +88,15 @@ export const getMomState = async (weekNumber: number): Promise<JourneyMom> => {
 
 //=================diary==========================>
 
+interface UpdateDiaryEntryById {
+  title: string;
+  description: string;
+  emotions: string[];
+}
+
 export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
   const { data } = await nextServer.get<FetchDiaryEntriesResponse>('/diaries');
+
   return data.entries;
 };
 
@@ -99,7 +106,7 @@ export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> 
 };
 
 export const deleteDiaryEntryById = async (entryId: string): Promise<DiaryEntry> => {
-  const res = await nextServer.delete<DiaryEntry>(`/diary/${entryId}`);
+  const res = await nextServer.delete<DiaryEntry>(`/diaries/${entryId}`);
   return res.data;
 };
 
@@ -108,11 +115,19 @@ export const createDiaryEntry = async (
   description: string,
   emotions: string[]
 ): Promise<DiaryEntry> => {
-  const res = await nextServer.post<DiaryEntry>('/diary', {
+  const res = await nextServer.post<DiaryEntry>('/diaries', {
     title,
     description,
     emotions,
   });
+  return res.data;
+};
+
+export const updateDiaryEntryById = async (
+  entryId: string,
+  data: UpdateDiaryEntryById
+): Promise<DiaryEntry> => {
+  const res = await nextServer.put<DiaryEntry>(`/diaries/${entryId}`, data);
   return res.data;
 };
 //<=================diary==========================

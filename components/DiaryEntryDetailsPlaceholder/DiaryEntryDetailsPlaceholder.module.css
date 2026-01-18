@@ -1,0 +1,20 @@
+@media screen and (min-width: 1440px) {
+  .container {
+    border-radius: 32px;
+    width: 643px;
+    height: 727px;
+    overflow: hidden;
+    background: var(--color-scheme-foreground);
+    padding: 31px 24px;
+    justify-content: center;
+    display: flex;
+  }
+
+  .text {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: var(--color-scheme-text);
+  }
+}
