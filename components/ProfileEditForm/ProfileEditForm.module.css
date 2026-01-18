@@ -172,6 +172,9 @@
     border-radius: 100px;
     padding: 8px 20px;
 }
+.errorMessageSchema{
+    color: red;
+}
 @media(min-width:768px){
     .formWrapper{
         width: 704px;

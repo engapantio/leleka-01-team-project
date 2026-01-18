@@ -91,13 +91,12 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                     <div className={css.inputWrapper}>
                         <label htmlFor="name-Id" className={css.label}>Ім’я</label>
                         <Field type='text' name='name' id='name-Id' className={css.input} />
-                        <ErrorMessage name='name'/>
+                        <ErrorMessage name='name' component='div' className={css.errorMessageSchema}/>
                     </div>
                 
                     <div className={css.inputWrapper}>
                         <label htmlFor="email-Id" className={css.label}>Пошта</label>
                         <Field type='email' disabled name='email' id='email-Id' className={css.input} />
-                        <ErrorMessage name='email'/>
                     </div>
                     <div className={css.inputWrapper}>
                         <label htmlFor="gender-id" className={css.label}>Оберіть стать</label>
@@ -127,7 +126,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         {/* <svg className={css.iconDown} width="24" height="24">
                             <use href='/sprite.svg#icon-keyboard_arrow_down'/>
                         </svg> */}
-                        <ErrorMessage name='dueDate'/>
+                        <ErrorMessage name='dueDate' component='div' className={css.errorMessageSchema} />
                     </div>
                 
                 
