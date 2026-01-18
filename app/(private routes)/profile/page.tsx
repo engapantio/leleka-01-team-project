@@ -1,29 +1,49 @@
 'use client';
 
-import { useEffect } from 'react';
-import ProfileAvatar from '@/components/ProfileAvatar/ProfileAvatar';
-import ProfileEditForm from '@/components/ProfileEditForm/ProfileEditForm';
-// import { useEffect, useState } from "react";
-import { useAuthStore } from '@/lib/store/authStore';
 
-// const userFromStore = useAuthStore
+import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
+import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
+
+
 
 export default function ProfilePage() {
-  const setUser = useAuthStore(state => state.setUser);
-  const user = useAuthStore(state => state.user);
 
-  useEffect(() => {
-    setUser(user);
-  }, [setUser, user]);
 
-  // замінити пропс
-  if (!user) {
-    return <p>Loading...</p>;
-  }
-  return (
-    <>
-      <ProfileAvatar user={user} />
-      <ProfileEditForm dataUser={user} />
+
+    const {
+        data: user,
+        isLoading,
+        isError
+    } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            const user = await getUser()
+            return user
+        },
+    })
+    console.log('query data:', user)
+
+
+
+
+useEffect(() => {
+  if (isLoading) {
+      <p>Завантаження</p>
+    }
+  if (isError) toast.error('Сталася помилка')
+  if (user) toast.success('Дані користувача завантажені')
+}, [isLoading, isError, user])
+    
+  if (isLoading) return <p>Loading...</p>
+  if (isError || !user) return <p>Сталася помилка</p>
+    return (
+     <>
+        <ProfileAvatar user={user}/>
+        <ProfileEditForm user={user} />
     </>
-  );
+);
 }

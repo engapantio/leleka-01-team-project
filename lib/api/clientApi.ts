@@ -3,7 +3,6 @@ import { DiaryEntry } from '../../types/diary';
 import { User, editProfileData } from '@/types/user';
 import { FetchDiaryEntriesResponse } from './serverApi';
 import { JourneyBaby, JourneyMom, FullWeekData } from '@/types/journey';
-import { FormValuesForBackend } from '@/components/ProfileEditForm/ProfileEditForm';
 
 export interface RegistrationDetails {
   name: string;
@@ -109,6 +108,11 @@ export const deleteDiaryEntryById = async (entryId: string): Promise<DiaryEntry>
 
 //=================profile=========================
 
+interface FormValuesForBackend {
+    name: string
+    gender: "boy" | "girl" | ""
+    dueDate: string
+}
 export const updateProfile = async (data: FormValuesForBackend) => {
   const response = await nextServer.patch<User>('/users', data);
   return response.data;

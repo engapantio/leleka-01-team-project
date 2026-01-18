@@ -14,11 +14,13 @@
     flex-direction: column;
     gap: 24px;
 
-    position: relative;
+    /* position: relative; */
 }
 .inputWrapper{
     display: flex;
     flex-direction: column;
+
+    position: relative;
 }
 .label{
     font-family: var(--font-family);
@@ -47,18 +49,106 @@
     font-weight: 400;
 }
 .iconDown{
-    fill: black;
+    /* fill: black; */
+
     position: absolute;
-    right: 30px;
-    /* ← саме місце правої стрілки */
+
+    right: 12px;
+    /* як у gender dropdown */
     top: 50%;
-    transform: translateY(20%);
-    transition: transform 0.2s ease;
+    transform: translateY(15%);
+    
+    /* трохи товстіше візуально */
+    
     pointer-events: none;
+    /* щоб кліки проходили в input */
+    fill: var(--opacity-neutral-darkest-60);
 }
-.gender{
+/* контейнер react-select */
+.genderSelect {
+    width: 100%;
+}
+
+/* === control = input === */
+.genderSelect :global(.gender__control) {
+    appearance: none;
+
+    margin-top: 8px;
+    min-height: 37px;
     height: 40px;
+
+    border: 2px solid var(--opacity-transparent);
+    border-radius: 12px;
+
+    background: var(--opacity-neutral-darkest-5);
+    box-shadow: none;
 }
+
+/* hover */
+.genderSelect :global(.gender__control:hover) {
+    border-color: var(--opacity-transparent);
+}
+
+/* focus (без синьої рамки) */
+.genderSelect :global(.gender__control--is-focused) {
+    border-color: var(--opacity-transparent);
+    box-shadow: none;
+}
+
+/* padding як у input */
+.genderSelect :global(.gender__value-container) {
+    padding: 8px 12px;
+}
+
+/* текст */
+.genderSelect :global(.gender__single-value) {
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--opacity-neutral-darkest-60);
+    font-weight: 400;
+}
+
+/* placeholder */
+.genderSelect :global(.gender__placeholder) {
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--opacity-neutral-darkest-60);
+}
+
+/* прибрати вертикальну риску */
+.genderSelect :global(.gender__indicator-separator) {
+    display: none;
+}
+
+/* стрілка */
+.genderSelect :global(.gender__dropdown-indicator) {
+    padding-right: 12px;
+}
+
+/* прибрати зайві відступи */
+.genderSelect :global(.gender__input-container) {
+    margin: 0;
+    padding: 0;
+}
+/* selected option — ЗАМІСТЬ СИНЬОГО */
+.genderSelect :global(.gender__option--is-selected) {
+    background-color: var(--opacity-neutral-darkest-15);
+    color: var(--opacity-neutral-darkest-60);
+}
+
+/* hover option (щоб теж не синій) */
+.genderSelect :global(.gender__option--is-focused) {
+    background-color: var(--opacity-neutral-darkest-10);
+    color: var(--opacity-neutral-darkest-60);
+}
+
+/* active (клік мишкою) */
+.genderSelect :global(.gender__option:active) {
+    background-color: var(--opacity-neutral-darkest-15);
+}
+
 .inputDate{
     width: 100%;
     height: 48px;
