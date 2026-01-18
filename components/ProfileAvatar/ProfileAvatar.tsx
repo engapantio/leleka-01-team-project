@@ -8,7 +8,7 @@ import { User } from "@/types/user";
 import { uploadAvatar } from "@/lib/api/clientApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+
 
 
 interface ProfileAvatarProps {
@@ -22,13 +22,8 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     const mutation = useMutation({
         mutationFn: uploadAvatar,
         onSuccess: () => {
-<<<<<<< HEAD
             toast.success('Аватар оновлено')
             queryClient.invalidateQueries({ queryKey: ['user'] })
-=======
-            toast.success('Фото оновлено')
-            queryClient.invalidateQueries({ queryKey: ['user', 'profile'] })
->>>>>>> b2f67d0 (remove toast from useEffect)
         },
     })
 

@@ -27,8 +27,7 @@ export default function FeelingCheckCard() {
     <div className={css.feelingCheckCardContainer}>
       <div className={css.contentWrap}>
         <h4 className={css.title}>Як ви себе почуваєте?</h4>
-        <p className={css.text}>Рекомендація на сьогодні:</p>
-        <br />
+        <p className={css.subtitle}>Рекомендація на сьогодні:</p>
         <p className={css.text}>Занотуйте незвичні відчуття у тілі.</p>
       </div>
 

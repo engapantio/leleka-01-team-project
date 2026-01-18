@@ -99,7 +99,7 @@ export default function TaskReminderCard() {
 
                 <div className={css.TaskTextBlock}>
                   <span className={css.TaskDate}>
-                    {new Date(task.date).toLocaleDateString('uk-UA')}
+                    {new Date(task.date).toLocaleDateString('uk-UA').slice(0,5)}
                   </span>
                   <p className={`${css.TaskText} ${task.isDone ? css.Completed : ''}`}>
                     {task.name}

@@ -16,11 +16,22 @@
   margin-bottom: 8px;
 }
 
+
+
 .contentWrap {
   margin-bottom: 24px;
 }
 
+.subtitle {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-scheme-text);
+  font-weight: 600;
+}
+
 .text {
+  font-family: var(--font-family);
   font-size: 14px;
   line-height: 1.5;
   color: var(--color-scheme-text);
@@ -53,6 +64,10 @@
   .title {
     font-size: 24px;
   }
+
+.subtitle{
+  font-size: 16px;
+}
 
   .text {
     font-size: 16px;

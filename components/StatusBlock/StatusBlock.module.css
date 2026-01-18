@@ -49,4 +49,8 @@
     min-width: 305px;
     height: 127px;
   }
+
+  .statusBlockText {
+    font-size: 14px;
+  }
 }

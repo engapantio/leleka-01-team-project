@@ -89,6 +89,22 @@
   color: var(--color-neutral-darkest-50);
 }
 
+.TaskDate{
+  font-family: var(--font-family);
+font-weight: 400;
+font-size: 10px;
+line-height: 160%;
+color: var(--color-neutral-darkest);
+}
+
+.TaskText {
+font-family: var(--font-family);
+font-weight: 400;
+font-size: 12px;
+line-height: 160%;
+color: var(--color-scheme-text);
+}
+
 @media (min-width: 768px) {
   .TaskReminderCard{
     max-height: 671px;
@@ -100,5 +116,16 @@
     width:390px;
     height: 499px;
     margin-top: 0;
+  }
+
+  .TaskReminderTitle {
+    font-size: 24px;
+  }
+
+  .TaskDate{
+    font-size: 12px;
+  }
+  .TaskText {
+    font-size: 14px;
   }
 }
