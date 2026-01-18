@@ -20,7 +20,7 @@ export default function ProfilePage() {
         isError,
         isSuccess
     } = useQuery({
-        queryKey: ['user'],
+        queryKey: ['user', 'profile'],
         queryFn: async () => {
             const user = await getUser()
             return user
