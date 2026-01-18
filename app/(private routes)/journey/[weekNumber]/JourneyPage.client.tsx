@@ -2,11 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 import { getBabyState, getMomState } from '@/lib/api/clientApi';
 import type { Tab } from '@/types/journey';
-import { useState } from 'react';
 import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 import Loader from '@/components/Loader/Loader';
+import toast from 'react-hot-toast';
+
 
 const JourneyPageClient = () => {
   const { weekNumber } = useParams<{ weekNumber: string }>();
@@ -36,7 +38,11 @@ const JourneyPageClient = () => {
 
   if (isLoadingBabyInfo || isLoadingMomInfo) return <Loader />;
 
-  if (isErrorBabyInfo || isErrorMomInfo) return <p>Some error..</p>;
+  if (isErrorBabyInfo || isErrorMomInfo) return toast.error('При завантаженні даних сталася помилка. Спробуйте, будь ласка, пізніше', {
+  style: {
+    border: '1px solid black', background: 'var(--color-scheme-foreground-alt)', color: 'black'
+  },
+});
 
   const handleTabBaby = () => {
     setselectedTab('baby');
