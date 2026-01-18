@@ -18,12 +18,11 @@ export default function ProfilePage() {
         data: user,
         isLoading,
         isError,
-        isSuccess
     } = useQuery({
-        queryKey: ['user', 'profile'],
+        queryKey: ['user'],
         queryFn: async () => {
             const user = await getUser()
-            return user
+            return (user)
         },
     })
     console.log('query data:', user)
@@ -36,8 +35,7 @@ useEffect(() => {
       <p>Завантаження</p>
     }
   if (isError) toast.error('Сталася помилка')
-  if (isSuccess) toast.success('Дані користувача завантажені')
-}, [isLoading, isError, isSuccess])
+}, [isLoading, isError])
     
   if (isLoading) return <p>Loading...</p>
   if (isError || !user) return <p>Сталася помилка</p>

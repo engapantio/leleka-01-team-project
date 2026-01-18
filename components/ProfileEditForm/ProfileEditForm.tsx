@@ -55,7 +55,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
         mutationFn: updateProfile,
         onSuccess: () => {
             toast.success('Дані оновлено')
-            queryClient.invalidateQueries({ queryKey: ['user', 'profile'] })
+            queryClient.invalidateQueries({ queryKey: ['user'] })
         },
         
     })
