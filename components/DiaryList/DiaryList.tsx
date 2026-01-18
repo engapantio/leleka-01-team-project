@@ -82,11 +82,16 @@ const setSelectedEntry = useDiaryStore(s => s.setSelectedEntry);
   onClose={() => setIsModalOpen(false)}
   mode="create"
   formProps={{
-    onSuccess: () => {
+    onSuccess: (newEntry: DiaryEntry) => {
   setIsModalOpen(false);
   toast.success('Запис додано');
-  queryClient.invalidateQueries({ queryKey: ['diaries'] });
-},
+
+  queryClient.setQueryData<DiaryEntry[]>(['diaries'], (old) => {
+    if (!old) return [newEntry];
+
+    return [newEntry, ...old];
+  });
+}
   }}
 />
         </div>
