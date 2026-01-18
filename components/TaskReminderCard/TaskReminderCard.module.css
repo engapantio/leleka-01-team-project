@@ -44,7 +44,7 @@
   row-gap: 16px;
 }
 .TaskItem{
-  min-height: 37px;
+ 
   display: flex;
   flex-direction: row;
   align-items: center;
