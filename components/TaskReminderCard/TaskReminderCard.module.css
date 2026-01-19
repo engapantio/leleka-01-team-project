@@ -43,6 +43,7 @@
   flex-direction: column;
   row-gap: 16px;
 }
+
 .TaskItem{
   display: flex;
   flex-direction: row;
@@ -58,6 +59,7 @@
   line-height: 160%;
   color: var(--color-scheme-text);
 }
+
 .AddTsksText {
   font-family: var(--font-family);
   font-weight: 400;
@@ -100,7 +102,6 @@ height: 47px;
   margin-bottom: 16px;
 }
 
-
 .Completed {
   text-decoration: line-through;
   color: var(--color-neutral-darkest-50);
@@ -127,7 +128,7 @@ color: var(--color-scheme-text);
     max-height: 671px;
   }
   .TasksList{
-    max-height: 623px;
+    max-height: 567px;
   }
 }
 
