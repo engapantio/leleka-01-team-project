@@ -41,7 +41,7 @@ export default function OnboardingForm() {
     'Ще не знаю': null,
   };
 
-  const genderOptions = [{ label: 'хлопчик' }, { label: 'дівчинка' }, { label: 'Ще не знаю' }];
+  const genderOptions = [{ label: 'Хлопчик' }, { label: 'Дівчинка' }, { label: 'Ще не знаю' }];
 
   const initialValues: FormValues = {
     gender: 'Ще не знаю',
@@ -84,7 +84,7 @@ export default function OnboardingForm() {
               resolve();
             },
             onError: (err: unknown) => {
-              console.error('❌ Avatar upload failed:', err);
+              // console.error('❌ Avatar upload failed:', err);
               reject(err);
             },
           });

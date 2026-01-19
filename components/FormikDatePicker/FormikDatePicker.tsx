@@ -31,7 +31,7 @@ export const FormikDatePickerBirthday = ({ name, mxWidth }: Props) => {
   return (
     <div style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
       <DesktopDatePicker
-        format="DD/MM/YY"
+        format="DD.MM.YYYY"
         value={value}
         onChange={handleChange}
         slots={{
@@ -48,20 +48,33 @@ export const FormikDatePickerBirthday = ({ name, mxWidth }: Props) => {
             sx: {
               maxWidth: mxWidth || '100%',
               width: '100%',
-              borderColor: 'transparent',
-              background: 'var(--color-neutral-lightest)',
+              border: '2px solid var(--opacity-transparent)',
+              background: 'var(--opacity-neutral-darkest-5)',
               borderRadius: '12px',
               boxSizing: 'border-box',
+                 fontFamily: 'var(--font-family)',
+fontWeight: 400,
+fontSize: '14px',
+lineHeight: '150%',
+             
 
               '& .MuiOutlinedInput-notchedOutline': {},
               '& .MuiOutlinedInput-root': {
                 borderRadius: '12px',
                 width: '100%',
                 maxWidth: '100%',
+                 fontFamily: 'var(--font-family)',
+fontWeight: 400,
+fontSize: '14px',
+lineHeight: '150%',
               },
               '& .MuiPickersSectionList-root': {
-                color: 'var(--color-neutral)',
+                color: 'var(--opacity-neutral-darkest-60)',
                 padding: '10px 0',
+                 fontFamily: 'var(--font-family)',
+fontWeight: 400,
+fontSize: '14px',
+lineHeight: '150%',
               },
               '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'transparent',
@@ -73,3 +86,4 @@ export const FormikDatePickerBirthday = ({ name, mxWidth }: Props) => {
     </div>
   );
 };
+
