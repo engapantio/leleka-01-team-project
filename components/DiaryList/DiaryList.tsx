@@ -55,7 +55,7 @@ const setSelectedEntry = useDiaryStore(s => s.setSelectedEntry);
     return (
         <div className={css.container}>
             <div className={css.topContainer}>
-                <h2 className={css.title}>Щоденник</h2>
+                <h2 className={css.title}>Ваші записи</h2>
                 <div className={css.btnContainer}>
                     <p className={css.btnName}>Новий запис</p>
                     <button className={css.btn} onClick={() => setIsModalOpen(true)}><svg width="24" height="24" viewBox="0 0 32 32">
