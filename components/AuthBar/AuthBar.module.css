@@ -45,6 +45,7 @@
 .buttonLog:focus {
   background-color: var(--color-scheme-foreground);
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+
 }
 
 .buttonLog:active {

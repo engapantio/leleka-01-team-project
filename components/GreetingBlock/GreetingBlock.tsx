@@ -1,9 +1,31 @@
 'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/lib/store/authStore';
 import css from './GreetingBlock.module.css';
+import { User } from '@/types/user';
+import { getUser } from '@/lib/api/clientApi';
 
 export default function GreetingBlock() {
-  const { user, isAuthenticated } = useAuthStore();
+  const { isAuthenticated, clearAuth } = useAuthStore();
+
+
+const { data: user, isError } = useQuery<User>({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const data = await getUser();
+      return (data)
+    },
+    staleTime: 0,
+    retry: false,
+  });
+
+  if (isError) {
+    clearAuth();
+    return null;
+  }
+
+
 
   const getGreetingByTime = () => {
     const now = new Date();
@@ -16,6 +38,7 @@ export default function GreetingBlock() {
     if (time >= 1080 && time < 1440) return 'Доброго вечора';
     return 'Доброї ночі';
   };
+
 
   return (
     <h1 className={css.greetingTitle}>

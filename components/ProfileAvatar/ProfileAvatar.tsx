@@ -37,8 +37,8 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     const updateAvatar = async (e:React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
-         if (!['image/jpeg', 'image/jpg'].includes(file.type)) {
-        toast.error('Дозволені тільки файли .jpg або .jpeg');
+         if (!['image/jpeg', 'image/jpg', 'image/webp'].includes(file.type)) {
+        toast.error('Дозволені тільки файли форматів .jpg, .jpeg або .webp');
         return;
         }
             

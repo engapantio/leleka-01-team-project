@@ -38,7 +38,7 @@ export default function ProfilePage() {
 //   if (isSuccess) toast.success('Дані користувача завантажені')
 // }, [isLoading, isError, isSuccess])
     
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <p>Завантаження...</p>
   if (isError || !user) return <p>Сталася помилка</p>
     return (
      <>

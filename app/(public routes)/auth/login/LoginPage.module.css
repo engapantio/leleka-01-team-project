@@ -71,12 +71,12 @@ input:-webkit-autofill:focus {
   margin: 16px 0 24px 0;
   font-family: var(--font-family);
   font-weight: 400;
-  line-height: 150%;
+  line-height: 160%;
   color: var(--color-scheme-text);
   box-shadow: none;
   outline: none;
   font-family: var(--font-family);
-font-size: 16px;
+  font-size: 14px;
 }
 
 
@@ -92,7 +92,7 @@ height: 42px;
 }
 
 .submitButton:disabled{
-  background: var(--color-scheme-foreground-alt);
+background: var(--color-scheme-foreground-alt);
 opacity: 0.3;
 border-bottom: 4px solid var(--color-scheme-accent);
 height: 42px;
