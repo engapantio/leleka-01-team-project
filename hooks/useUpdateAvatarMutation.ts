@@ -19,7 +19,7 @@ export function useUpdateAvatarMutation() {
       const { reinitializeAuth } = useAuthStore.getState();
 
       reinitializeAuth();
-      console.log('✅ AuthProvider reinitialized after avatar');
+    
 
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },

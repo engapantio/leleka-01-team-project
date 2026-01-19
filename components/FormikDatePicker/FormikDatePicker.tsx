@@ -22,7 +22,7 @@ export const FormikDatePickerBirthday = ({ name, mxWidth }: Props) => {
   const handleChange = (newValue: Dayjs | null) => {
     if (newValue && newValue.isValid()) {
       setFieldValue(name, newValue.toISOString());
-      console.log(newValue.toISOString());
+      
     } else {
       setFieldValue(name, '');
     }

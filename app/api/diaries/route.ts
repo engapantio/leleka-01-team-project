@@ -28,7 +28,6 @@ export async function POST(
       headers: { Cookie: cookieHeader },
     });
 
-    console.log(`Diary entry created successfully`);
 
     return NextResponse.json(res.data);
   } catch (error) {

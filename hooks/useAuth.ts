@@ -30,8 +30,8 @@ export function useLogin() {
         position: 'top-right',
       });
     },
-    onError: (error: AxiosError) => {
-      const errorMessage = error?.message || 'Ой... сталася помилка при вході';
+    onError: () => {
+      const errorMessage = 'Ой... сталася помилка при спробі логіну. Повторіть, будь ласка, спробу';
 
       toast.error(errorMessage, {
         duration: 4000,
@@ -60,8 +60,8 @@ export function useRegister() {
         position: 'top-right',
       });
     },
-    onError: (error: AxiosError) => {
-      const errorMessage = error?.message || 'Ой... сталася помилка при реєстрації';
+    onError: () => {
+      const errorMessage = 'Ой... сталася помилка при реєстрації';
 
       toast.error(errorMessage, {
         duration: 4000,

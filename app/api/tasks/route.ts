@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     const cookieHeader = await getCookieHeader();
     const body = (await request.json()) as Pick<Task, 'name' | 'date'>;
 
-    console.log('POST /tasks body:', body);
+
 
     const response = await backendApi.post<Task>('/tasks', body, {
       headers: { Cookie: cookieHeader },

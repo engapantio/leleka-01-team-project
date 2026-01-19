@@ -32,11 +32,7 @@ const Login = () => {
         setTimeout(() => {
           router.replace('/');
         }, 200);
-      },
-      onSettled: () => {
-        // Reset form after mutation settles
-        actions.resetForm();
-      },
+      }
     });
   };
 
@@ -49,15 +45,15 @@ const Login = () => {
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ isValid, dirty }) => (
-          <Form className={css.form} noValidate>
+        {({ isValid, dirty, errors, touched }) => (
+          <Form className={css.form} >
             <h1 className={css.formTitle}>Вхід</h1>
             <div className={css.formGroup}>
               <Field
                 id={`${fieldId}-email`}
                 type="text"
                 name="email"
-                className={css.input}
+                className={`${css.input} ${errors && touched  ? css.inputInvalid : ''}`}
                 placeholder="Пошта"
                 disabled={loginMutation.isPending}
               />
@@ -69,7 +65,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 placeholder="Пароль"
-                className={css.input}
+                className={`${css.input} ${errors && touched  ? css.inputInvalid : ''}`}
                 disabled={loginMutation.isPending}
               />
               <ErrorMessage name="password" component="div" className={css.error} />
