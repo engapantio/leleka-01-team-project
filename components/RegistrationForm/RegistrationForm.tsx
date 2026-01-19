@@ -36,7 +36,7 @@ const RegistrationForm = () => {
         router.push('/profile/edit');
       } else {
         // setError('Виникла помилка при реєстрації.');
-        toast.error('Виникла помилка при реєстрації.', {
+        toast.error('Виникла помилка при реєстрації. Пошту вже зареєстровано', {
           position: 'top-left',
         });
       }

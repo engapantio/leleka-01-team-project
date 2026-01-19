@@ -26,12 +26,10 @@ export function useUpdateProfileMutation() {
       return editProfile(cleanPayload);
     },
     onSuccess: (updatedUser: User) => {
-      console.log('📥 Server returned updated user:', updatedUser);
       const { setUser, reinitializeAuth } = useAuthStore.getState();
       setUser(updatedUser);
-      console.log('✅ Store updated with new user data');
       reinitializeAuth();
-      console.log('✅ AuthProvider reinitialized');
+   
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
   });

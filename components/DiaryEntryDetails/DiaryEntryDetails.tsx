@@ -64,7 +64,7 @@ onSuccess: () => {
 },
       onError: (err) => {
         toast.error('Не вдалося видалити запис');
-      console.error('Не вдалося видалити запис', err);
+   
     },
   });
 

@@ -73,10 +73,10 @@ export default function OnboardingForm() {
   const handleSubmit = async (formValues: FormValues) => {
     try {
       setError(null);
-      console.log('📋 Form submitted:', formValues);
+     
 
       if (formValues.avatar) {
-        console.log('📸 Uploading avatar...');
+       
         await new Promise<void>((resolve, reject) => {
           avatarMutation.mutate(formValues.avatar!, {
             onSuccess: () => {
@@ -97,25 +97,25 @@ export default function OnboardingForm() {
         const englishGender = genderMap[formValues.gender];
         if (englishGender || null) {
           profileUpdate.gender = englishGender;
-          console.log(`👤 Gender: ${formValues.gender} → ${englishGender}`);
+          // console.log(`👤 Gender: ${formValues.gender} → ${englishGender}`);
         }
       }
       if (formValues.dueDate) {
         const formattedDate = dayjs(formValues.dueDate).format('YYYY-MM-DD');
         profileUpdate.dueDate = formattedDate;
-        console.log(`📅 Date: ${formValues.dueDate} → ${formattedDate}`);
+        // console.log(`📅 Date: ${formValues.dueDate} → ${formattedDate}`);
       }
 
       if (Object.keys(profileUpdate).length > 0) {
-        console.log('👤 Updating profile:', profileUpdate);
+        // console.log('👤 Updating profile:', profileUpdate);
         await new Promise<void>((resolve, reject) => {
           profileMutation.mutate(profileUpdate, {
-            onSuccess: data => {
-              console.log('✅ Profile updated:', data);
+            onSuccess:() => {
+              // console.log('✅ Profile updated:', data);
               resolve();
             },
             onError: (err: unknown) => {
-              console.error('❌ Profile update failed:', err);
+              // console.error('❌ Profile update failed:', err);
               reject(err);
             },
           });
@@ -124,9 +124,9 @@ export default function OnboardingForm() {
 
       const { reinitializeAuth } = useAuthStore.getState();
       reinitializeAuth();
-      console.log('✅ AuthProvider reinitialized after onboarding');
+      // console.log('✅ AuthProvider reinitialized after onboarding');
 
-      console.log('🎉 All updates completed');
+      // console.log('🎉 All updates completed');
       setSuccess(true);
 
       setTimeout(() => {
@@ -135,7 +135,7 @@ export default function OnboardingForm() {
     } catch (err: unknown) {
       const errorMessage = 'Failed to save profile';
       setError(errorMessage);
-      console.error('❌ Error:', err, errorMessage);
+      // console.error('❌ Error:', err, errorMessage);
     }
   };
 

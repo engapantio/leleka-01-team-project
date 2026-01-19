@@ -25,7 +25,7 @@ export default function ProfilePage() {
             return (user)
         },
     })
-    console.log('query data:', user)
+
 
 
 

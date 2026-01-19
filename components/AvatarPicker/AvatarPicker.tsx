@@ -30,7 +30,7 @@ export const AvatarPicker = ({
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
 
-  const { setFieldValue, errors, touched } = useFormikContext();
+  const { setFieldValue, } = useFormikContext();
 
   const handleClick = () => {
     inputRef.current?.click();
