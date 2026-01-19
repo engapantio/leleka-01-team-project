@@ -1,9 +1,13 @@
 'use client';
 import { useAuthStore } from '@/lib/store/authStore';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 import css from './GreetingBlock.module.css';
 
 export default function GreetingBlock() {
   const { user, isAuthenticated } = useAuthStore();
+  const pathname = usePathname();
+  const isJourneyPage = pathname?.startsWith('/journey');
 
   const getGreetingByTime = () => {
     const now = new Date();
@@ -18,7 +22,7 @@ export default function GreetingBlock() {
   };
 
   return (
-    <h1 className={css.greetingTitle}>
+    <h1 className={clsx(css.greetingTitle, isJourneyPage && css.journeyPage)}>
       {getGreetingByTime()}
       {isAuthenticated && user?.name ? `, ${user.name}!` : '!'}
     </h1>
