@@ -29,6 +29,7 @@
   background-color: rgba(0, 0, 0, 0.05);
   font-size: 14px;
   outline: none;
+  font-family: var(--font-family);
 }
 .input::placeholder {
   color: rgba(0, 0, 0, 0.6);

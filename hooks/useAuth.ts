@@ -7,7 +7,7 @@ import { useAuthStore } from '@/lib/store/authStore';
 import { useJourneyStore } from '@/lib/store/journeyStore';
 import { LoginDetails, RegistrationDetails } from '@/lib/api/clientApi';
 import { User } from '@/types/user';
-import { AxiosError } from 'axios';
+
 
 /**
  * Login mutation with validation gate + toasts
