@@ -2,9 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
 import { getBabyState, getMomState } from '@/lib/api/clientApi';
-import type { Tab } from '@/types/journey';
 import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 import Loader from '@/components/Loader/Loader';
 import toast from 'react-hot-toast';
@@ -13,8 +11,6 @@ import toast from 'react-hot-toast';
 const JourneyPageClient = () => {
   const { weekNumber } = useParams<{ weekNumber: string }>();
   const week = Number(weekNumber);
-
-  const [selectedTab, setselectedTab] = useState<Tab>('baby');
 
   const {
     data: babyData,
@@ -44,23 +40,12 @@ const JourneyPageClient = () => {
   },
 });
 
-  const handleTabBaby = () => {
-    setselectedTab('baby');
-  };
-
-  const handleTabMom = () => {
-    setselectedTab('mom');
-  };
-
   return (
     <div>
       {babyData && MomData && (
         <JourneyDetails
-          selectedTab={selectedTab}
           babyData={babyData}
           MomData={MomData}
-          selectBabyFn={handleTabBaby}
-          selectMomFn={handleTabMom}
         />
       )}
     </div>
