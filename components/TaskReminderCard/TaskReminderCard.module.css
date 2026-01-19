@@ -44,7 +44,6 @@
   row-gap: 16px;
 }
 .TaskItem{
- 
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -57,31 +56,48 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 160%;
-  color: var(--color-neutral-darkest);
+  color: var(--color-scheme-text);
 }
 .AddTsksText {
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
-  color: var(--color-neutral-darkest);
 }
 
 .AddTaskButton {
   border: none;
-  background-color: var(--color-pastel-pink-light);
-  border-bottom: 4px solid #ffcbd3;
+  background: var(--color-scheme-foreground-alt);
+  border-bottom: 4px solid var(--color-scheme-accent);
   border-radius: 100px;
   padding: 10px 24px;
-  width: 173px;
-  height: 42px;
+  width: 191px;
+  height: 46px;
   font-weight: 500;
+  margin-top: 12px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 160%;
+  color: var(--color-scheme-text);
+}
+
+.AddTaskButton:hover, .AddTaskButton:focus {
+  background: var(--color-scheme-background);
+  border-bottom: 4px solid var(--color-scheme-border);
+  height: 47px;
+}
+
+.AddTaskButton:active{
+background: var(--color-neutral-light);
+height: 47px;
 }
 
 .NoTasksContainer {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: 16px;
 }
 
 
@@ -125,6 +141,19 @@ color: var(--color-scheme-text);
   .TaskReminderTitle {
     font-size: 24px;
   }
+
+
+.NoTasksYetTitle {
+  font-size: 16px;
+}
+.AddTsksText {
+  font-size: 16px;
+}
+
+.AddTaskButton {
+  font-size: 16px;
+}
+
 
   .TaskDate{
     font-size: 12px;

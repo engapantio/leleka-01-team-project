@@ -22,8 +22,8 @@ const TanStackProvider = ({ children }: Props) => {
         containerStyle={{
     top: '20px',
     right: '20px',
-    maxHeight: '400px', // Limit the max height of the toaster container
-    overflowY: 'auto',  // Enable scrolling if too many toasts
+    maxHeight: '400px', //
+    overflowY: 'auto',  
     zIndex: 9999
   }}
         position="top-right"
