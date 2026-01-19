@@ -118,7 +118,7 @@ export default function ProfileEditForm({user}: ProfileEditFormProps) {
                         onChange={(date: Date | null) =>
                         setFieldValue('dueDate', date ? date.toISOString().split('T')[0] : '')}
                         className={`${css.input} ${css.inputDate}`}
-                        dateFormat="yyyy-MM-dd"
+                        dateFormat="dd.MM.YYYY"
                         popperPlacement="top-start"
                         name='dueDate'
                         id='dueDate-id'
