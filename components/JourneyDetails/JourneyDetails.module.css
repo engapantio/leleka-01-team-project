@@ -62,6 +62,8 @@ margin-bottom: 32px;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
+  font-family: var(--font-family);
+color: var(--color-scheme-text);
   }
 
   .babyText{
@@ -86,6 +88,7 @@ margin-bottom: 32px;
 
 .interestingFact {
   display: flex;
+  font-size: 14px;
   gap: 8px
 }
 
@@ -181,9 +184,31 @@ line-height: 150%;
   max-width: 576px;;
 }
 
+.btn {
+  font-size: 16px;
+}
+
+
 .babyCard {
   display: flex;
   gap: 32px;
+}
+
+
+.analogy {
+  font-size: 16px;
+}
+
+.babyText {
+  font-size: 16px;
+}
+
+.interestingFactTitle {
+  font-size: 16px;
+}
+
+.interestingFact {
+  font-size: 16px;
 }
 
 .btnWrapper {
@@ -194,6 +219,10 @@ line-height: 150%;
   width: 461px;
 }
     
+.interestingFactWrapper > p {
+  font-size: 16px;
+}
+
 .image {
 width: 461px;
 height: 379px;
@@ -206,5 +235,24 @@ height: 379px;
 
     .momCard{
   max-width: 650px;
+}
+
+.momBlockTitle {
+  font-size: 20px;
+}
+
+.momBlockText{
+  font-size: 16px;
+}
+
+.momBlockStiker {
+  font-size: 14px;
+}
+
+.momTipTitle {
+  font-size: 16px;
+}
+.momTipText{
+  font-size: 16px ;
 }
   }
