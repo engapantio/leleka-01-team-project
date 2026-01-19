@@ -33,7 +33,7 @@
   opacity: 0.3;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1440px) {
   .button,
   .alternativeButton {
     font-size: 16px;

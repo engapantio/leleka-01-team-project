@@ -48,28 +48,24 @@ export const FormikDatePickerBirthday = ({ name, mxWidth }: Props) => {
             sx: {
               maxWidth: mxWidth || '100%',
               width: '100%',
+              '&.MuiInputBase-input': { fontSize: '14px' },
               border: '2px solid var(--opacity-transparent)',
               background: 'var(--opacity-neutral-darkest-5)',
               borderRadius: '12px',
               boxSizing: 'border-box',
                  fontFamily: 'var(--font-family)',
 fontWeight: 400,
-fontSize: '14px',
-lineHeight: '150%',
-             
-
+lineHeight: '150%',           
               '& .MuiOutlinedInput-notchedOutline': {},
               '& .MuiOutlinedInput-root': {
                 borderRadius: '12px',
                 width: '100%',
                 maxWidth: '100%',
-                 fontFamily: 'var(--font-family)',
+                fontFamily: 'var(--font-family)',
 fontWeight: 400,
-fontSize: '14px',
 lineHeight: '150%',
               },
               '& .MuiPickersSectionList-root': {
-                color: 'var(--opacity-neutral-darkest-60)',
                 padding: '10px 0',
                  fontFamily: 'var(--font-family)',
 fontWeight: 400,
@@ -79,6 +75,14 @@ lineHeight: '150%',
               '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'transparent',
               },
+               '& .MuiOutlinedInput-input': {
+                    color: 'var(--color-scheme-text)',
+                    fontSize: '14px',
+                    fontFamily: 'var(--font-family)',
+                    '&::placeholder': {
+                      color: 'var(--opacity-neutral-darkest-60)',
+                    },
+                  },
             },
           },
         }}
