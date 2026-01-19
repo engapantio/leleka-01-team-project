@@ -22,7 +22,7 @@ export default function GreetingBlock() {
   };
 
   return (
-    <h1 className={clsx(css.greetingTitle, isJourneyPage && css.journeyPage)}>
+    <h1 className={css.greetingTitle}>
       {getGreetingByTime()}
       {isAuthenticated && user?.name ? `, ${user.name}!` : '!'}
     </h1>

@@ -1,6 +1,5 @@
 .greetingTitle {
-  margin: 0;
-  padding: 0;
+  margin-bottom: 16px;
   width: 100%;
   min-height: 34px;
   line-height: 140%;
@@ -13,10 +12,6 @@
   color: var(--color-neutral-darkest);
 }
 
-/* Верхній відступ тільки на сторінці journey */
-.greetingTitle.journeyPage {
-  margin-top: 16px; /* Верхній відступ від меню (Лелека > Подорож) */
-}
 
 @media (min-width: 1440px) {
   .greetingTitle {
