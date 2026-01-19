@@ -7,7 +7,7 @@ import { User } from '@/types/user';
 import { getUser } from '@/lib/api/clientApi';
 
 export default function GreetingBlock() {
-  const { isAuthenticated, clearAuth } = useAuthStore();
+  const { isAuthenticated, reinitializeAuth, clearAuth} = useAuthStore();
 
 
 const { data: user, isError } = useQuery<User>({
@@ -20,10 +20,6 @@ const { data: user, isError } = useQuery<User>({
     retry: false,
   });
 
-  if (isError) {
-    clearAuth();
-    return null;
-  }
 
 
 
