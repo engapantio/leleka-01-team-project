@@ -1,43 +1,41 @@
-import { JourneyBaby, JourneyMom, Tab } from '@/types/journey';
+import { JourneyBaby, JourneyMom } from '@/types/journey';
 import Image from 'next/image';
 import styles from './JourneyDetails.module.css';
 import clsx from 'clsx';
 import { Icon } from '../ui/Icon/Icon';
 import TaskReminderCard from '../TaskReminderCard/TaskReminderCard';
+import {useTab} from '../../lib/store/tabStore'
 
 interface JourneyDetailsProp {
-  selectedTab: Tab;
   babyData: JourneyBaby;
   MomData: JourneyMom;
-  selectBabyFn: () => void;
-  selectMomFn: () => void;
 }
 
 const JourneyDetails = ({
-  selectedTab,
   babyData,
-  MomData,
-  selectBabyFn,
-  selectMomFn,
+  MomData
 }: JourneyDetailsProp) => {
+
+const { tab, setBabyTab, setMomTag } = useTab();
+
   return (
     <div className={styles.journeyContainer}>
       <div className={styles.btnWrapper}>
         <button
-          className={clsx(styles.btn, { [styles.activeBtn]: selectedTab === 'baby' })}
-          onClick={selectBabyFn}
+          className={clsx(styles.btn, { [styles.activeBtn]: tab === 'baby' })}
+          onClick={setBabyTab}
         >
           Розвиток малюка
         </button>
         <button
-          className={clsx(styles.btn, { [styles.activeBtn]: selectedTab === 'mom' })}
-          onClick={selectMomFn}
+          className={clsx(styles.btn, { [styles.activeBtn]: tab === 'mom' })}
+          onClick={setMomTag}
         >
           Тіло мами
         </button>
       </div>
 
-      {babyData && selectedTab === 'baby' && (
+      {babyData && tab === 'baby' && (
         <div className={styles.babyCard}>
           <div className={styles.imageContainer}>
             <div className={styles.imageWrapper}>
@@ -68,7 +66,7 @@ const JourneyDetails = ({
         </div>
       )}
 
-      {MomData && selectedTab === 'mom' && (
+      {MomData && tab === 'mom' && (
         <div className={styles.momCardWrapper}>
           <div className={styles.momCard}>
             <div className={styles.momBlock}>
