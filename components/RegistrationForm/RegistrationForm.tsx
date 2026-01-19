@@ -8,6 +8,7 @@ import { useAuthStore } from '@/lib/store/authStore';
 import css from './RegistrationForm.module.css';
 import { register, RegistrationDetails } from '@/lib/api/clientApi';
 import { registerSchema } from '@/utils/validationSchemas';
+import { AxiosError } from 'axios';
 
 const initialValues: RegistrationDetails = {
   name: '',
@@ -46,14 +47,19 @@ const RegistrationForm = () => {
       //     (err as ApiError).message ??
       //     'Виникла помилка при реєстрації.'
       // );
-      toast.error('Виникла помилка при реєстрації.', {
-        position: 'top-left',
-      });
+      let message = 'Виникла помилка при реєстрації';
+
+      if (err instanceof AxiosError) {
+        message = err.response?.data?.message || message;
+      }
+
+      toast.error(message, { position: 'top-left' });
     }
+    actions.setSubmitting(false);
   };
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={registerSchema}>
-      {({ errors, touched }) => (
+      {({ errors, touched, isSubmitting }) => (
         <Form className={css.form}>
           <fieldset className={css.fieldset}>
             <legend className={css.title}>Реєстрація</legend>
@@ -100,8 +106,8 @@ const RegistrationForm = () => {
             </div>
           </fieldset>
 
-          <button type="submit" className={css.button}>
-            Зареєструватись
+          <button type="submit" className={css.button} disabled={isSubmitting}>
+            {isSubmitting ? 'Завантаження…' : 'Зареєструватись'}
           </button>
           <p className={css.login}>
             Вже маєте аккаунт?

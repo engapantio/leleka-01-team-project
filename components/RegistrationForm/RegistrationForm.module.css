@@ -1,13 +1,3 @@
-/* ====================  костиль :Р (видалити потім)================================ */
-
-body {
-  background-color: white;
-  color: black;
-  font-family: 'Lato', sans-serif;
-  /* --second-family: "Comfortaa", sans-serif; */
-}
-/* ====================  костиль :Р (видалити потім)================================ */
-
 /* ====================  MOBILE ================================ */
 .form {
   width: 335px;
@@ -74,7 +64,8 @@ body {
   cursor: pointer;
 }
 .button:hover {
-  border-bottom: hsla(0, 0%, 0%, 0.15);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  border: none;
   background: #ffffff;
 }
 .button:active {
