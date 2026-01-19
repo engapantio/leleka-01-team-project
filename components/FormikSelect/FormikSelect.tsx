@@ -35,6 +35,8 @@ export default function FormikSelect({ name, options, placeholder }: FormikSelec
     value: option.value || option.label,
   }));
 
+
+
   return (
     <Select
       options={selectOptions}
@@ -46,9 +48,9 @@ export default function FormikSelect({ name, options, placeholder }: FormikSelec
         control: (baseStyles) => ({
           ...baseStyles,
           borderRadius: '12px',
-          borderColor: 'transparent',
+          border: '1px solid var(--opacity-transparent)',
           backgroundColor: 'var(--color-neutral-lightest)',
-          minHeight: '48px',
+          height: '40px',
           boxShadow: 'none',
           width: '100%',
           maxWidth: '100%',
@@ -64,27 +66,37 @@ export default function FormikSelect({ name, options, placeholder }: FormikSelec
         placeholder: (baseStyles) => ({
           ...baseStyles,
           color: 'var(--color-neutral)',
+          fontFamily: 'var(--font-family)',
+                    fontSize: '14px',
+          lineHeight: 1.5,
         }),
         singleValue: (baseStyles) => ({
           ...baseStyles,
-          color: 'var(--color-neutral-dark)',
+          color: 'var(--color-neutral-darkest)',
+          fontFamily: 'var(--font-family)',
+                    fontSize: '14px',
+          lineHeight: 1.5,
         }),
         menu: (baseStyles) => ({
           ...baseStyles,
-          borderRadius: '12px',
+          borderRadius: '0 0 12px 12px',
         }),
         option: (baseStyles, state) => ({
           ...baseStyles,
+          borderRadius: '8px',
+          height: '37px',
           backgroundColor: state.isSelected
-            ? 'var(--color-primary)'
+            ? 'var(--opacity-neutral-darkest-5)'
             : state.isFocused
-            ? 'var(--color-neutral-lightest)'
-            : 'white',
-          color: state.isSelected ? 'white' : 'var(--color-neutral-dark)',
+            ? 'var(--opacity-neutral-darkest-5)'
+            : 'var(--color-neutral-lightest)',
+          color: 'var(--color-neutral-darkest)',
+           fontFamily: 'var(--font-family)',
+                    fontSize: '14px',
+          lineHeight: 1.5,
           '&:hover': {
-            backgroundColor: state.isSelected
-              ? 'var(--color-primary)'
-              : 'var(--color-neutral-lightest)',
+            backgroundColor:  'var(--opacity-neutral-darkest-5)'
+            ,
           },
         }),
       }}

@@ -94,7 +94,11 @@ export const AvatarPicker = ({
         <Button
           type="button"
           alternative={true}
-          styles={{ maxWidth: 218, zIndex: 1, position: 'relative', ...(buttonStyles || {}), }}
+          styles={{ maxWidth: 218, zIndex: 1, position: 'relative', fontFamily: 'var(--font-family)',
+fontWeight: 500,
+fontSize: '16px',
+lineHeight: '160%',
+color: 'var(--color-scheme-text)', ...(buttonStyles || {})}}
           action={handleClick}
         >
           {btnTitle}

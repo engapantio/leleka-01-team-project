@@ -131,6 +131,22 @@
     width: 100%;
   }
   
+.field > div:nth-child(3) {
+font-family: var(--font-family);
+font-weight: 400;
+font-size: 14px;
+line-height: 150%;
+color: var(--color-neutral);
+border: 1px solid var(--opacity-transparent);
+border-radius: 12px;
+padding: 8px 12px;
+width: 335px;
+height: 40px;
+background: var(--color-neutral-lightest);
+}
+
+
+
   .illustration {
     display: none;
     background: url('/onboard.webp') center 85% / cover no-repeat;
@@ -225,7 +241,7 @@
     }
 
     .label {
-      text-align: center;
+      /* text-align: center; */
       width: 100%;
     }
 
@@ -253,7 +269,7 @@
       width: 50%;
       /* max-width: 592px; */
       padding: 32px 64px 0;
-      margin-left: -156px !important;
+      margin-left: -312px !important;
       margin-right: auto;
       overflow-x: visible;
 
@@ -298,6 +314,7 @@
 
     .label {
       text-align: left;
+      font-size: 16px;
     }
   
     .illustration {
