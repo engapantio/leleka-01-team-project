@@ -1,13 +1,27 @@
 'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/lib/store/authStore';
-import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
 import css from './GreetingBlock.module.css';
+import { User } from '@/types/user';
+import { getUser } from '@/lib/api/clientApi';
 
 export default function GreetingBlock() {
-  const { user, isAuthenticated } = useAuthStore();
-  const pathname = usePathname();
-  const isJourneyPage = pathname?.startsWith('/journey');
+  const { isAuthenticated, reinitializeAuth, clearAuth} = useAuthStore();
+
+
+const { data: user, isError } = useQuery<User>({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const data = await getUser();
+      return (data)
+    },
+    staleTime: 0,
+    retry: false,
+  });
+
+
+
 
   const getGreetingByTime = () => {
     const now = new Date();
@@ -21,8 +35,9 @@ export default function GreetingBlock() {
     return 'Доброї ночі';
   };
 
+
   return (
-    <h1 className={clsx(css.greetingTitle, isJourneyPage && css.journeyPage)}>
+    <h1 className={css.greetingTitle}>
       {getGreetingByTime()}
       {isAuthenticated && user?.name ? `, ${user.name}!` : '!'}
     </h1>

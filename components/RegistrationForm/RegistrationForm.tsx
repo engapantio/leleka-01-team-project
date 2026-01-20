@@ -47,7 +47,7 @@ const RegistrationForm = () => {
       //     (err as ApiError).message ??
       //     'Виникла помилка при реєстрації.'
       // );
-      let message = 'Виникла помилка при реєстрації';
+      let message = 'Виникла помилка при реєстрації. Пошта уже використовується';
 
       if (err instanceof AxiosError) {
         message = err.response?.data?.message || message;

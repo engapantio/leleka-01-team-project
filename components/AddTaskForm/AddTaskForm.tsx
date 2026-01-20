@@ -59,7 +59,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({
       {({ isSubmitting }) => (
         <Form className={styles.form}>
           <div className={styles.field}>
-            <label htmlFor="name">Завдання</label>
+            <label htmlFor="name">Назва завдання</label>
             <Field id="name" name="name" type="text" className={styles.input} />
             <ErrorMessage name="name" component="div" className={styles.error} />
           </div>
@@ -72,7 +72,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({
 
           <button
             type="submit"
-            className={styles.submitButton}
+            className={styles.submit}
             disabled={isSubmitting || mutation.isPending}
           >
             {isSubmitting || mutation.isPending ? 'Збереження...' : 'Зберегти'}

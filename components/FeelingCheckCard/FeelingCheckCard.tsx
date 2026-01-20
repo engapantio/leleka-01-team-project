@@ -34,7 +34,6 @@ export default function FeelingCheckCard() {
      
       <button
         className={css.AddTaskButton}
-        style={{ height: 42, width: 225 }}
         onClick={handleClick}
         type="button"
       >

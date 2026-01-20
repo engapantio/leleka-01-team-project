@@ -28,6 +28,9 @@
   letter-spacing: 0.01em;
   color: var(--color-scheme-text);
   margin-bottom: 16px;
+
+
+
 }
 
 .btnName {
@@ -92,6 +95,14 @@
   .scrollWrapper {
     height: 655px;
   }
+
+.title {
+  font-size: 20px;
+}
+
+.btnName{
+  font-size: 16px;
+}
 
   .list {
     height: 662px;

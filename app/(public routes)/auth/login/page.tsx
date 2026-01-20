@@ -24,7 +24,7 @@ const Login = () => {
   // TanStack Query mutation hook
   const loginMutation = useLogin();
 
-  const handleSubmit = (values: LoginDetails, actions: FormikHelpers<LoginDetails>) => {
+  const handleSubmit = (values: LoginDetails) => {
     loginMutation.mutate(values, {
       onSuccess: async () => {
         reinitializeAuth();
@@ -45,7 +45,7 @@ const Login = () => {
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ isValid, dirty, errors, touched }) => (
+        {({ errors }) => (
           <Form className={css.form} >
             <h1 className={css.formTitle}>Вхід</h1>
             <div className={css.formGroup}>
@@ -53,7 +53,7 @@ const Login = () => {
                 id={`${fieldId}-email`}
                 type="text"
                 name="email"
-                className={`${css.input} ${errors && touched  ? css.inputInvalid : ''}`}
+                className={`${css.input} ${errors.email   ? css.inputInvalid : ''}`}
                 placeholder="Пошта"
                 disabled={loginMutation.isPending}
               />
@@ -65,7 +65,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 placeholder="Пароль"
-                className={`${css.input} ${errors && touched  ? css.inputInvalid : ''}`}
+                className={`${css.input} ${errors.password   ? css.inputInvalid : ''}`}
                 disabled={loginMutation.isPending}
               />
               <ErrorMessage name="password" component="div" className={css.error} />
@@ -73,7 +73,7 @@ const Login = () => {
             <button
               type="submit"
               className={css.submitButton}
-              disabled={!isValid || !dirty || loginMutation.isPending}
+              disabled={  loginMutation.isPending}
             >
               {loginMutation.isPending ? 'Завантаження...' : 'Увійти'}
             </button>
