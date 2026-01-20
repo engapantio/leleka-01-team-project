@@ -31,19 +31,28 @@
 
 .nameEmail{
     text-align: center;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--color-scheme-text);
 }
 /* Відступ 12px від аватарки */
 .name {
     margin-top: 12px;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: var(--second-family);
+    line-height: 140%;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: var(--color-scheme-text);
 }
 
 /* Пошта одразу під імʼям */
 .email {
     margin-top: 4px;
     font-size: 14px;
-    color: #666;
 }
 
 /* Кнопка */
@@ -51,15 +60,20 @@
     width: 335px;
     height: 38px;
     margin-top: 16px;
-    padding: 8px 24px;
+    padding: 8px 20px;
     border-radius: 999px;
     border: none;
-
+    background: var(--opacity-neutral-darkest-5);
     border-bottom: 4px solid var(--opacity-neutral-darkest-15);
     border-radius: 100px;
     padding: 8px 20px;
     width: 335px;
     height: 38px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
 }
 .uploadButton:hover{
     background: var(--color-scheme-background);
@@ -81,7 +95,7 @@
         justify-content: flex-start;
         
     }
-    .nameEmail{
+    .nameEmail, .name{
         text-align: left;
     }
     .uploadButton {
@@ -98,5 +112,14 @@
     }
     .uploadButton{
         height: 42px;
+        font-size: 16px;
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .nameEmail {
+        font-size: 16px;
     }
 }
