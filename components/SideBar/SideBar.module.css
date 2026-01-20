@@ -92,7 +92,29 @@
   line-height: 150%;
 }
 
+.navButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  color: var(--color-scheme-text);
+  border-radius: 8px;
+  transition: background 0.2s;
+  font-size: 14px;
+  font-family: var(--font-family);
+  line-height: 150%;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .navItem:hover {
+  background-color: var(--opacity-neutral-darkest-5);
+}
+
+.navButton:hover {
   background-color: var(--opacity-neutral-darkest-5);
 }
 
@@ -131,6 +153,10 @@
   }
 
   .navItem {
+    font-size: 16px;
+  }
+
+  .navButton {
     font-size: 16px;
   }
 }
