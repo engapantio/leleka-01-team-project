@@ -9,10 +9,12 @@ async function getCookieHeader() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
+  const sessionid = cookieStore.get('sessionid')?.value;
 
   return [
     accessToken ? `accessToken=${accessToken}` : null,
     refreshToken ? `refreshToken=${refreshToken}` : null,
+    sessionid ? `sessionid=${sessionid}` : null,
   ]
     .filter(Boolean)
     .join('; ');
@@ -23,7 +25,7 @@ export async function GET() {
   try {
     const cookieHeader = await getCookieHeader();
 
-    const response = await backendApi.get<{ date: string; tasks: Task[] }>('/tasks', {
+    const response = await backendApi.get<{ date: string; tasks: Task[] }>('/tasks/', {
       headers: { Cookie: cookieHeader },
     });
 
@@ -41,8 +43,6 @@ export async function GET() {
   }
 }
 
-
-
 // ------------------- POST -------------------
 
 export async function POST(request: Request) {
@@ -50,18 +50,18 @@ export async function POST(request: Request) {
     const cookieHeader = await getCookieHeader();
     const body = (await request.json()) as Pick<Task, 'name' | 'date'>;
 
-
-
-    const response = await backendApi.post<Task>('/tasks', body, {
+    const response = await backendApi.post<Task>('/tasks/', body, {
       headers: { Cookie: cookieHeader },
     });
 
     if (!response.data?.id) {
       console.error('Task not created, backend response:', response.data);
-      return NextResponse.json({ error: 'Task not created', response: response.data }, { status: 500 });
+      return NextResponse.json(
+        { error: 'Task not created', response: response.data },
+        { status: 500 }
+      );
     }
 
-    console.log('Task created:', response.data);
     return NextResponse.json(response.data, { status: response.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -85,7 +85,7 @@ export async function PATCH(request: Request) {
 
     if (!id) return NextResponse.json({ error: 'Task id is required' }, { status: 400 });
 
-    const response = await backendApi.patch<Task>(`/tasks/${id}`, payload, {
+    const response = await backendApi.patch<Task>(`/tasks/${id}/status/`, payload, {
       headers: { Cookie: cookieHeader },
     });
 

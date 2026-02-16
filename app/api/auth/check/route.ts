@@ -11,14 +11,16 @@ export async function GET() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
+  const sessionid = cookieStore.get('sessionid')?.value;
 
   if (accessToken) {
     return NextResponse.json({ success: true });
   }
 
   if (refreshToken) {
-    const apiRes = await backendApi.post('auth/refresh', {
+    const apiRes = await backendApi.post('auth/refresh/', {
       refreshToken,
+      sessionid,
     });
     const setCookie = apiRes.headers['set-cookie'];
     if (setCookie) {
@@ -32,6 +34,7 @@ export async function GET() {
         };
         if (parsed.accessToken) cookieStore.set('accessToken', parsed.accessToken, options);
         if (parsed.refreshToken) cookieStore.set('refreshToken', parsed.refreshToken, options);
+        if (parsed.sessionid) cookieStore.set('sessionid', parsed.sessionid, options);
       }
       return NextResponse.json({ success: true });
     }

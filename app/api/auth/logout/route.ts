@@ -6,20 +6,28 @@ import { logErrorResponse } from '@/utils/logger';
 
 export async function POST() {
   try {
-    // Get token from cookies
     const cookieStore = await cookies();
-    const accessToken = cookieStore.get('accessToken')?.value;
-    const refreshToken = cookieStore.get('refreshToken')?.value;
+    const accessToken = cookieStore.get('accessToken')?.value || '';
+    const refreshToken = cookieStore.get('refreshToken')?.value || '';
+    const sessionid = cookieStore.get('sessionid')?.value || '';
 
-    // Call backend logout endpoint
-    await backendApi.post('auth/logout', null, {
+    // Build safe Cookie string - skip empty
+    const cookieParts = [];
+    if (accessToken) cookieParts.push(`accessToken=${accessToken}`);
+    if (refreshToken) cookieParts.push(`refreshToken=${refreshToken}`);
+    if (sessionid) cookieParts.push(`sessionid=${sessionid}`);
+    const cookieHeader = cookieParts.join('; ');
+
+    await backendApi.post('auth/logout/', null, {
       headers: {
-        Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
+        ...(cookieHeader && { Cookie: cookieHeader }), // Only if non-empty
       },
     });
-    // Clear cookies on frontend
+
+    // Delete only if exist
     cookieStore.delete('accessToken');
     cookieStore.delete('refreshToken');
+    cookieStore.delete('sessionid');
 
     return NextResponse.json({ message: 'Вихід виконано успішно' }, { status: 200 });
   } catch (error) {

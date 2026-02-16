@@ -17,7 +17,7 @@ export async function DELETE(
     const cookieHeader = cookieStore.getAll()
       .map((c: { name: string; value: string }) => `${c.name}=${c.value}`)
       .join('; ');
-    const res = await backendApi.delete<DiaryEntry>(`/diaries/${entryId}`, {
+    const res = await backendApi.delete<DiaryEntry>(`/diaries/${entryId}/`, {
       headers: { Cookie: cookieHeader },
     });
 

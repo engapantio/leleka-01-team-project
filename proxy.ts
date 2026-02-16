@@ -35,6 +35,9 @@ export async function proxy(request: NextRequest) {
           if (parsed.refreshToken) {
             cookiesStore.set('refreshToken', parsed.refreshToken, options);
           }
+          if (parsed.sessionid) {
+            cookiesStore.set('sessionid', parsed.sessionid, options);
+          }
         }
         if (isPublicRoute) {
           return NextResponse.redirect(new URL('/', request.url), {

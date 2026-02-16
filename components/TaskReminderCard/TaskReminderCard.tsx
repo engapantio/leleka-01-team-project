@@ -84,17 +84,13 @@ export default function TaskReminderCard() {
             {sortedTasks.map(task => (
               <li key={task.id} className={css.TaskItem}>
                 <label className={css.TaskCheckboxWrapper}>
-                  <input
-                    type="checkbox"
-                    checked={task.isDone}
-                    onChange={() => toggleTask(task)}
-                  />
+                  <input type="checkbox" checked={task.isDone} onChange={() => toggleTask(task)} />
                   <span className={css.CustomCheckbox} />
                 </label>
 
                 <div className={css.TaskTextBlock}>
                   <span className={css.TaskDate}>
-                    {new Date(task.date).toLocaleDateString('uk-UA').slice(0,5)}
+                    {new Date(task.date).toLocaleDateString('uk-UA').slice(0, 5)}
                   </span>
                   <p className={`${css.TaskText} ${task.isDone ? css.Completed : ''}`}>
                     {task.name}
