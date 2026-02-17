@@ -11,7 +11,7 @@ export async function GET() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
-  const sessionid = cookieStore.get('sessionid')?.value;
+  // const sessionid = cookieStore.get('sessionid')?.value;
 
   if (accessToken) {
     return NextResponse.json({ success: true });
@@ -19,8 +19,9 @@ export async function GET() {
 
   if (refreshToken) {
     const apiRes = await backendApi.post('auth/refresh/', {
-      refreshToken,
-      sessionid,
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
     });
     const setCookie = apiRes.headers['set-cookie'];
     if (setCookie) {

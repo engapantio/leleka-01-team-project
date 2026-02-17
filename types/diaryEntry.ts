@@ -11,14 +11,9 @@ export type AddDiaryEntryFormValues = {
 
 export type DiaryEntryFormMode = 'create' | 'edit';
 
-export type NotifyHandler = (
-  type: 'success' | 'error',
-  message: string
-) => void;
+export type NotifyHandler = (type: 'success' | 'error', message: string) => void;
 
-export type DiaryEntryInitialValues = Partial<
-  AddDiaryEntryFormValues & { id?: string }
->;
+export type DiaryEntryInitialValues = Partial<AddDiaryEntryFormValues & { id?: string }>;
 
 export interface AddDiaryEntryFormProps {
   mode?: DiaryEntryFormMode;

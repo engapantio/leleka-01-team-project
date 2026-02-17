@@ -36,13 +36,10 @@ export default function AddDiaryEntryForm({
   /**
    * 🔹 Завантаження категорій (емоцій) ЧЕРЕЗ NEXT API (без CORS)
    */
-  const {
-    data: emotionOptions = [],
-    isLoading: isLoadingEmotions,
-  } = useQuery<DiaryCategoryOption[]>({
+  const { data: emotionData = { emotions: [] }, isLoading: isLoadingEmotions } = useQuery({
     queryKey: ['emotions'],
     queryFn: async () => {
-      const res = await fetch('/api/emotions');
+      const res = await fetch('/api/emotions/');
 
       if (!res.ok) {
         throw new Error('Failed to load emotions');
@@ -53,14 +50,11 @@ export default function AddDiaryEntryForm({
   });
 
   const entryId = initialValues?.id;
-
+  const emotionOptions: DiaryCategoryOption[] = emotionData.emotions;
   /**
    * 🔹 Якщо категорії передані через props — використовуємо їх
    */
-  const options =
-    categoryOptions && categoryOptions.length > 0
-      ? categoryOptions
-      : emotionOptions;
+  const options = categoryOptions && categoryOptions.length > 0 ? categoryOptions : emotionOptions;
 
   /**
    * 🔹 Початкові значення форми
@@ -104,10 +98,7 @@ export default function AddDiaryEntryForm({
         ? await updateDiaryEntry(entryId!, requestPayload)
         : await createDiaryEntry(requestPayload);
 
-      notify?.(
-        'success',
-        successMessage ?? (shouldUpdate ? 'Запис оновлено' : 'Запис створено')
-      );
+      notify?.('success', successMessage ?? (shouldUpdate ? 'Запис оновлено' : 'Запис створено'));
 
       onSuccess?.(data);
       resetForm();
@@ -115,9 +106,7 @@ export default function AddDiaryEntryForm({
       let message = errorMessage ?? 'Не вдалося зберегти запис.';
 
       if (isAxiosError(error)) {
-        message =
-          (error.response?.data as { message?: string })?.message ??
-          error.message;
+        message = (error.response?.data as { message?: string })?.message ?? error.message;
       } else if (error instanceof Error) {
         message = error.message;
       }
@@ -148,9 +137,7 @@ export default function AddDiaryEntryForm({
           <CategoriesField
             name="categories"
             label="Категорії"
-            placeholder={
-              isLoadingEmotions ? 'Завантаження...' : 'Оберіть категорії'
-            }
+            placeholder={isLoadingEmotions ? 'Завантаження...' : 'Оберіть категорії'}
             options={options}
           />
 
@@ -160,11 +147,7 @@ export default function AddDiaryEntryForm({
             placeholder="Запишіть, як ви себе відчуваєте"
           />
 
-          <button
-            type="submit"
-            className={s.submit}
-            disabled={isSubmitting || isLoadingEmotions}
-          >
+          <button type="submit" className={s.submit} disabled={isSubmitting || isLoadingEmotions}>
             {isSubmitting ? 'Зберігаємо...' : 'Зберегти'}
           </button>
         </Form>

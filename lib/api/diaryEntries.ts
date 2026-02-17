@@ -7,16 +7,14 @@ import { nextServer } from './api';
 export type DiaryEntryRequestPayload = {
   title: string;
   description: string;
-  emotions: string[];
+  emotions: number[];
   date: string; // YYYY-MM-DD
 };
 
 /**
  * Створити новий запис щоденника
  */
-export const createDiaryEntry = async (
-  payload: DiaryEntryRequestPayload
-): Promise<DiaryEntry> => {
+export const createDiaryEntry = async (payload: DiaryEntryRequestPayload): Promise<DiaryEntry> => {
   const res = await nextServer.post<DiaryEntry>('/diaries', payload);
   return res.data;
 };
@@ -28,9 +26,6 @@ export const updateDiaryEntry = async (
   entryId: string,
   payload: Partial<DiaryEntryRequestPayload>
 ): Promise<DiaryEntry> => {
-  const res = await nextServer.patch<DiaryEntry>(
-    `/diaries/${entryId}`,
-    payload
-  );
+  const res = await nextServer.patch<DiaryEntry>(`/diaries/${entryId}`, payload);
   return res.data;
 };
