@@ -5,6 +5,7 @@ import type { Task } from '@/types/task';
  * Отримати список завдань
  */
 export const getTasks = async (): Promise<Task[]> => {
+  console.log('Calling /tasks with cookies?');
   const res = await nextServer.get<Task[]>('/tasks');
   return res.data;
 };
@@ -12,18 +13,12 @@ export const getTasks = async (): Promise<Task[]> => {
 /**
  * Оновити завдання
  */
-export const updateTask = async (
-  id: string,
-  payload: Partial<Omit<Task, 'id'>>
-): Promise<Task> => {
+export const updateTask = async (id: string, payload: Partial<Omit<Task, 'id'>>): Promise<Task> => {
   const res = await nextServer.patch<Task>('/tasks', { id, ...payload });
   return res.data;
 };
 
-
-export const createTask = async (
-  payload: Pick<Task, 'name' | 'date'>
-): Promise<Task> => {
+export const createTask = async (payload: Pick<Task, 'name' | 'date'>): Promise<Task> => {
   const response = await nextServer.post<Task>('/tasks', payload);
   return response.data;
 };

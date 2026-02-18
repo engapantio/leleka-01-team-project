@@ -16,7 +16,7 @@ export const checkSession = async () => {
       Cookie: cookiesStore.toString(),
     },
   });
-  return response.data.success;
+  return response;
 };
 
 /**
