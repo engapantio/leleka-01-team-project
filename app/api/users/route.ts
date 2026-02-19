@@ -17,7 +17,7 @@ export async function PATCH(request: Request) {
 
     const body = await request.json();
 
-    const response = await backendApi.patch('/users', body, {
+    const response = await backendApi.patch('/users/', body, {
       headers: {
         Cookie: cookieStore.toString(),
       },

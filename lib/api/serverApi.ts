@@ -4,6 +4,7 @@ import { User, editProfileData } from '@/types/user';
 import { JourneyBaby, JourneyMom } from '@/types/journey';
 import { DiaryEntry } from '@/types/diary';
 import { FullWeekData } from '@/types/journey';
+import { Task } from '@/types/task';
 
 /**
  * Refresh tokens
@@ -15,7 +16,7 @@ export const checkSession = async () => {
       Cookie: cookiesStore.toString(),
     },
   });
-  return response.data.success;
+  return response;
 };
 
 /**
@@ -91,7 +92,6 @@ export const fetchDiaryEntries = async (): Promise<DiaryEntry[]> => {
   const res = await nextServer.get<FetchDiaryEntriesResponse>('/diaries', {
     headers: {
       Cookie: cookieStore.toString(),
-      
     },
   });
 
@@ -110,3 +110,12 @@ export const fetchDiaryEntryById = async (entryId: string): Promise<DiaryEntry> 
 };
 
 //<=================diary==========================
+
+export const getTasks = async (): Promise<Task[]> => {
+  const res = await nextServer.get<Task[]>('/tasks', {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res.data;
+};

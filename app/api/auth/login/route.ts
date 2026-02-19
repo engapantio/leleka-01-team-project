@@ -8,7 +8,7 @@ import { logErrorResponse } from '@/utils/logger';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const apiRes = await backendApi.post('auth/login', body);
+    const apiRes = await backendApi.post('auth/login/', body);
 
     const cookieStore = await cookies();
     const setCookie = apiRes.headers['set-cookie'];
@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
         };
         if (parsed.accessToken) cookieStore.set('accessToken', parsed.accessToken, options);
         if (parsed.refreshToken) cookieStore.set('refreshToken', parsed.refreshToken, options);
+        if (parsed.sessionid) cookieStore.set('sessionid', parsed.sessionid, options);
       }
 
       return NextResponse.json(apiRes.data, { status: apiRes.status });

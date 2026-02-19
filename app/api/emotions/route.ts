@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { backendApi } from '@/app/api/api';
 
 export async function GET() {
-  const res = await fetch(
-    'https://goit-final-project-e6d7.onrender.com/api/emotions',
-    { cache: 'no-store' }
-  );
+  const cookieStore = await cookies();
+  const res = await backendApi.get('/emotions/', {
+    headers: { Cookie: cookieStore.toString() },
+  });
 
-  const data = await res.json();
-  return NextResponse.json(data);
+  return NextResponse.json(res.data);
 }
