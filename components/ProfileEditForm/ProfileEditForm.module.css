@@ -165,7 +165,6 @@
     font-size: 14px;
     line-height: 160%;
     color: var(--color-scheme-text);
-    padding: 8px 20px;
 }
 .buttonSave:hover{
     background: var(--color-scheme-foreground);
@@ -182,7 +181,6 @@
     background: var(--opacity-neutral-darkest-5);
     border-bottom: 4px solid var(--opacity-neutral-darkest-15);
     border-radius: 100px;
-    padding: 8px 20px;
     width: 159px;
     height: 38px;
     font-family: var(--font-family);
